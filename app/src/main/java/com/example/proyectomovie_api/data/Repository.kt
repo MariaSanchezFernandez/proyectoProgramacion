@@ -8,6 +8,10 @@ class Repository {
 
     suspend fun getPopularTVShows(apiKey:String) = RetrofitHelper.retrofitService.getPopularTVSeries(apiKey)
 
+    suspend fun getMovieProviders(apiKey: String, movieID:Int) = RetrofitHelper.retrofitService.getMovieProvider(apiKey,movieID)
+
+    suspend fun getTVShowProviders(apiKey: String, tvID:Int) = RetrofitHelper.retrofitService.getTVShowProvider(apiKey,tvID)
+
 
 
 
