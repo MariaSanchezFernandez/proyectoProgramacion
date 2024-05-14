@@ -65,6 +65,7 @@ dependencies {
     implementation (libs.converter.gson)
     //Glide
     implementation (libs.glide)
-
+    //ViewPager
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
 }
