@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             ),binding.DrawerLayourFrame
         )
 //Cambios
+        //Merge 2
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.drawerLayout.setupWithNavController(navController)
 
