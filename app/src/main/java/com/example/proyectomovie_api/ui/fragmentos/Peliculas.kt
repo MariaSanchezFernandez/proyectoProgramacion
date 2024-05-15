@@ -5,29 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
+import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
+import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
+import java.util.UUID
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Peliculas.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Peliculas : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentPeliculasBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+
         }
     }
 
@@ -35,13 +29,46 @@ class Peliculas : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_peliculas, container, false)
+        binding = FragmentPeliculasBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).supportActionBar?.title = "Peliculas"
+        val imageRV = view.findViewById<RecyclerView>(R.id.recuclerViewMisFavoritosPeliculas)
+
+        val imageList = arrayListOf(
+            ImagenCarousel(
+                UUID.randomUUID().toString(),
+                "https://fastly.picsum.photos/id/866/500/500.jpg?hmac=FOptChXpmOmfR5SpiL2pp74Yadf1T_bRhBF1wJZa9hg"
+            ),
+            ImagenCarousel(
+                UUID.randomUUID().toString(),
+                "https://fastly.picsum.photos/id/270/500/500.jpg?hmac=MK7XNrBrZ73QsthvGaAkiNoTl65ZDlUhEO-6fnd-ZnY"
+            ),
+            ImagenCarousel(
+                UUID.randomUUID().toString(),
+                "https://fastly.picsum.photos/id/320/500/500.jpg?hmac=2iE7TIF9kIqQOHrIUPOJx2wP1CJewQIZBeMLIRrm74s"
+            ),
+            ImagenCarousel(
+                UUID.randomUUID().toString(),
+                "https://fastly.picsum.photos/id/798/500/500.jpg?hmac=Bmzk6g3m8sUiEVHfJWBscr2DUg8Vd2QhN7igHBXLLfo"
+            ),
+            ImagenCarousel(
+                UUID.randomUUID().toString(),
+                "https://fastly.picsum.photos/id/95/500/500.jpg?hmac=0aldBQ7cQN5D_qyamlSP5j51o-Og4gRxSq4AYvnKk2U"
+            ),
+            ImagenCarousel(
+                UUID.randomUUID().toString(),
+                "https://fastly.picsum.photos/id/778/500/500.jpg?hmac=jZLZ6WV_OGRxAIIYPk7vGRabcAGAILzxVxhqSH9uLas"
+            )
+        )
+
+
+        val imageAdapter = ImagenCarouselAdaptador()
+        imageRV.adapter = imageAdapter
+        imageAdapter.submitList(imageList)
 
     }
 }

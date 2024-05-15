@@ -40,7 +40,7 @@
         app:layout_constraintGuide_end="38dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recuclerViewMisFavoritos"
+        android:id="@+id/recuclerViewMisFavoritosPeliculas"
         android:layout_width="0dp"
         android:layout_height="148dp"
         android:layout_marginTop="20dp"
@@ -55,6 +55,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -65,7 +66,7 @@
             android:background="#242424">
 
             <ImageView
-                android:id="@+id/imPopular1"
+                android:id="@+id/imPopularPelicula1"
                 android:layout_width="0dp"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
@@ -76,44 +77,46 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imPopular2"
+                android:id="@+id/imPopularPelicula2"
                 android:layout_width="0dp"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/prueba"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imPopular1" />
+                app:layout_constraintTop_toBottomOf="@+id/imPopularPelicula1" />
 
             <ImageView
-                android:id="@+id/imPopular3"
+                android:id="@+id/imPopularPelicula3"
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/prueba"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imPopular2" />
+                app:layout_constraintTop_toBottomOf="@+id/imPopularPelicula2" />
 
             <ImageView
-                android:id="@+id/imPopular4"
+                android:id="@+id/imPopularPelicula4"
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/prueba"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imPopular3" />
+                app:layout_constraintTop_toBottomOf="@+id/imPopularPelicula3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="0dp"
         android:layout_height="980dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
         android:background="#242424"
         android:backgroundTint="#242424"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="@+id/cardView">
@@ -123,7 +126,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imRated1"
+                android:id="@+id/imRatedPelicula1"
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
@@ -133,34 +136,34 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imRated2"
+                android:id="@+id/imRatedPelicula2"
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/prueba"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imRated1" />
+                app:layout_constraintTop_toBottomOf="@+id/imRatedPelicula1" />
 
             <ImageView
-                android:id="@+id/imRated3"
+                android:id="@+id/imRatedPelicula3"
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/prueba"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imRated2" />
+                app:layout_constraintTop_toBottomOf="@+id/imRatedPelicula2" />
 
             <ImageView
-                android:id="@+id/imRated4"
+                android:id="@+id/imRatedPelicula4"
                 android:layout_width="wrap_content"
                 android:layout_height="220dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/prueba"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imRated3" />
+                app:layout_constraintTop_toBottomOf="@+id/imRatedPelicula3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -181,7 +184,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recuclerViewMisFavoritos" />
+        app:layout_constraintTop_toBottomOf="@+id/recuclerViewMisFavoritosPeliculas" />
 
     <TextView
         android:id="@+id/textView5"
@@ -193,6 +196,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="148dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
