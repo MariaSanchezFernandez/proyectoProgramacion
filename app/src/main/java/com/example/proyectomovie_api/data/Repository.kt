@@ -1,5 +1,6 @@
 package com.example.proyectomovie_api.data
 
+import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.retrofit.RetrofitHelper
 
 class Repository {
@@ -29,6 +30,16 @@ class Repository {
     suspend fun getTrendingTVShows(apiKey: String, timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingTVShows(apiKey,timeWindow)
 
     suspend fun getTrendingPeople(apiKey: String, timeWindow: String = "day") = RetrofitHelper.retrofitService.trendingPeople(apiKey, timeWindow)
+
+
+
+
+    // FUNCIONES PARA EL LOGIN
+    suspend fun getAuthToken(apiKey: String) = RetrofitHelper.retrofitService.getAuthToken(apiKey)
+    suspend fun createSessionLogin(apiKey: String, body:BodyLogin)= RetrofitHelper.retrofitService.createSessionLogin(body,apiKey)
+    suspend fun createGuestSession(apiKey: String) =RetrofitHelper.retrofitService.createGuestSession(apiKey)
+
+
 
 
 
