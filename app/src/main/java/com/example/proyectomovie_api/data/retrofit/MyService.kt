@@ -1,5 +1,7 @@
 package com.example.proyectomovie_api.data.retrofit
 
+import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
+import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.people.PeopleResponse
@@ -11,6 +13,26 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MyService {
+
+    /*
+    *   PETICIONES PARA EL LOGIN
+     */
+
+
+    // Create Request Token
+
+    @GET("authentication/token/new")
+    suspend fun getAuthToken(
+        @Query("api_key") apiKey:String
+    ):Response<RequestTokenResponse>
+
+    // Create Guest Session
+
+    @GET("authentication/guest_session/new")
+    suspend fun createGuestSession(
+        @Query("api_key") apiKey: String
+    ):Response<CreateSessionResponse>
+
 
 
 

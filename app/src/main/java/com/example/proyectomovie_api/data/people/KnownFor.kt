@@ -1,7 +1,7 @@
 package com.example.proyectomovie_api.data.people
 
 data class KnownFor(
-    // es una clase que mezcla datos de ovie y tvshow
+    /* Es una clase que coje datos de Movie y TVShow  */
 
     val adult: Boolean,
     val backdrop_path: String,
