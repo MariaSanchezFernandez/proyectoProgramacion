@@ -33,6 +33,7 @@ interface MyService {
     ): Response<MovieProviderResponse>
 
     // Devuelve Las plataformas en las que se puede ver una serie de TV
+    //Cambios
     @GET("tv/{series_id}/watch/providers")
     suspend fun getTVShowProvider(
         @Query("api_key") apiKey:String,
