@@ -94,7 +94,8 @@ dependencies {
             // Glide
             implementation (libs.glide)
 
-            // ViewPager2
+
+    // ViewPager2
             implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
     // Duplications removed

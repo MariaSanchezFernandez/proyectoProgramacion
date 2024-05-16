@@ -8,9 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        />
+        android:layout_width="297dp"
+        android:layout_height="203dp"
+        android:scaleType="centerCrop" />
 
 </com.google.android.material.carousel.MaskableFrameLayout>

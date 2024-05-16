@@ -10,10 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
 
-import com.example.proyectomovie_api.databinding.ImageItemBinding
-
-class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel,ImagenCarouselAdaptador.ViewHolder>(DiffCallback()) {
-    class DiffCallback : DiffUtil.ItemCallback<ImagenCarousel>(){
+class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel, ImagenCarouselAdaptador.ViewHolder>(DiffCallback()) {
+    class DiffCallback : DiffUtil.ItemCallback<ImagenCarousel>() {
         override fun areItemsTheSame(oldItem: ImagenCarousel, newItem: ImagenCarousel): Boolean {
             return oldItem.id == newItem.id
         }
@@ -21,32 +19,24 @@ class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel,ImagenCarouselAdaptad
         override fun areContentsTheSame(oldItem: ImagenCarousel, newItem: ImagenCarousel): Boolean {
             return oldItem == newItem
         }
-
     }
 
-    class ViewHolder(iteView: View): RecyclerView.ViewHolder(iteView){
-        private val imageView = iteView.findViewById<ImageView>(R.id.imageView)
+    open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val imageView: ImageView = itemView.findViewById(R.id.imageView)
 
-        fun bindData(item: ImagenCarousel){
+        fun bindData(item: ImagenCarousel) {
             Glide.with(itemView)
                 .load(item.url)
                 .into(imageView)
         }
-
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ImagenCarouselAdaptador.ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.image_item,parent,false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ImagenCarouselAdaptador.ViewHolder, position: Int) {
-        val imageItem = getItem(position)
-        holder.bindData(imageItem)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindData(getItem(position))
     }
 }
