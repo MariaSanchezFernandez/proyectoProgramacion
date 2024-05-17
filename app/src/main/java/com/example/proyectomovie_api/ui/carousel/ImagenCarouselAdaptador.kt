@@ -37,6 +37,7 @@ class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel, ImagenCarouselAdapta
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //holder.bindData(getItem(position))
         holder.bindData(getItem(position))
     }
 }

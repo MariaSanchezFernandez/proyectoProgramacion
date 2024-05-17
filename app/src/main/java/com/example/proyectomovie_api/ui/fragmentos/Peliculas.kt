@@ -12,6 +12,9 @@ import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
+import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.carousel.CarouselSnapHelper
+import com.google.android.material.carousel.HeroCarouselStrategy
 import java.util.UUID
 
 
@@ -47,13 +50,15 @@ class Peliculas : Fragment() {
             ImagenCarousel(UUID.randomUUID().toString(), "https://fastly.picsum.photos/id/778/500/500.jpg?hmac=jZLZ6WV_OGRxAIIYPk7vGRabcAGAILzxVxhqSH9uLas")
         )
 
+
         val imageAdapter = ImagenCarouselAdaptador()
-        binding.recuclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val snapHelper = CarouselSnapHelper()
+        binding.recuclerViewMisFavoritosPeliculas.layoutManager =  CarouselLayoutManager(HeroCarouselStrategy())
         binding.recuclerViewMisFavoritosPeliculas.adapter = imageAdapter
         imageAdapter.submitList(imageList)
 
 
-        binding.
+
 
     }
 }

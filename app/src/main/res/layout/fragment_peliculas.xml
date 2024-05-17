@@ -13,18 +13,6 @@
     android:background="#151515"
     tools:context=".ui.fragmentos.Peliculas">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Mis favoritos"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.007"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
@@ -39,14 +27,23 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="38dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recuclerViewMisFavoritosPeliculas"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="0dp"
-        android:layout_height="148dp"
+        android:layout_height="221dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recuclerViewMisFavoritosPeliculas"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:clipChildren="false" />
+    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -183,8 +180,9 @@
         android:text="Popular"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recuclerViewMisFavoritosPeliculas" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
     <TextView
         android:id="@+id/textView5"
@@ -213,6 +211,28 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Mis favoritos"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="242dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
