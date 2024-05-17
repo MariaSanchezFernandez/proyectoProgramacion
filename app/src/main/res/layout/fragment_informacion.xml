@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="@+id/ivFondoDetalles"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivFondoDetalles"
@@ -47,4 +48,53 @@
         app:layout_constraintEnd_toEndOf="@+id/tvTituloDetalles"
         app:layout_constraintStart_toStartOf="@+id/tvTituloDetalles"
         app:layout_constraintTop_toTopOf="@+id/tvTituloDetalles" />
+
+    <TextView
+        android:id="@+id/tvGenresDetalles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/ivCartelDetalles"
+        app:layout_constraintTop_toBottomOf="@+id/ivCartelDetalles" />
+
+    <TextView
+        android:id="@+id/tvOriginCountryDetalles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="@+id/tvGenresDetalles"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenresDetalles" />
+
+    <TextView
+        android:id="@+id/tvDuracionDetalles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvOriginCountryDetalles"
+        app:layout_constraintStart_toEndOf="@+id/tvOriginCountryDetalles"
+        app:layout_constraintTop_toTopOf="@+id/tvOriginCountryDetalles" />
+
+    <TextView
+        android:id="@+id/tvOverviewDetalles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvOriginCountryDetalles"
+        app:layout_constraintTop_toBottomOf="@+id/tvOriginCountryDetalles" />
+
+    <TextView
+        android:id="@+id/tvGaleriaDetalles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Galeria de imágenes"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvOverviewDetalles"
+        app:layout_constraintStart_toStartOf="@+id/tvOverviewDetalles"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverviewDetalles" />
 </androidx.constraintlayout.widget.ConstraintLayout>
