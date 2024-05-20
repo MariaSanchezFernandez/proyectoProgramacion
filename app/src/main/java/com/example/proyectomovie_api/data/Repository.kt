@@ -36,7 +36,7 @@ class Repository {
 
     // FUNCIONES PARA EL LOGIN
     suspend fun getAuthToken(apiKey: String) = RetrofitHelper.retrofitService.getAuthToken(apiKey)
-    suspend fun createSessionLogin(apiKey: String, body:BodyLogin)= RetrofitHelper.retrofitService.createSessionLogin(body,apiKey)
+    suspend fun createSession(apiKey: String, body:BodyLogin)= RetrofitHelper.retrofitService.createSessionLogin(body,apiKey)
     suspend fun createGuestSession(apiKey: String) =RetrofitHelper.retrofitService.createGuestSession(apiKey)
 
 

@@ -9,6 +9,7 @@ import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.tv.TVShow
 import kotlinx.coroutines.launch
+import retrofit2.http.Streaming
 
 class MyViewModel: ViewModel() {
 
@@ -38,7 +39,7 @@ class MyViewModel: ViewModel() {
     fun createSession(apiKey: String, body:BodyLogin) : MutableLiveData<String>{
 
         viewModelScope.launch {
-            val response = repositorio.createSessionLogin(apiKey, body)
+            val response = repositorio.createSession(apiKey, body)
 
             if (response.code() == 200){
                 response.body()?.guest_session_id.let {
@@ -51,8 +52,22 @@ class MyViewModel: ViewModel() {
 
     fun getSessionID() = sessionID
 
+    fun setSessionID(id:String){
+        sessionID.value = id
+    }
 
+    fun createGuestSession(apiKey: String) : MutableLiveData<String>{
 
+        viewModelScope.launch {
+            val response = repositorio.createGuestSession (apiKey)
 
+            if (response.code() == 200){
+                response.body()?.guest_session_id.let {
+                    sessionID.postValue(it)
+                }
+            }
+        }
+        return sessionID
+    }
 
 }

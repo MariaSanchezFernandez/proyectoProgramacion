@@ -18,7 +18,7 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textViewLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="57dp"
@@ -35,7 +35,7 @@
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8">
+            app:layout_constraintTop_toBottomOf="@+id/textViewLogin">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUsernameLogin"
@@ -61,7 +61,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonLogin"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
@@ -70,16 +70,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutContraseña" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:text="Login como Invitado"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+    <TextView
+        android:id="@+id/textViewGuest"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:clickable="true"
+        android:text="Login como Invitado"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
