@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
+import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
 import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
 import com.google.android.material.carousel.CarouselLayoutManager
@@ -53,12 +53,25 @@ class Peliculas : Fragment() {
 
         val imageAdapter = ImagenCarouselAdaptador()
         val snapHelper = CarouselSnapHelper()
-        binding.recuclerViewMisFavoritosPeliculas.layoutManager =  CarouselLayoutManager(HeroCarouselStrategy())
-        binding.recuclerViewMisFavoritosPeliculas.adapter = imageAdapter
+        binding.RecyclerViewCarouselPeliculas.layoutManager =  CarouselLayoutManager(HeroCarouselStrategy())
+        binding.RecyclerViewCarouselPeliculas.adapter = imageAdapter
         imageAdapter.submitList(imageList)
 
 
 
+        val arrayListFavoritos = arrayListOf(
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba)
+        )
 
+        val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
+
+        binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
     }
 }
