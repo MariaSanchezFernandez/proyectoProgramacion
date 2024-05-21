@@ -6,28 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.databinding.FragmentSeriesBinding
 import com.example.proyectomovie_api.ui.MainActivity
+import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
+import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
+import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.carousel.CarouselSnapHelper
+import com.google.android.material.carousel.HeroCarouselStrategy
+import java.util.UUID
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Series.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Series : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var binding: FragmentSeriesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -35,13 +30,32 @@ class Series : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_series, container, false)
+        binding = FragmentSeriesBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).supportActionBar?.title = "Series"
+
+        val imageList = arrayListOf(
+            ImagenCarousel(UUID.randomUUID().toString(), "https://image.tmdb.org/t/p/original/aXa6J5vGZQQOLZZv8fK0w0cd2fm.jpg"),
+            ImagenCarousel(UUID.randomUUID().toString(), "https://image.tmdb.org/t/p/original/laXrFmKtkirG3cwuWTQc4XAG3t9.jpg"),
+            ImagenCarousel(UUID.randomUUID().toString(), "https://image.tmdb.org/t/p/original/mcgZDwhMlrFsfpbvCeg5RY5mhiu.jpg"),
+            ImagenCarousel(UUID.randomUUID().toString(), "https://image.tmdb.org/t/p/original/dv4nL8dT45xtD8FVm1NfqnBssAF.jpg"),
+            ImagenCarousel(UUID.randomUUID().toString(), "https://image.tmdb.org/t/p/original/8RZSvebsuWY6XobuWqOdp9q85Sp.jpg"),
+            ImagenCarousel(UUID.randomUUID().toString(), "https://image.tmdb.org/t/p/original/mGVrXeIjyecj6TKmwPVpHlscEmw.jpg")
+        )
+
+
+        val imageAdapter = ImagenCarouselAdaptador()
+        val snapHelper = CarouselSnapHelper()
+        binding.RecycledViewCarouselSeries.layoutManager =  CarouselLayoutManager(
+            HeroCarouselStrategy()
+        )
+        binding.RecycledViewCarouselSeries.adapter = imageAdapter
+        imageAdapter.submitList(imageList)
+
 
     }
 }
