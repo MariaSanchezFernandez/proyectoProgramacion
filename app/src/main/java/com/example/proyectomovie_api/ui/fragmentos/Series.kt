@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.FragmentSeriesBinding
 import com.example.proyectomovie_api.ui.MainActivity
+import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
 import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
 import com.google.android.material.carousel.CarouselLayoutManager
@@ -55,6 +57,23 @@ class Series : Fragment() {
         )
         binding.RecycledViewCarouselSeries.adapter = imageAdapter
         imageAdapter.submitList(imageList)
+
+
+
+        val arrayListFavoritos = arrayListOf(
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba),
+            (R.drawable.prueba)
+        )
+
+        val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
+
+        binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
 
 
     }
