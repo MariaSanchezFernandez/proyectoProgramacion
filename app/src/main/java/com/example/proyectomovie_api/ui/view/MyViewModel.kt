@@ -21,13 +21,13 @@ class MyViewModel: ViewModel() {
     private val sessionID = MutableLiveData<String>()
 
 
-    fun getAuthToken(apiKey:String) : MutableLiveData<String>{
+    fun getAuthToken() : MutableLiveData<String>{
 
         viewModelScope.launch {
-            val response = repositorio.getAuthToken(apiKey)
+            val response = repositorio.getAuthToken()
 
             if (response.code() == 200){
-                response.body()?.request_token.let {
+                response.body()?.request_token?.let {
                     requestToken.postValue(it)
                 }
             }
@@ -36,13 +36,13 @@ class MyViewModel: ViewModel() {
     }
 
 
-    fun createSession(apiKey: String, body:BodyLogin) : MutableLiveData<String>{
+    fun createSession(body:BodyLogin) : MutableLiveData<String>{
 
         viewModelScope.launch {
-            val response = repositorio.createSession(apiKey, body)
+            val response = repositorio.createSession(body)
 
             if (response.code() == 200){
-                response.body()?.guest_session_id.let {
+                response.body()?.guest_session_id?.let {
                     sessionID.postValue(it)
                 }
             }
@@ -56,13 +56,13 @@ class MyViewModel: ViewModel() {
         sessionID.value = id
     }
 
-    fun createGuestSession(apiKey: String) : MutableLiveData<String>{
+    fun createGuestSession() : MutableLiveData<String>{
 
         viewModelScope.launch {
-            val response = repositorio.createGuestSession (apiKey)
+            val response = repositorio.createGuestSession ()
 
             if (response.code() == 200){
-                response.body()?.guest_session_id.let {
+                response.body()?.guest_session_id?.let {
                     sessionID.postValue(it)
                 }
             }
