@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectomovie_api.data.Repository
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
+import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.tv.TVShow
@@ -56,18 +57,19 @@ class MyViewModel: ViewModel() {
         sessionID.value = id
     }
 
-    fun createGuestSession() : MutableLiveData<String>{
+    fun createGuestSession() : MutableLiveData<CreateSessionResponse>{
+        val liveData = MutableLiveData<CreateSessionResponse>()
 
         viewModelScope.launch {
             val response = repositorio.createGuestSession ()
 
             if (response.code() == 200){
-                response.body()?.guest_session_id?.let {
-                    sessionID.postValue(it)
+                response.body()?.let {
+                    liveData.postValue(it)
                 }
             }
         }
-        return sessionID
+        return liveData
     }
 
 }

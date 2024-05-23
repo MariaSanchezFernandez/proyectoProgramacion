@@ -20,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MyViewModel>()
 
+    private val success:Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,11 +85,11 @@ class LoginActivity : AppCompatActivity() {
         binding.textViewGuest.setOnClickListener {
 
             var guestID = ""
+            if(viewModel.createGuestSession().value?.success == true) {
+                guestID = viewModel.createGuestSession().value!!.guest_session_id
 
-            viewModel.createGuestSession().observe(this, Observer { value ->
-                guestID = value
-            })
-
+            }
+            
             // COMPRUEBA EL ID DE SESIÓN Y LO ENVIA AL MAIN ACTIVITY PARA USARLO EN EL RESTO DE PETICIONES
             if (guestID.length>1){
                 val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
