@@ -17,7 +17,6 @@ import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.CarouselSnapHelper
 import com.google.android.material.carousel.HeroCarouselStrategy
-import java.util.Random
 import java.util.UUID
 
 class Peliculas : Fragment() {
