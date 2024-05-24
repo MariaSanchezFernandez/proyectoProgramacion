@@ -60,7 +60,6 @@ interface MyService {
 
 
 
-
     // Lista de descubrimientos de películas
     @Headers(
         "accept: application/json",

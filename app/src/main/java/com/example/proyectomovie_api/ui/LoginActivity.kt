@@ -35,8 +35,8 @@ class LoginActivity : AppCompatActivity() {
 
             val usuario = binding.etUsernameLogin.text.toString()
             val password = binding.etPasswordLogin.text.toString()
-            var authToken = ""
-            var sessionID = ""
+            var authToken: String
+            var sessionID: String
 
 
             // COMPRUEBA QUE HAYA USUARIO Y CONTRASEÑA
@@ -54,54 +54,57 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intentValidateToken)
                         } catch (_: ActivityNotFoundException) { }
 
-                        // UNA VEZ VALIDADO, SE CREA UN BODYLOGIN CON EL USUARIO, CONTRASEÑA Y TOKEN
-                        val body = BodyLogin(usuario, password, authToken)
-                        viewModel.createSession(body).observe(this){ id ->
-                            sessionID = id
-                            // COMPRUEBA EL ID DE SESIÓN Y LO ENVIA AL MAIN ACTIVITY PARA USARLO EN EL RESTO DE PETICIONES
-                            if (sessionID.length > 1 ){
-                                val intentCreateSessionID = Intent(this, MainActivity::class.java).apply{
-                                    putExtra("sessionID", sessionID)
-                                }
-                                startActivity(intentCreateSessionID)
-                                finish()
-
-                            }else{
-                                Toast.makeText(this, "Error al iniciar sesión...", Toast.LENGTH_LONG ).show()
-                            }
-                        }
-
-
-                    }else{
+                      }else{
                         Toast.makeText(this, "Error al generar token...", Toast.LENGTH_LONG ).show()
+                    }
+
+
+                    // --------    -------------
+
+                    // UNA VEZ VALIDADO, SE CREA UN BODYLOGIN CON EL USUARIO, CONTRASEÑA Y TOKEN
+                    val body = BodyLogin(usuario, password, authToken)
+
+                    // EL BODY SE USA PARA CREAR UNA SESSION CON USUARIO Y CONTRASEÑA
+                    viewModel.createSession(body).observe(this){ id ->
+                        sessionID = id
+                        // COMPRUEBA EL ID DE SESIÓN Y LO ENVIA AL MAIN ACTIVITY PARA USARLO EN EL RESTO DE PETICIONES
+                        if (sessionID.length > 1 ){
+                            val intentCreateSessionID = Intent(this, MainActivity::class.java).apply{
+                                putExtra("sessionID", sessionID)
+                            }
+                            startActivity(intentCreateSessionID)
+                            finish()
+
+                        }else{
+                            Toast.makeText(this, "Error al iniciar sesión...", Toast.LENGTH_LONG ).show()
+                        }
                     }
                 }
 
             }else{
                 Toast.makeText(this, "Debes introducir un usuario y una contraseña", Toast.LENGTH_LONG).show()
             }
+
+
+
+
         }
 
         // TEXTO CLICKABLE PARA ENTRAR COMO INVITADO
 
         binding.textViewGuest.setOnClickListener {
 
-            var guestID = ""
+            var guestID: String
             viewModel.createGuestSession().observe(this) {
                 if (it.success){
                     guestID = it.guest_session_id
-                    if (guestID.length>1){
-                        val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
-                            putExtra("sessionID", guestID)
-                        }
-                        startActivity(intentCreateGuestSessionID)
-                        finish()
+                    val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
+                        putExtra("sessionID", guestID)
                     }
+                    startActivity(intentCreateGuestSessionID)
+                    finish()
                 }
-
             }
-            // COMPRUEBA EL ID DE SESIÓN Y LO ENVIA AL MAIN ACTIVITY PARA USARLO EN EL RESTO DE PETICIONES
-
         }
     }
 }
