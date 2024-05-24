@@ -3,10 +3,9 @@ package com.example.proyectomovie_api.ui.adaptadores
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.databinding.MisFavoritosPeliculasBinding
 
-class AdaptadorMiListaPeliculas(val listado: ArrayList<Int>) : RecyclerView.Adapter<AdaptadorMiListaPeliculas.VistaCelda>() {
+class AdaptadorMiListaPeliculas(val listado: ArrayList<String>) : RecyclerView.Adapter<AdaptadorMiListaPeliculas.VistaCelda>() {
     inner class VistaCelda (val binding: MisFavoritosPeliculasBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaCelda {
@@ -19,6 +18,6 @@ class AdaptadorMiListaPeliculas(val listado: ArrayList<Int>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: VistaCelda, position: Int) {
         val nombre = listado[position]
-        holder.binding.imageView3.setImageResource(nombre.toInt())
+
     }
 }

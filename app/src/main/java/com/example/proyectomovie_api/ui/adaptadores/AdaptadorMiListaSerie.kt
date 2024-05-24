@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.databinding.MisFavoritosPeliculasBinding
 
-class AdaptadorMiListaSerie(val listado: ArrayList<Int>) : RecyclerView.Adapter<AdaptadorMiListaSerie.VistaCelda>() {
+class AdaptadorMiListaSerie(val listado: ArrayList<String>) : RecyclerView.Adapter<AdaptadorMiListaSerie.VistaCelda>() {
     inner class VistaCelda (val binding: MisFavoritosPeliculasBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaCelda {
@@ -19,6 +19,5 @@ class AdaptadorMiListaSerie(val listado: ArrayList<Int>) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: VistaCelda, position: Int) {
         val nombre = listado[position]
-        holder.binding.imageView3.setImageResource(nombre.toInt())
     }
 }

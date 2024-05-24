@@ -46,8 +46,6 @@ interface MyService {
 //        @Query("api_key") apiKey:String
 //    ):Response<CreateSessionResponse>
 
-
-
     // Lista de descubrimientos de películas
     @GET("discover/movie?sort_by=popularity.desc")
     suspend fun discoverMovies(

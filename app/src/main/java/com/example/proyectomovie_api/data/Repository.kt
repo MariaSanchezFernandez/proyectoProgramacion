@@ -13,6 +13,9 @@ class Repository {
 
     suspend fun getTVShowProviders(apiKey: String, tvID:Int) = RetrofitHelper.retrofitService.getTVShowProvider(apiKey,tvID)
 
+    suspend fun topRatedTVShows(apiKey: String) = RetrofitHelper.retrofitService.topRatedTVShows(apiKey, "ES")
+
+    suspend fun topRatedMovies(apiKey: String) = RetrofitHelper.retrofitService.topRatedMovies(apiKey, "ES")
 
 
 
