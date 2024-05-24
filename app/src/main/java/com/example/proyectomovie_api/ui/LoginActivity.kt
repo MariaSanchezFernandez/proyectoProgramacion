@@ -10,11 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.databinding.ActivityLoginBinding
+
 import com.example.proyectomovie_api.ui.view.MyViewModel
 
 
 class LoginActivity : AppCompatActivity() {
-
 
     private lateinit var binding: ActivityLoginBinding
 
@@ -42,39 +42,41 @@ class LoginActivity : AppCompatActivity() {
             // COMPRUEBA QUE HAYA USUARIO Y CONTRASEÑA
             if (usuario.isNotEmpty() && password.isNotEmpty()){
 
-                viewModel.getAuthToken().observe(this, Observer { value ->
-                    authToken = value
-                })
-                if ( authToken.length > 1 ) {
+                viewModel.getAuthToken().observe(this){token ->
+                    authToken = token
+                    if ( authToken.length > 1 ) {
 
-                    // TE ENVIA A LA URL PARA VALIDAR EL TOKEN
-                    val pageURL = "https://www.themoviedb.org/authenticate/${authToken}"
-                    val intentValidateToken = Intent(Intent.ACTION_VIEW)
-                    intentValidateToken.data = Uri.parse(pageURL)
-                    try {
-                        startActivity(intentValidateToken)
-                    } catch (_: ActivityNotFoundException) { }
+                        // TE ENVIA A LA URL PARA VALIDAR EL TOKEN
+                        val pageURL = "https://www.themoviedb.org/authenticate/${authToken}"
+                        val intentValidateToken = Intent(Intent.ACTION_VIEW)
+                        intentValidateToken.data = Uri.parse(pageURL)
+                        try {
+                            startActivity(intentValidateToken)
+                        } catch (_: ActivityNotFoundException) { }
 
-                    // UNA VEZ VALIDADO, SE CREA UN BODYLOGIN CON EL USUARIO, CONTRASEÑA Y TOKEN
-                    val body = BodyLogin(usuario, password, authToken)
-                        viewModel.createSession(body).observe(this, Observer { value ->
-                            sessionID = value
-                        })
+                        // UNA VEZ VALIDADO, SE CREA UN BODYLOGIN CON EL USUARIO, CONTRASEÑA Y TOKEN
+                        val body = BodyLogin(usuario, password, authToken)
+                        viewModel.createSession(body).observe(this){ id ->
+                            sessionID = id
+                            // COMPRUEBA EL ID DE SESIÓN Y LO ENVIA AL MAIN ACTIVITY PARA USARLO EN EL RESTO DE PETICIONES
+                            if (sessionID.length > 1 ){
+                                val intentCreateSessionID = Intent(this, MainActivity::class.java).apply{
+                                    putExtra("sessionID", sessionID)
+                                }
+                                startActivity(intentCreateSessionID)
+                                finish()
 
-                    // COMPRUEBA EL ID DE SESIÓN Y LO ENVIA AL MAIN ACTIVITY PARA USARLO EN EL RESTO DE PETICIONES
-                    if (sessionID.length > 1 ){
-                         val intentCreateSessionID = Intent(this, MainActivity::class.java).apply{
-                             putExtra("sessionID", sessionID)
-                         }
-                        startActivity(intentCreateSessionID)
-                        finish()
+                            }else{
+                                Toast.makeText(this, "Error al iniciar sesión...", Toast.LENGTH_LONG ).show()
+                            }
+                        }
+
 
                     }else{
-                        Toast.makeText(this, "Error al iniciar sesión...", Toast.LENGTH_LONG ).show()
+                        Toast.makeText(this, "Error al generar token...", Toast.LENGTH_LONG ).show()
                     }
-                }else{
-                    Toast.makeText(this, "Error al generar token...", Toast.LENGTH_LONG ).show()
                 }
+
             }else{
                 Toast.makeText(this, "Debes introducir un usuario y una contraseña", Toast.LENGTH_LONG).show()
             }
@@ -85,19 +87,21 @@ class LoginActivity : AppCompatActivity() {
         binding.textViewGuest.setOnClickListener {
 
             var guestID = ""
-            if(viewModel.createGuestSession().value?.success == true) {
-                guestID = viewModel.createGuestSession().value!!.guest_session_id
+            viewModel.createGuestSession().observe(this) {
+                if (it.success){
+                    guestID = it.guest_session_id
+                    if (guestID.length>1){
+                        val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
+                            putExtra("sessionID", guestID)
+                        }
+                        startActivity(intentCreateGuestSessionID)
+                        finish()
+                    }
+                }
 
             }
-            
             // COMPRUEBA EL ID DE SESIÓN Y LO ENVIA AL MAIN ACTIVITY PARA USARLO EN EL RESTO DE PETICIONES
-            if (guestID.length>1){
-                val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
-                    putExtra("sessionID", guestID)
-                }
-                startActivity(intentCreateGuestSessionID)
-                finish()
-            }
+
         }
     }
 }
