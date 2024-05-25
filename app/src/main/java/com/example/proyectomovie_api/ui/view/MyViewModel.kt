@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.proyectomovie_api.data.Repository
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
+import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tv.TVShow
+import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
 import kotlinx.coroutines.launch
 
 class MyViewModel: ViewModel() {
@@ -19,6 +21,8 @@ class MyViewModel: ViewModel() {
     private val listaMovieRated = MutableLiveData<List<Movie>>()
     private val listaTVShowRated = MutableLiveData<List<TVShow>>()
     private val listaPeliculasPopularesLiveData1 = MutableLiveData<MovieResponse>()
+    private val peliculaLivedata = MutableLiveData<Movie>()
+    private val serieLiveData = MutableLiveData<TVShow>()
 
     //Obtener las peliculas más populares
 
@@ -73,4 +77,19 @@ class MyViewModel: ViewModel() {
         }
         return listaTVShowRated
     }
+
+    //Guardar película al cambio de pantalla
+    fun setPelicula(pelicula: Movie){
+        peliculaLivedata.value = pelicula
+    }
+
+    fun getPelicula() = peliculaLivedata
+
+
+    //Guardar TVShow al cambio de pantalla
+    fun setSerie(serie: TVShow){
+        serieLiveData.value = serie
+    }
+
+    fun getSerie() = serieLiveData
 }

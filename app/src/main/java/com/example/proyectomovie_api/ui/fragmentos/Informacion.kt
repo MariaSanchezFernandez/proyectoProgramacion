@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.data.movie.Movie
+import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.databinding.FragmentInformacionBinding
 import com.example.proyectomovie_api.ui.MainActivity
+import com.example.proyectomovie_api.ui.view.MyViewModel
 
 class Informacion : Fragment() {
 
     private lateinit var binding: FragmentInformacionBinding
+    private val viewModel by activityViewModels<MyViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +29,9 @@ class Informacion : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        viewModel.getPelicula().observe(viewLifecycleOwner){
+            rellenaDatos(it)
+        }
     }
 
     private fun rellenaDatos(peli: Movie) {
