@@ -1,6 +1,7 @@
 package com.example.proyectomovie_api.data
 
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
+import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.retrofit.RetrofitHelper
 
 class Repository {
@@ -36,7 +37,8 @@ class Repository {
 
     // FUNCIONES PARA EL LOGIN
     suspend fun getAuthToken() = RetrofitHelper.retrofitService.getAuthToken()
-    suspend fun createSession(body:BodyLogin) = RetrofitHelper.retrofitService.createSessionLogin(body)
+    suspend fun createSessionLogin(body:BodyLogin) = RetrofitHelper.retrofitService.createSessionLogin(body)
+    suspend fun createSession(bodySessionID: BodySessionID) = RetrofitHelper.retrofitService.createSessionID(bodySessionID)
     suspend fun createGuestSession() = RetrofitHelper.retrofitService.createGuestSession()
 
 

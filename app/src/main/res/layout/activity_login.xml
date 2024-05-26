@@ -60,27 +60,40 @@
                 android:hint="contraseña" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:text="Login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutContraseña" />
+    <Button
+        android:id="@+id/buttonAuthToken"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="authTOken"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutContraseña" />
 
     <TextView
         android:id="@+id/textViewGuest"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="90dp"
         android:clickable="true"
         android:text="Login como Invitado"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutContraseña" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:backgroundTint="#CA3D3D"
+        android:text="Login"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutContraseña" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

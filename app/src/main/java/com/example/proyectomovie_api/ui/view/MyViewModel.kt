@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectomovie_api.data.Repository
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
+import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
+import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.tv.TVShow
 import kotlinx.coroutines.launch
-import retrofit2.http.Streaming
 
 class MyViewModel: ViewModel() {
 
@@ -37,18 +38,19 @@ class MyViewModel: ViewModel() {
     }
 
 
-    fun createSession(body:BodyLogin) : MutableLiveData<String>{
+    fun createSessionLogin(body:BodyLogin) : MutableLiveData<RequestTokenResponse>{
+        val liveData = MutableLiveData<RequestTokenResponse>()
 
         viewModelScope.launch {
-            val response = repositorio.createSession(body)
+            val response = repositorio.createSessionLogin(body)
 
-            if (response.code() == 200){
-                response.body()?.guest_session_id?.let {
-                    sessionID.postValue(it)
+            if (response.body()?.success == true){
+                response.body()?.let {
+                    liveData.postValue(it)
                 }
             }
         }
-        return sessionID
+        return liveData
     }
 
     fun getSessionID() = sessionID
@@ -57,11 +59,26 @@ class MyViewModel: ViewModel() {
         sessionID.value = id
     }
 
-    fun createGuestSession() : MutableLiveData<CreateSessionResponse>{
-        val liveData = MutableLiveData<CreateSessionResponse>()
+    fun createGuestSession() : MutableLiveData<CreateGuestSessionResponse>{
+        val liveData = MutableLiveData<CreateGuestSessionResponse>()
 
         viewModelScope.launch {
             val response = repositorio.createGuestSession ()
+
+            if (response.code() == 200){
+                response.body()?.let {
+                    liveData.postValue(it)
+                }
+            }
+        }
+        return liveData
+    }
+
+    fun createSession(bodySessionID: BodySessionID): MutableLiveData<CreateSessionResponse>{
+        val liveData = MutableLiveData<CreateSessionResponse>()
+
+        viewModelScope.launch {
+            val response = repositorio.createSession(bodySessionID)
 
             if (response.code() == 200){
                 response.body()?.let {

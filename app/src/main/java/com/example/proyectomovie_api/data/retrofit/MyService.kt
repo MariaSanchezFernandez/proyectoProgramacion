@@ -1,6 +1,8 @@
 package com.example.proyectomovie_api.data.retrofit
 
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
+import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
+import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
 import com.example.proyectomovie_api.data.movie.MovieResponse
@@ -26,6 +28,7 @@ interface MyService {
 
 
     // Create Request Token
+    // CREA UN TOKEN PARA ENVIARLO A LA PAGINA Y VALIDARLO
     @Headers(
         "accept: application/json",
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzkxMTg2YTU2OTA4YjYyNWYzMTYxZTllYjAxY2I1ZCIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.u_BACdgwUbPA0HU_WGGAiJ_hCxTz9-l2VHYxexXVdbA"
@@ -38,15 +41,29 @@ interface MyService {
 
 
     //Create Session with Login (username + password + requestToken ya autenticada por el body)
+    // ESTO ES UNA MENTIRA, NO CREA LA SESIÓN, SOLO VALIDA EL TOKEN POR PARTE DEL CREADOR DE LA CUENTA PARA MANEJAR LA API
     @Headers(
+        "Content-Type: application/json",
         "accept: application/json",
-        "content-type : application/json",
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzkxMTg2YTU2OTA4YjYyNWYzMTYxZTllYjAxY2I1ZCIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.u_BACdgwUbPA0HU_WGGAiJ_hCxTz9-l2VHYxexXVdbA"
     )
     @POST("authentication/token/validate_with_login")
     suspend fun createSessionLogin(
-        @Body body: BodyLogin,
+        @Body body:BodyLogin,
+    ):Response<RequestTokenResponse>
+
+
+    // Create Session ID.  ESTA VEZ DE VERDAD
+    @Headers(
+        "Content-Type: application/json",
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzkxMTg2YTU2OTA4YjYyNWYzMTYxZTllYjAxY2I1ZCIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.u_BACdgwUbPA0HU_WGGAiJ_hCxTz9-l2VHYxexXVdbA"
+    )
+    @POST("authentication/session/new")
+    suspend fun createSessionID(
+        @Body bodySessionID: BodySessionID
     ):Response<CreateSessionResponse>
+
 
     // Create Guest Session
     @Headers(
@@ -55,7 +72,7 @@ interface MyService {
     )
     @GET("authentication/guest_session/new")
     suspend fun createGuestSession(
-    ):Response<CreateSessionResponse>
+    ):Response<CreateGuestSessionResponse>
 
 
 
