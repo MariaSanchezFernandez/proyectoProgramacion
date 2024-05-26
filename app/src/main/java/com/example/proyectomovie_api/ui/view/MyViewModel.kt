@@ -7,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.proyectomovie_api.data.Repository
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
+import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
+import com.example.proyectomovie_api.watchlist.WatchListResponse
+import com.example.proyectomovie_api.watchlist.addWatchListBody
 import kotlinx.coroutines.launch
 
 class MyViewModel: ViewModel() {
@@ -76,6 +79,51 @@ class MyViewModel: ViewModel() {
             }
         }
         return listaTVShowRated
+    }
+
+    // Devuelve un objeto con los proveedores de la Película
+    fun getMovieWatchProvider(apiKey: String, movieId : Int) : MutableLiveData<MovieProviderResponse> {
+        val movieWatchProviderLiveData = MutableLiveData<MovieProviderResponse>()
+        viewModelScope.launch {
+            val respuesta = repositorio.getMovieWatchProvider(apiKey, movieId)
+            if(respuesta.code() == 200){
+                var movieWatchProvider = respuesta.body()
+                movieWatchProvider.let {
+                    movieWatchProviderLiveData.postValue(it)
+                }
+            }
+        }
+        return movieWatchProviderLiveData
+    }
+
+    // Devuelve un objeto con los proveedores de la Serie
+    fun getSerieWatchProvider(apiKey: String, serieId : Int) : MutableLiveData<TVSerieResponse> {
+        val serieWatchProviderLiveData = MutableLiveData<TVSerieResponse>()
+        viewModelScope.launch {
+            val respuesta = repositorio.getSerieWatchProvider(apiKey, serieId)
+            if(respuesta.code() == 200){
+                var serieWatchProvider = respuesta.body()
+                serieWatchProvider.let {
+                    serieWatchProviderLiveData.postValue(it)
+                }
+            }
+        }
+        return serieWatchProviderLiveData
+    }
+
+    // Devuelve una respuesta si el POST de añadir a WatchList es exitoso
+    fun addToWatchList(apiKey: String, accountId: Int, data: addWatchListBody) : MutableLiveData<WatchListResponse> {
+        val addWatchListLiveData = MutableLiveData<WatchListResponse>()
+        viewModelScope.launch {
+            val respuesta = repositorio.addToWatchList(apiKey, accountId, data)
+            if(respuesta.code() == 200){
+                var addWatchList = respuesta.body()
+                addWatchList.let {
+                    addWatchListLiveData.postValue(it)
+                }
+            }
+        }
+        return addWatchListLiveData
     }
 
     //Guardar película al cambio de pantalla

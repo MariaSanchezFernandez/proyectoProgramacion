@@ -3,11 +3,13 @@ package com.example.proyectomovie_api.data.retrofit
 //import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 //import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
 //import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
+import com.example.proyectomovie_api.watchlist.addWatchListBody
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 //import com.example.proyectomovie_api.data.people.PeopleResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
+import com.example.proyectomovie_api.watchlist.WatchListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -139,7 +141,26 @@ interface MyService {
     ):Response<TVResponse>
 
 
+    // Obtiene la lista de proveedores por país donde la serie está disponible
+    @GET("tv/{serie_id}/watch/providers")
+    suspend fun getSerieWatchProvider(
+        @Query("api_key") apiKey:String,
+        @Path("serie_id") movieId: Int
+    ):Response<TVSerieResponse>
 
+    // Obtiene la lista de proveedores por país donde la película está disponible
+    @GET("movie/{movie_id}/watch/providers")
+    suspend fun getMovieWatchProvider(
+        @Query("api_key") apiKey: String,
+        @Path("movie_id") movieId: Int
+    ):Response<MovieProviderResponse>
 
+    @Headers("Content-Type: application/json")
+    @POST("account/{account_id}/watchlist")
+    suspend fun addToWatchList(
+        @Query("api_key") apiKey: String,
+        @Path("accoun_id") accountId : Int,
+        @Body data : addWatchListBody
+    ) : Response<WatchListResponse>
 
 }

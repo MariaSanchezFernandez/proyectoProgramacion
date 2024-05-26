@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_series" />
     <fragment
         android:id="@+id/informacion"
-        android:name="com.example.proyectomovie_api.ui.fragmentos.Informacion"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionPeliculas"
         android:label="Informacion"
-        tools:layout="@layout/fragment_informacion" />
+        tools:layout="@layout/fragment_informacion_peliculas" />
 </navigation>
