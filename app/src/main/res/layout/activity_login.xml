@@ -44,28 +44,32 @@
                 android:hint="usuario" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutContraseña"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUsuario">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutContraseña"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUsuario">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPasswordLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="contraseña" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPasswordLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoText="false"
+            android:freezesText="false"
+            android:hint="contraseña"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/buttonAuthToken"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="authTOken"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#000000"
+        android:text="LOGIN"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,11 +79,11 @@
         android:id="@+id/textViewGuest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="100dp"
         android:clickable="true"
         android:text="Login como Invitado"
         android:textAlignment="center"
-        android:textSize="28sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutContraseña" />
@@ -88,9 +92,9 @@
         android:id="@+id/buttonLogin"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:backgroundTint="#CA3D3D"
-        android:text="Login"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#000000"
+        android:text="LOGIN"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
