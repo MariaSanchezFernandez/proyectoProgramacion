@@ -1,5 +1,6 @@
 package com.example.proyectomovie_api.data.retrofit
 
+import com.example.proyectomovie_api.data.account.AccountDetailsResponse
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
@@ -23,7 +24,7 @@ interface MyService {
     // El Token es este, si no funciona puede que lo haya re generado, preguntad a salva :
     // eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzkxMTg2YTU2OTA4YjYyNWYzMTYxZTllYjAxY2I1ZCIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.u_BACdgwUbPA0HU_WGGAiJ_hCxTz9-l2VHYxexXVdbA
     /*
-    *   PETICIONES PARA EL LOGIN
+    *    ------------- PETICIONES PARA EL LOGIN -----------------------
      */
 
 
@@ -37,11 +38,9 @@ interface MyService {
     suspend fun getAuthToken(
     ):Response<RequestTokenResponse>
 
-    // Entre estas habría que autenticar el token enviando al usuario a la página
 
-
-    //Create Session with Login (username + password + requestToken ya autenticada por el body)
-    // ESTO ES UNA MENTIRA, NO CREA LA SESIÓN, SOLO VALIDA EL TOKEN POR PARTE DEL CREADOR DE LA CUENTA PARA MANEJAR LA API
+    // Create Session with Login (username + password + requestToken ya autenticada por el body)
+    // CORRECCIÓN , NO CREA LA SESIÓN, SOLO VALIDA EL TOKEN POR PARTE DEL CREADOR DE LA CUENTA (YO) PARA MANEJAR LA API
     @Headers(
         "Content-Type: application/json",
         "accept: application/json",
@@ -73,6 +72,22 @@ interface MyService {
     @GET("authentication/guest_session/new")
     suspend fun createGuestSession(
     ):Response<CreateGuestSessionResponse>
+
+
+    /*
+    * ------------------ PETICIONES PARA LA PÁGINA DE CUENTA ----------------
+     */
+
+
+    // Account Details
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzkxMTg2YTU2OTA4YjYyNWYzMTYxZTllYjAxY2I1ZCIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.u_BACdgwUbPA0HU_WGGAiJ_hCxTz9-l2VHYxexXVdbA"
+    )
+    @GET("account")
+    suspend fun getAccountDetails(
+        @Query("session_id") sessionID:String
+    ):Response<AccountDetailsResponse>
 
 
 

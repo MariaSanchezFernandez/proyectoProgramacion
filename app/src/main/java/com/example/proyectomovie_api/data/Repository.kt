@@ -42,6 +42,11 @@ class Repository {
     suspend fun createGuestSession() = RetrofitHelper.retrofitService.createGuestSession()
 
 
+    // FUNCION PARA LOS DETALLES DE LA CUENTA
+
+    suspend fun getAccountDetails(sessionID:String) = RetrofitHelper.retrofitService.getAccountDetails(sessionID)
+
+
 
 
 

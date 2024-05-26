@@ -82,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 if (sessionIDLogin.success){
                     authToken = sessionIDLogin.request_token
 
+
                     //CREA UN BODY CON EL TOKEN, PARA ESTA VEZ CREAR LA SESIÓN ID
 
                     val body = BodySessionID(authToken)

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectomovie_api.data.Repository
+import com.example.proyectomovie_api.data.account.AccountDetailsResponse
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
@@ -36,7 +37,6 @@ class MyViewModel: ViewModel() {
         }
         return requestToken
     }
-
 
     fun createSessionLogin(body:BodyLogin) : MutableLiveData<RequestTokenResponse>{
         val liveData = MutableLiveData<RequestTokenResponse>()
@@ -79,6 +79,21 @@ class MyViewModel: ViewModel() {
 
         viewModelScope.launch {
             val response = repositorio.createSession(bodySessionID)
+
+            if (response.code() == 200){
+                response.body()?.let {
+                    liveData.postValue(it)
+                }
+            }
+        }
+        return liveData
+    }
+
+    fun getAccountDetails(sessionID: String): MutableLiveData<AccountDetailsResponse>{
+        val liveData = MutableLiveData<AccountDetailsResponse>()
+
+        viewModelScope.launch {
+            val response = repositorio.getAccountDetails(sessionID)
 
             if (response.code() == 200){
                 response.body()?.let {
