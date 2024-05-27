@@ -1,10 +1,15 @@
 package com.example.proyectomovie_api.data
 
+import android.graphics.Region
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.retrofit.RetrofitHelper
 
 class Repository {
+
+    suspend fun getPopularMovies(apiKey:String) = RetrofitHelper.retrofitService.popularMovies(apiKey, "ES")
+
+    suspend fun getPopularTVShows(apiKey:String) = RetrofitHelper.retrofitService.popularTVShows(apiKey, "ES")
 
     suspend fun discoverMovies() = RetrofitHelper.retrofitService.discoverMovies()
 
@@ -33,8 +38,6 @@ class Repository {
     suspend fun getTrendingPeople(timeWindow: String = "day") = RetrofitHelper.retrofitService.trendingPeople( timeWindow)
 
 
-
-
     // FUNCIONES PARA EL LOGIN
     suspend fun getAuthToken() = RetrofitHelper.retrofitService.getAuthToken()
     suspend fun createSessionLogin(body:BodyLogin) = RetrofitHelper.retrofitService.createSessionLogin(body)
@@ -47,13 +50,7 @@ class Repository {
     suspend fun getAccountDetails(sessionID:String) = RetrofitHelper.retrofitService.getAccountDetails(sessionID)
 
 
+    suspend fun topRatedTVShows(apiKey: String) = RetrofitHelper.retrofitService.topRatedTVShows(apiKey, "ES")
 
-
-
-
-
-
-
-
-
+    suspend fun topRatedMovies(apiKey: String) = RetrofitHelper.retrofitService.topRatedMovies(apiKey, "ES")
 }

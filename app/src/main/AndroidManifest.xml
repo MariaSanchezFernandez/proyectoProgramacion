@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ProyectoMovieAPI"
         tools:targetApi="31">
         <activity
+            android:name=".ui.carousel.ImageViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.MainActivity"
             android:exported="false" />
         <activity

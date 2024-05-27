@@ -27,8 +27,21 @@ interface MyService {
     *    ------------- PETICIONES PARA EL LOGIN -----------------------
      */
 
-
     // Create Request Token
+
+    // Lista de descubrimientos de películas
+    @GET("discover/movie?sort_by=popularity.desc")
+    suspend fun discoverMovies(
+        @Query("api_key") apiKey:String
+    ): Response<MovieResponse>
+
+    // Lista de descubrimientos de TVShows
+    @GET("discover/tv?sort_by=popularity.desc")
+    suspend fun discoverTVShows(
+        @Query("api_key") apiKey:String
+    ): Response<TVResponse>
+
+    // Plataformas en las que se puede ver una peli
     // CREA UN TOKEN PARA ENVIARLO A LA PAGINA Y VALIDARLO
     @Headers(
         "accept: application/json",
@@ -121,6 +134,7 @@ interface MyService {
     ): Response<MovieProviderResponse>
 
     // Plataformas en las que se puede ver un TVShow
+
     @Headers(
         "accept: application/json",
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
@@ -218,6 +232,75 @@ interface MyService {
     )
     @GET("trending/tv/{time_window}")
     suspend fun trendingTVShows(
+        @Path("time_window") timeWindow:String
+    ):Response<TVResponse>
+
+
+
+
+
+    // Películas favoritas del usuario
+    @GET("account/{account_id}/favorite/movies")
+    suspend fun getFavMovies(
+        @Query("api_key") apiKey:String,
+        @Path("account_id") userID: Int
+    ): Response<MovieResponse>
+
+
+    //TVShows favoritos del usuario
+    @GET("account/{account_id}/favorite/tv")
+    suspend fun getFavTVShows(
+        @Query("api_key") apiKey:String,
+        @Path("account_id") userID: Int
+    ): Response<TVResponse>
+
+    // Películas más populares
+    @GET("movie/popular")
+    suspend fun popularMovies(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<MovieResponse>
+
+    // Películas mejor valoradas
+    @GET("movie/top_rated")
+    suspend fun topRatedMovies(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<MovieResponse>
+
+    // TVShows más populares
+    @GET("tv/popular")
+    suspend fun popularTVShows(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<TVResponse>
+
+    // TVShows mejor valorados
+    @GET("tv/top_rated")
+    suspend fun topRatedTVShows(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<TVResponse>
+
+    // Personas Trending del día o semana
+//    @GET("trending/person/{time_window}")
+//    suspend fun trendingPeople(
+//        @Query("api_key") apiKey:String,
+//        @Path("time_window") timeWindow:String
+//    ):Response<PeopleResponse>
+
+    // Peliculas Trending del día o semana
+    @GET("trending/movie/{time_window}")
+    suspend fun trendingMovies(
+        @Query("api_key") apiKey:String,
+        @Path("time_window") timeWindow:String
+    ):Response<MovieResponse>
+
+
+    // TVShows Trending del día o semana
+    @GET("trending/tv/{time_window}")
+    suspend fun trendingTVShows(
+        @Query("api_key") apiKey:String,
         @Path("time_window") timeWindow:String
     ):Response<TVResponse>
 

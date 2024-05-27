@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     //Configura las barras
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    //controlador de navegación
+    //Controlador de navegación
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar2)
-
 
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHost
         navController = navHost.navController
@@ -42,8 +41,6 @@ class MainActivity : AppCompatActivity() {
 //Cambios
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.drawerLayout.setupWithNavController(navController)
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
