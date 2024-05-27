@@ -18,6 +18,5 @@ class AdaptadorMiListaPeliculas(val listado: ArrayList<String>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: VistaCelda, position: Int) {
         val nombre = listado[position]
-
     }
 }
