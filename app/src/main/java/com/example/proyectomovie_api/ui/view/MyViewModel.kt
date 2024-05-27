@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 
 class MyViewModel: ViewModel() {
 
-
     private val repositorio = Repository()
     private val listaMoviesPopuales = MutableLiveData<List<Movie>>()
     private val listaTVShowsPopulares = MutableLiveData<List<TVShow>>()
@@ -29,6 +28,10 @@ class MyViewModel: ViewModel() {
     private val sessionID = MutableLiveData<String>()
     private val listaFavMovies = MutableLiveData<List<Movie>>()
     private val listaFavSeries = MutableLiveData<List<TVShow>>()
+
+    //Id del acountId de Salva -> 548
+    // Esto al juntarse con el resto del código tiene que cambiarse para que esté bien
+    private val acountId = MutableLiveData<Int>(548)
 
 
     //Obtener las peliculas más populares
@@ -164,12 +167,11 @@ class MyViewModel: ViewModel() {
         return listaTVShowRated
     }
 
-
     fun getFavoriteMovies(apiKey: String): MutableLiveData<List<Movie>>{
         viewModelScope.launch {
-            val respuesta = repositorio.getFavoriteMovies()
-            if (respuesta.code() == 200){
-                var listaMoviesFav = respuesta.body()
+            val respuesta = acountId.value?.let { repositorio.getFavoriteMovies(it) }
+            if (respuesta?.code() == 200){
+                var listaMoviesFav = respuesta?.body()
                 listaMoviesFav?.let {
                     listaFavMovies.postValue(it.results)
                 }
@@ -180,9 +182,9 @@ class MyViewModel: ViewModel() {
 
     fun getFavoriteTVShows(apiKey: String): MutableLiveData<List<TVShow>>{
         viewModelScope.launch {
-            val respuesta = repositorio.getFavoriteTVShows()
-            if (respuesta.code() == 200){
-                var listaTVshowFav = respuesta.body()
+            val respuesta = acountId.value?.let { repositorio.getFavoriteTVShows(it) }
+            if (respuesta?.code() == 200){
+                var listaTVshowFav = respuesta?.body()
                 listaTVshowFav?.let {
                     listaFavSeries.postValue(it.results)
                 }
