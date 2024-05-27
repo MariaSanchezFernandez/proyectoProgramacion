@@ -1,18 +1,21 @@
 package com.example.proyectomovie_api.ui.view
 
 import android.graphics.Region
+import android.media.Image
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectomovie_api.data.Repository
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
+import com.example.proyectomovie_api.data.images.ImageResponse
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
-import com.example.proyectomovie_api.watchlist.WatchListResponse
-import com.example.proyectomovie_api.watchlist.addWatchListBody
+import com.example.proyectomovie_api.data.watchlist.WatchListResponse
+import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import kotlinx.coroutines.launch
 
 class MyViewModel: ViewModel() {
@@ -124,6 +127,48 @@ class MyViewModel: ViewModel() {
             }
         }
         return addWatchListLiveData
+    }
+
+    fun addToFavorite(apiKey: String, accountId: Int, data: addFavoriteBody) : MutableLiveData<WatchListResponse> {
+        val addFavoriteLiveData = MutableLiveData<WatchListResponse>()
+        viewModelScope.launch {
+            val respuesta = repositorio.addToFavorite(apiKey, accountId, data)
+            if(respuesta.code() == 200){
+                var addFavorite = respuesta.body()
+                addFavorite.let {
+                    addFavoriteLiveData.postValue(it)
+                }
+            }
+        }
+        return addFavoriteLiveData
+    }
+
+    fun getMovieImages(apiKey: String, movieId: Int) : MutableLiveData<ImageResponse> {
+        val getMovieImagesLiveData = MutableLiveData<ImageResponse>()
+        viewModelScope.launch {
+            val respuesta = repositorio.getMovieimages(apiKey, movieId)
+            if(respuesta.code() == 200){
+                var addFavorite = respuesta.body()
+                addFavorite.let {
+                    getMovieImagesLiveData.postValue(it)
+                }
+            }
+        }
+        return getMovieImagesLiveData
+    }
+
+    fun getSerieImages(apiKey: String, serieId: Int) : MutableLiveData<ImageResponse> {
+        val getSerieImagesLiveData = MutableLiveData<ImageResponse>()
+        viewModelScope.launch {
+            val respuesta = repositorio.getSerieImages(apiKey, serieId)
+            if(respuesta.code() == 200){
+                var addFavorite = respuesta.body()
+                addFavorite.let {
+                    getSerieImagesLiveData.postValue(it)
+                }
+            }
+        }
+        return getSerieImagesLiveData
     }
 
     //Guardar película al cambio de pantalla

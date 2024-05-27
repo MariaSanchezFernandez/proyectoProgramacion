@@ -1,4 +1,4 @@
-package com.example.proyectomovie_api.watchlist
+package com.example.proyectomovie_api.data.watchlist
 
 data class addWatchListBody(
     val media_type: String,
