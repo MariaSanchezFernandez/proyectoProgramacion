@@ -22,6 +22,7 @@ class MyViewModel: ViewModel() {
     private val listaTVShows = MutableLiveData<ArrayList<TVShow>>()
     private val requestToken = MutableLiveData<String>()
     private val sessionID = MutableLiveData<String>()
+    private val accountID = MutableLiveData<Int>()
 
 
     fun getAuthToken() : MutableLiveData<String>{
@@ -89,6 +90,8 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
+    //Da un objeto Response con los detalles de la cuenta
+
     fun getAccountDetails(sessionID: String): MutableLiveData<AccountDetailsResponse>{
         val liveData = MutableLiveData<AccountDetailsResponse>()
 
@@ -102,6 +105,25 @@ class MyViewModel: ViewModel() {
             }
         }
         return liveData
+    }
+
+    // Devuelve la ID de la cuenta
+    fun getAccountID(sessionID: String): MutableLiveData<Int>{
+
+        viewModelScope.launch {
+            val response = repositorio.getAccountDetails(sessionID)
+
+            if (response.code() == 200){
+                response.body()?.id.let {
+                    accountID.postValue(it)
+                }
+            }
+        }
+        return accountID
+    }
+
+    fun setAccountId(id:Int){
+        accountID.value=id
     }
 
 }
