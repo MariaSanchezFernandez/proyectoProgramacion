@@ -1,6 +1,7 @@
 package com.example.proyectomovie_api.data.retrofit
 
 import com.example.proyectomovie_api.data.account.AccountDetailsResponse
+import com.example.proyectomovie_api.data.buscador.BuscadorMultiResponse
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
@@ -305,6 +306,11 @@ interface MyService {
     ):Response<TVResponse>
 
 
+    //Buscador Multi
+    @GET("search/multi")
+    suspend fun searchMulti(
+        @Query("string") buscador : String
+    ):Response<BuscadorMultiResponse>
 
 
 

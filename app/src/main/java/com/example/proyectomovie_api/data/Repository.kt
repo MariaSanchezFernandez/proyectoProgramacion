@@ -53,4 +53,9 @@ class Repository {
     suspend fun topRatedTVShows(apiKey: String) = RetrofitHelper.retrofitService.topRatedTVShows(apiKey, "ES")
 
     suspend fun topRatedMovies(apiKey: String) = RetrofitHelper.retrofitService.topRatedMovies(apiKey, "ES")
+
+
+
+    //Funcion para buscador
+    suspend fun searchMulti(buscador: String) = RetrofitHelper.retrofitService.searchMulti(buscador)
 }
