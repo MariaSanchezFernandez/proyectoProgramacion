@@ -171,7 +171,7 @@ class MyViewModel: ViewModel() {
         viewModelScope.launch {
             val respuesta = acountId.value?.let { repositorio.getFavoriteMovies(it) }
             if (respuesta?.code() == 200){
-                var listaMoviesFav = respuesta?.body()
+                val listaMoviesFav = respuesta?.body()
                 listaMoviesFav?.let {
                     listaFavMovies.postValue(it.results)
                 }
@@ -184,7 +184,7 @@ class MyViewModel: ViewModel() {
         viewModelScope.launch {
             val respuesta = acountId.value?.let { repositorio.getFavoriteTVShows(it) }
             if (respuesta?.code() == 200){
-                var listaTVshowFav = respuesta?.body()
+                val listaTVshowFav = respuesta?.body()
                 listaTVshowFav?.let {
                     listaFavSeries.postValue(it.results)
                 }
@@ -193,4 +193,3 @@ class MyViewModel: ViewModel() {
         return listaFavSeries
     }
 }
-
