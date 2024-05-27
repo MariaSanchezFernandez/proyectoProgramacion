@@ -19,13 +19,13 @@ class Repository {
 
     suspend fun getTVShowProviders(tvID:Int) = RetrofitHelper.retrofitService.getTVShowProvider(tvID)
 
-    suspend fun getFavoriteMovies(accountID:Int ) = RetrofitHelper.retrofitService.getFavMovies( accountID)
+    suspend fun getFavoriteMovies(accountID:Int ) = RetrofitHelper.retrofitService.getFavMovies(accountID)
 
     suspend fun getFavoriteTVShows(accountID: Int) = RetrofitHelper.retrofitService.getFavTVShows(accountID)
 
-    suspend fun getPopularMovies(region:String = "ES")  = RetrofitHelper.retrofitService.popularMovies( region)
+   // suspend fun getPopularMovies(region:String = "ES")  = RetrofitHelper.retrofitService.popularMovies(region)
 
-    suspend fun getPopularTVShows(region:String = "ES") = RetrofitHelper.retrofitService.popularTVShows( region)
+   // suspend fun getPopularTVShows(region:String = "ES") = RetrofitHelper.retrofitService.popularTVShows(region)
 
     suspend fun getTopRatedMovies(region:String = "ES") = RetrofitHelper.retrofitService.topRatedMovies( region)
 

@@ -82,7 +82,7 @@ class Peliculas : Fragment() {
             binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
         }
 
-        viewModel.topRatedMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){
+        viewModel.getPopularMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){
 
             val arrayListFavoritos = arrayListOf(
                 (it[0].poster_path),

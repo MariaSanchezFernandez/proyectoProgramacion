@@ -25,13 +25,15 @@ class MyViewModel: ViewModel() {
     private val listaMovieRated = MutableLiveData<List<Movie>>()
     private val listaTVShowRated = MutableLiveData<List<TVShow>>()
     private val listaPeliculasPopularesLiveData1 = MutableLiveData<MovieResponse>()
-
     private val requestToken = MutableLiveData<String>()
     private val sessionID = MutableLiveData<String>()
+    private val listaFavMovies = MutableLiveData<List<Movie>>()
+    private val listaFavSeries = MutableLiveData<List<TVShow>>()
+
 
     //Obtener las peliculas más populares
 
-    fun getPopularMovies(apiKey: String) : MutableLiveData<List<Movie>> {
+    fun getPopularMovies(apiKey: String): MutableLiveData<List<Movie>> {
         viewModelScope.launch {
             val respuesta = repositorio.getPopularMovies(apiKey)
             if (respuesta.code() == 200) {
@@ -42,13 +44,13 @@ class MyViewModel: ViewModel() {
             }
         }
         return listaMoviesPopuales
-
-      fun getAuthToken() : MutableLiveData<String>{
+    }
+    fun getAuthToken(): MutableLiveData<String> {
 
         viewModelScope.launch {
             val response = repositorio.getAuthToken()
 
-            if (response.code() == 200){
+            if (response.code() == 200) {
                 response.body()?.request_token?.let {
                     requestToken.postValue(it)
                 }
@@ -57,13 +59,13 @@ class MyViewModel: ViewModel() {
         return requestToken
     }
 
-    fun createSessionLogin(body:BodyLogin) : MutableLiveData<RequestTokenResponse>{
+    fun createSessionLogin(body: BodyLogin): MutableLiveData<RequestTokenResponse> {
         val liveData = MutableLiveData<RequestTokenResponse>()
 
         viewModelScope.launch {
             val response = repositorio.createSessionLogin(body)
 
-            if (response.body()?.success == true){
+            if (response.body()?.success == true) {
                 response.body()?.let {
                     liveData.postValue(it)
                 }
@@ -74,17 +76,17 @@ class MyViewModel: ViewModel() {
 
     fun getSessionID() = sessionID
 
-    fun setSessionID(id:String){
+    fun setSessionID(id: String) {
         sessionID.value = id
     }
 
-    fun createGuestSession() : MutableLiveData<CreateGuestSessionResponse>{
+    fun createGuestSession(): MutableLiveData<CreateGuestSessionResponse> {
         val liveData = MutableLiveData<CreateGuestSessionResponse>()
 
         viewModelScope.launch {
-            val response = repositorio.createGuestSession ()
+            val response = repositorio.createGuestSession()
 
-            if (response.code() == 200){
+            if (response.code() == 200) {
                 response.body()?.let {
                     liveData.postValue(it)
                 }
@@ -93,13 +95,13 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
-    fun createSession(bodySessionID: BodySessionID): MutableLiveData<CreateSessionResponse>{
+    fun createSession(bodySessionID: BodySessionID): MutableLiveData<CreateSessionResponse> {
         val liveData = MutableLiveData<CreateSessionResponse>()
 
         viewModelScope.launch {
             val response = repositorio.createSession(bodySessionID)
 
-            if (response.code() == 200){
+            if (response.code() == 200) {
                 response.body()?.let {
                     liveData.postValue(it)
                 }
@@ -108,13 +110,13 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
-    fun getAccountDetails(sessionID: String): MutableLiveData<AccountDetailsResponse>{
+    fun getAccountDetails(sessionID: String): MutableLiveData<AccountDetailsResponse> {
         val liveData = MutableLiveData<AccountDetailsResponse>()
 
         viewModelScope.launch {
             val response = repositorio.getAccountDetails(sessionID)
 
-            if (response.code() == 200){
+            if (response.code() == 200) {
                 response.body()?.let {
                     liveData.postValue(it)
                 }
@@ -123,7 +125,7 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
-    fun getPopularTVShow(apiKey: String) : MutableLiveData<List<TVShow>> {
+    fun getPopularTVShow(apiKey: String): MutableLiveData<List<TVShow>> {
         viewModelScope.launch {
             val respuesta = repositorio.getPopularTVShows(apiKey)
             if (respuesta.code() == 200) {
@@ -136,7 +138,7 @@ class MyViewModel: ViewModel() {
         return listaTVShowsPopulares
     }
 
-    fun topRatedMovies(apiKey: String) : MutableLiveData<List<Movie>> {
+    fun topRatedMovies(apiKey: String): MutableLiveData<List<Movie>> {
         viewModelScope.launch {
             val respuesta = repositorio.topRatedMovies(apiKey)
             if (respuesta.code() == 200) {
@@ -149,7 +151,7 @@ class MyViewModel: ViewModel() {
         return listaMovieRated
     }
 
-    fun topRatedTVShow(apiKey: String) : MutableLiveData<List<TVShow>> {
+    fun topRatedTVShow(apiKey: String): MutableLiveData<List<TVShow>> {
         viewModelScope.launch {
             val respuesta = repositorio.topRatedTVShows(apiKey)
             if (respuesta.code() == 200) {
@@ -161,4 +163,32 @@ class MyViewModel: ViewModel() {
         }
         return listaTVShowRated
     }
+
+
+    fun getFavoriteMovies(apiKey: String): MutableLiveData<List<Movie>>{
+        viewModelScope.launch {
+            val respuesta = repositorio.getFavoriteMovies()
+            if (respuesta.code() == 200){
+                var listaMoviesFav = respuesta.body()
+                listaMoviesFav?.let {
+                    listaFavMovies.postValue(it.results)
+                }
+            }
+        }
+        return listaFavMovies
+    }
+
+    fun getFavoriteTVShows(apiKey: String): MutableLiveData<List<TVShow>>{
+        viewModelScope.launch {
+            val respuesta = repositorio.getFavoriteTVShows()
+            if (respuesta.code() == 200){
+                var listaTVshowFav = respuesta.body()
+                listaTVshowFav?.let {
+                    listaFavSeries.postValue(it.results)
+                }
+            }
+        }
+        return listaFavSeries
+    }
 }
+
