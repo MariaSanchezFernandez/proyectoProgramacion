@@ -165,30 +165,30 @@ class MyViewModel: ViewModel() {
     }
 
 
-    fun getFavoriteMovies(apiKey: String): MutableLiveData<List<Movie>>{
-        viewModelScope.launch {
-            val respuesta = repositorio.getFavoriteMovies()
-            if (respuesta.code() == 200){
-                var listaMoviesFav = respuesta.body()
-                listaMoviesFav?.let {
-                    listaFavMovies.postValue(it.results)
-                }
-            }
-        }
-        return listaFavMovies
-    }
+//    fun getFavoriteMovies(apiKey: String): MutableLiveData<List<Movie>>{
+//        viewModelScope.launch {
+//            val respuesta = repositorio.getFavoriteMovies()
+//            if (respuesta.code() == 200){
+//                var listaMoviesFav = respuesta.body()
+//                listaMoviesFav?.let {
+//                    listaFavMovies.postValue(it.results)
+//                }
+//            }
+//        }
+//        return listaFavMovies
+//    }
 
-    fun getFavoriteTVShows(apiKey: String): MutableLiveData<List<TVShow>>{
-        viewModelScope.launch {
-            val respuesta = repositorio.getFavoriteTVShows()
-            if (respuesta.code() == 200){
-                var listaTVshowFav = respuesta.body()
-                listaTVshowFav?.let {
-                    listaFavSeries.postValue(it.results)
-                }
-            }
-        }
-        return listaFavSeries
-    }
+//    fun getFavoriteTVShows(apiKey: String): MutableLiveData<List<TVShow>>{
+//        viewModelScope.launch {
+//            val respuesta = repositorio.getFavoriteTVShows()
+//            if (respuesta.code() == 200){
+//                var listaTVshowFav = respuesta.body()
+//                listaTVshowFav?.let {
+//                    listaFavSeries.postValue(it.results)
+//                }
+//            }
+//        }
+//        return listaFavSeries
+//    }
 }
 
