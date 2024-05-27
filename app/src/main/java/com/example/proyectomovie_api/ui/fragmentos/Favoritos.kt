@@ -5,13 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.databinding.FragmentFavoritosBinding
+import com.example.proyectomovie_api.ui.view.MyViewModel
 
 class Favoritos : Fragment() {
 
     private var _binding: FragmentFavoritosBinding? = null
     private val binding get() = _binding!!
+    private val myViewModel by activityViewModels<MyViewModel>()
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +27,11 @@ class Favoritos : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //poster_path
+
+
+
 
     }
 

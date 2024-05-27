@@ -32,7 +32,6 @@ class AdapterFav(
 
     override fun onBindViewHolder(holder: FavoritoHolder, position: Int) {
         val favorito = lista[position]
-        //holder.binding.imgPortada = favorito.poster_path
         Glide.with(holder.itemView.context)
             .load(favorito.poster_path)
             .into(holder.binding.imgPortada)
