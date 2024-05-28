@@ -87,12 +87,16 @@ interface MyService {
     ):Response<CreateGuestSessionResponse>
 
 
+    // -------------------------------------------------------------------------------------------------
+
     /*
     * ------------------ PETICIONES PARA LA PÁGINA DE CUENTA ----------------
      */
 
 
     // Account Details
+
+    // de esta request se puede sacar la ID de la cuenta, que se usa a su vez para hacer ciertas llamadas a la api
     @Headers(
         "accept: application/json",
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzkxMTg2YTU2OTA4YjYyNWYzMTYxZTllYjAxY2I1ZCIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.u_BACdgwUbPA0HU_WGGAiJ_hCxTz9-l2VHYxexXVdbA"
@@ -102,6 +106,8 @@ interface MyService {
         @Query("session_id") sessionID:String
     ):Response<AccountDetailsResponse>
 
+
+    // ----------------------------
 
 
 
@@ -236,23 +242,6 @@ interface MyService {
     ):Response<TVResponse>
 
 
-
-
-
-    // Películas favoritas del usuario
-    @GET("account/{account_id}/favorite/movies")
-    suspend fun getFavMovies(
-        @Query("api_key") apiKey:String,
-        @Path("account_id") userID: Int
-    ): Response<MovieResponse>
-
-
-    //TVShows favoritos del usuario
-    @GET("account/{account_id}/favorite/tv")
-    suspend fun getFavTVShows(
-        @Query("api_key") apiKey:String,
-        @Path("account_id") userID: Int
-    ): Response<TVResponse>
 
     // Películas más populares
     @GET("movie/popular")

@@ -1,6 +1,5 @@
 package com.example.proyectomovie_api.ui.view
 
-import android.graphics.Region
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,6 +31,7 @@ class MyViewModel: ViewModel() {
     //Id del acountId de Salva -> 548
     // Esto al juntarse con el resto del código tiene que cambiarse para que esté bien
     private val acountId = MutableLiveData<Int>(548)
+    private val accountID = MutableLiveData<Int>()
 
 
     //Obtener las peliculas más populares
@@ -48,6 +48,7 @@ class MyViewModel: ViewModel() {
         }
         return listaMoviesPopuales
     }
+
     fun getAuthToken(): MutableLiveData<String> {
 
         viewModelScope.launch {
@@ -113,83 +114,104 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
-    fun getAccountDetails(sessionID: String): MutableLiveData<AccountDetailsResponse> {
-        val liveData = MutableLiveData<AccountDetailsResponse>()
+    //Da un objeto Response con los detalles de la cuenta
+        fun getAccountDetails(sessionID: String): MutableLiveData<AccountDetailsResponse> {
+            val liveData = MutableLiveData<AccountDetailsResponse>()
 
-        viewModelScope.launch {
-            val response = repositorio.getAccountDetails(sessionID)
+            viewModelScope.launch {
+                val response = repositorio.getAccountDetails(sessionID)
 
-            if (response.code() == 200) {
-                response.body()?.let {
-                    liveData.postValue(it)
+                if (response.code() == 200) {
+                    response.body()?.let {
+                        liveData.postValue(it)
+                    }
                 }
             }
+            return liveData
         }
-        return liveData
-    }
 
-    fun getPopularTVShow(apiKey: String): MutableLiveData<List<TVShow>> {
-        viewModelScope.launch {
-            val respuesta = repositorio.getPopularTVShows(apiKey)
-            if (respuesta.code() == 200) {
-                var listaSeriesPopulares = respuesta.body()
-                listaSeriesPopulares?.let {
-                    listaTVShowsPopulares.postValue(it.results)
+        fun getPopularTVShow(apiKey: String): MutableLiveData<List<TVShow>> {
+            viewModelScope.launch {
+                val respuesta = repositorio.getPopularTVShows(apiKey)
+                if (respuesta.code() == 200) {
+                    var listaSeriesPopulares = respuesta.body()
+                    listaSeriesPopulares?.let {
+                        listaTVShowsPopulares.postValue(it.results)
+                    }
                 }
             }
+            return listaTVShowsPopulares
         }
-        return listaTVShowsPopulares
-    }
 
-    fun topRatedMovies(apiKey: String): MutableLiveData<List<Movie>> {
-        viewModelScope.launch {
-            val respuesta = repositorio.topRatedMovies(apiKey)
-            if (respuesta.code() == 200) {
-                var listaPeliculasRated = respuesta.body()
-                listaPeliculasRated?.let {
-                    listaMovieRated.postValue(it.results)
+        fun topRatedMovies(apiKey: String): MutableLiveData<List<Movie>> {
+            viewModelScope.launch {
+                val respuesta = repositorio.topRatedMovies(apiKey)
+                if (respuesta.code() == 200) {
+                    var listaPeliculasRated = respuesta.body()
+                    listaPeliculasRated?.let {
+                        listaMovieRated.postValue(it.results)
+                    }
                 }
             }
+            return listaMovieRated
         }
-        return listaMovieRated
-    }
 
-    fun topRatedTVShow(apiKey: String): MutableLiveData<List<TVShow>> {
-        viewModelScope.launch {
-            val respuesta = repositorio.topRatedTVShows(apiKey)
-            if (respuesta.code() == 200) {
-                var listaSeriesRated = respuesta.body()
-                listaSeriesRated?.let {
-                    listaTVShowRated.postValue(it.results)
+        fun topRatedTVShow(apiKey: String): MutableLiveData<List<TVShow>> {
+            viewModelScope.launch {
+                val respuesta = repositorio.topRatedTVShows(apiKey)
+                if (respuesta.code() == 200) {
+                    var listaSeriesRated = respuesta.body()
+                    listaSeriesRated?.let {
+                        listaTVShowRated.postValue(it.results)
+                    }
                 }
             }
+            return listaTVShowRated
         }
-        return listaTVShowRated
-    }
 
-    fun getFavoriteMovies(apiKey: String): MutableLiveData<List<Movie>>{
-        viewModelScope.launch {
-            val respuesta = acountId.value?.let { repositorio.getFavoriteMovies(it) }
-            if (respuesta?.code() == 200){
-                val listaMoviesFav = respuesta?.body()
-                listaMoviesFav?.let {
-                    listaFavMovies.postValue(it.results)
+        fun getFavoriteMovies(acountId: Int): MutableLiveData<List<Movie>> {
+            viewModelScope.launch {
+                val respuesta = repositorio.getFavoriteMovies(acountId)
+                if (respuesta?.code() == 200) {
+                    val listaMoviesFav = respuesta?.body()
+                    listaMoviesFav?.let {
+                        listaFavMovies.postValue(it.results)
+                    }
                 }
             }
+            return listaFavMovies
         }
-        return listaFavMovies
-    }
 
-    fun getFavoriteTVShows(apiKey: String): MutableLiveData<List<TVShow>>{
-        viewModelScope.launch {
-            val respuesta = acountId.value?.let { repositorio.getFavoriteTVShows(it) }
-            if (respuesta?.code() == 200){
-                val listaTVshowFav = respuesta?.body()
-                listaTVshowFav?.let {
-                    listaFavSeries.postValue(it.results)
+        fun getFavoriteTVShows(acountId: Int): MutableLiveData<List<TVShow>> {
+            viewModelScope.launch {
+                val respuesta = repositorio.getFavoriteTVShows(acountId)
+                if (respuesta?.code() == 200) {
+                    val listaTVshowFav = respuesta?.body()
+                    listaTVshowFav?.let {
+                        listaFavSeries.postValue(it.results)
+                    }
                 }
             }
+            return listaFavSeries
         }
-        return listaFavSeries
+
+        // Devuelve la ID de la cuenta
+        fun getAccountID(sessionID: String): MutableLiveData<Int> {
+
+            viewModelScope.launch {
+                val response = repositorio.getAccountDetails(sessionID)
+
+                if (response.code() == 200) {
+                    response.body()?.id.let {
+                        accountID.postValue(it)
+                    }
+                }
+            }
+            return accountID
+        }
+
+        fun setAccountId(id: Int) {
+            accountID.value = id
+        }
+
     }
-}

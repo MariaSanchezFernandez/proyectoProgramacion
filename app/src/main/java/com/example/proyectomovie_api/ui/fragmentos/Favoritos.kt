@@ -28,11 +28,13 @@ class Favoritos : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //poster_path
+        val sesionId = myViewModel.getSessionID()
 
+        val acountId = myViewModel.getAccountID(sesionId.toString())
 
+        acountId.value?.let { myViewModel.getFavoriteMovies(it) }?.observe(viewLifecycleOwner){
 
-
+        }
     }
 
 }
