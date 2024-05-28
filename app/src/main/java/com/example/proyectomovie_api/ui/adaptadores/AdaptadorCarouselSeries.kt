@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovie_api.databinding.MiListaPeliculasHolderBinding
 
 class AdaptadorCarouselSeries (val listado: ArrayList<String>) : RecyclerView.Adapter<AdaptadorCarouselSeries.vistaCelda>() {
+
+    //Este adaptador hace que funcione el carusel orincipal de series
+
     inner class vistaCelda(val binding: MiListaPeliculasHolderBinding ) : RecyclerView.ViewHolder(binding.root){
 
     }
