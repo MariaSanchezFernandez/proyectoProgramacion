@@ -1,5 +1,11 @@
 package com.example.proyectomovie_api.data.retrofit
 
+//import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
+//import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
+//import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
+import com.example.proyectomovie_api.data.images.ImageResponse
+import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import com.example.proyectomovie_api.data.account.AccountDetailsResponse
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
@@ -11,6 +17,7 @@ import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.people.PeopleResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
+import com.example.proyectomovie_api.data.watchlist.WatchListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -305,7 +312,50 @@ interface MyService {
     ):Response<TVResponse>
 
 
+    // Obtiene la lista de proveedores por país donde la serie está disponible
+    @GET("tv/{serie_id}/watch/providers")
+    suspend fun getSerieWatchProvider(
+        @Query("api_key") apiKey:String,
+        @Path("serie_id") movieId: Int
+    ):Response<TVSerieResponse>
+
+    // Obtiene la lista de proveedores por país donde la película está disponible
+    @GET("movie/{movie_id}/watch/providers")
+    suspend fun getMovieWatchProvider(
+        @Query("api_key") apiKey: String,
+        @Path("movie_id") movieId: Int
+    ):Response<MovieProviderResponse>
 
 
+    // Añadir contenido a tu watchlist pasándole un objeto de tipo addWatchListBody como body y la id del usuario por URL (Path)
+    @Headers("Content-Type: application/json")
+    @POST("account/{account_id}/watchlist")
+    suspend fun addToWatchList(
+        @Query("api_key") apiKey: String,
+        @Path("accoun_id") accountId : Int,
+        @Body data : addWatchListBody
+    ) : Response<WatchListResponse>
+
+    // Añadir contenido a tus favoritos pasándole un objeto de tipo addFavoriteBody como body y la id del usuario por URL (Path)
+    @Headers("Content-Type: application/json")
+    @POST("account/{account_id}/favorite")
+    suspend fun addToFavorite(
+        @Query("api_key") apiKey: String,
+        @Path("accoun_id") accountId : Int,
+        @Body data : addFavoriteBody
+    ) : Response<WatchListResponse>
+
+    //Ambas funciones obtiene fotos del contenido deseando, se debe enviar una ID
+    @GET("movie/{movie_id}/images")
+    suspend fun getMovieImages(
+        @Query("api_key") apiKey: String,
+        @Path("movie_id") movieId : Int
+    ) : Response<ImageResponse>
+
+    @GET("tv/{serie_id}/images")
+    suspend fun getSerieImages(
+        @Query("api_key") apiKey: String,
+        @Path("movie_id") movieId : Int
+    ) : Response<ImageResponse>
 
 }

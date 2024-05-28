@@ -1,9 +1,11 @@
 package com.example.proyectomovie_api.data
 
 import android.graphics.Region
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.retrofit.RetrofitHelper
+import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 
 class Repository {
 
@@ -33,6 +35,12 @@ class Repository {
 
     suspend fun getTrendingMovies(timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingMovies(timeWindow)
 
+    suspend fun getMovieWatchProvider(apiKey: String, movieId:Int) = RetrofitHelper.retrofitService.getMovieWatchProvider(apiKey, movieId)
+    suspend fun getSerieWatchProvider(apiKey: String, serieId:Int) = RetrofitHelper.retrofitService.getSerieWatchProvider(apiKey, serieId)
+    suspend fun addToWatchList(apiKey: String, accountId: Int, data : addWatchListBody) = RetrofitHelper.retrofitService.addToWatchList(apiKey,accountId,data)
+    suspend fun addToFavorite(apiKey: String, accountId: Int, data : addFavoriteBody) = RetrofitHelper.retrofitService.addToFavorite(apiKey,accountId,data)
+    suspend fun getSerieImages(apiKey: String, serieId: Int) = RetrofitHelper.retrofitService.getSerieImages(apiKey, serieId)
+    suspend fun getMovieimages(apiKey: String, movieId: Int) = RetrofitHelper.retrofitService.getMovieImages(apiKey, movieId)
     suspend fun getTrendingTVShows(timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingTVShows(timeWindow)
 
     suspend fun getTrendingPeople(timeWindow: String = "day") = RetrofitHelper.retrofitService.trendingPeople( timeWindow)

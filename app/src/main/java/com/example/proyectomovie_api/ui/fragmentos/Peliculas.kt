@@ -139,7 +139,6 @@ class Peliculas : Fragment() {
             Glide.with(requireActivity()).load(baseUrl + it[randomIndices[3]].poster_path).into(binding.imRatedPelicula4)
 
             val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
-
             binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
         }
