@@ -107,8 +107,8 @@ class Series : Fragment() {
                 (it[1].poster_path),
                 (it[2].poster_path),
                 (it[3].poster_path),
-            )
 
+            )
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)

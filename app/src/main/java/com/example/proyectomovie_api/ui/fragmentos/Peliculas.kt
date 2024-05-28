@@ -86,8 +86,6 @@ class Peliculas : Fragment() {
             "https://image.tmdb.org/t/p/original/3E9BIEHkOmkMEBddp6JMPNxwfR6.jpg",
             "https://image.tmdb.org/t/p/original/vNaCGEBjGlEMPPhmJCLVeOdUtXc.jpg",
             "https://image.tmdb.org/t/p/original/ii8IKYeVLDxz3449sbTglCLtKjb.jpg"
-
-
         )
 
         // Seleccionar un subconjunto aleatorio de 6 URLs de imágenes
