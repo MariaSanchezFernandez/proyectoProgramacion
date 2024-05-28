@@ -61,6 +61,13 @@ class InformacionPeliculas : Fragment() {
                 val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
                 snackbar.show()
             }
+            val imageList = listaURLs.map { ImagenCarousel(UUID.randomUUID().toString(), it) }
+
+            val imageAdapter = ImagenCarouselAdaptador()
+            binding.recyclerViewDetallesPelicula.layoutManager = CarouselLayoutManager(HeroCarouselStrategy())
+            binding.recyclerViewDetallesPelicula.adapter = imageAdapter
+            imageAdapter.submitList(imageList)
+
         }
     }
 

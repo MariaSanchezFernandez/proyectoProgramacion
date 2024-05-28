@@ -59,6 +59,7 @@ class InformacionSeries : Fragment() {
                 val snackbar = Snackbar.make(binding.root, "Serie añadida a tus favoritos", Snackbar.LENGTH_SHORT)
                 snackbar.show()
             }
+            //recyclerViewDetallesSerie
         }
     }
 
