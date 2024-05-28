@@ -186,7 +186,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@drawable/component_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

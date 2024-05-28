@@ -168,36 +168,36 @@ class MyViewModel: ViewModel() {
     }
 
 
-    fun getFavoriteMovies(apiKey: String): MutableLiveData<List<Movie>>{
-        viewModelScope.launch {
-            val respuesta = repositorio.getFavoriteMovies()
-            if (respuesta.code() == 200){
-                val listaMoviesFav = respuesta.body()
-                listaMoviesFav?.let {
-                    listaFavMovies.postValue(it.results)
-                }
-            }
-        }
-        return listaFavMovies
-    }
-
-    fun getFavoriteTVShows(apiKey: String): MutableLiveData<List<TVShow>>{
-        viewModelScope.launch {
-            val respuesta = repositorio.getFavoriteTVShows()
-            if (respuesta.code() == 200){
-                val listaTVshowFav = respuesta.body()
-                listaTVshowFav?.let {
-                    listaFavSeries.postValue(it.results)
-                }
-            }
-        }
-        return listaFavSeries
-    }
+//    fun getFavoriteMovies(apiKey: String): MutableLiveData<List<Movie>>{
+//        viewModelScope.launch {
+//            val respuesta = repositorio.getFavoriteMovies()
+//            if (respuesta.code() == 200){
+//                val listaMoviesFav = respuesta.body()
+//                listaMoviesFav?.let {
+//                    listaFavMovies.postValue(it.results)
+//                }
+//            }
+//        }
+//        return listaFavMovies
+//    }
+//
+//    fun getFavoriteTVShows(apiKey: String): MutableLiveData<List<TVShow>>{
+//        viewModelScope.launch {
+//            val respuesta = repositorio.getFavoriteTVShows()
+//            if (respuesta.code() == 200){
+//                val listaTVshowFav = respuesta.body()
+//                listaTVshowFav?.let {
+//                    listaFavSeries.postValue(it.results)
+//                }
+//            }
+//        }
+//        return listaFavSeries
+//    }
 
 
     fun getInfoMovie(timeWindow:String = "day") : MutableLiveData<List<Movie>>{
         viewModelScope.launch {
-            val respuesta = repositorio.getTrendingMovies()
+            val respuesta = repositorio.getTrendingMovies(timeWindow)
             if (respuesta.code() == 200){
                 val movieTrending = respuesta.body()
                 movieTrending?.let {

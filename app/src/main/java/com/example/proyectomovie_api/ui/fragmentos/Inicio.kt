@@ -34,18 +34,15 @@ class Inicio : Fragment() {
         (requireActivity() as MainActivity).supportActionBar?.title = "Inicio"
 
 
-        myViewModel.getInfoMovie().observe(viewLifecycleOwner){pelis ->
+        myViewModel.getInfoMovie().observe(viewLifecycleOwner){
 
-            binding.tTituloDia.text = pelis.
-            binding.tFechaDia.text = pelis.release_date
-            Glide.with(this).load(pelis.poster_path).into(binding.ivCarteleraDia)
+            val topMovie = it[0]
+
+            binding.tTituloDia.text = topMovie.title
         }
 
         myViewModel.getInfoPeople().observe(viewLifecycleOwner){people ->
 
-            binding.tvNameActor.text = people.name
-            binding.tvParticipated.text = people.known_for_department
-            Glide.with(this).load(people.profile_path).into(binding.ivActor)
         }
     }
 

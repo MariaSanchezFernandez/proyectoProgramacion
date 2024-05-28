@@ -283,28 +283,6 @@ interface MyService {
         @Query("region") region:String
     ):Response<TVResponse>
 
-    // Personas Trending del día o semana
-//    @GET("trending/person/{time_window}")
-//    suspend fun trendingPeople(
-//        @Query("api_key") apiKey:String,
-//        @Path("time_window") timeWindow:String
-//    ):Response<PeopleResponse>
-
-    // Peliculas Trending del día o semana
-    @GET("trending/movie/{time_window}")
-    suspend fun trendingMovies(
-        @Query("api_key") apiKey:String,
-        @Path("time_window") timeWindow:String
-    ):Response<MovieResponse>
-
-
-    // TVShows Trending del día o semana
-    @GET("trending/tv/{time_window}")
-    suspend fun trendingTVShows(
-        @Query("api_key") apiKey:String,
-        @Path("time_window") timeWindow:String
-    ):Response<TVResponse>
-
 
     //Buscador Multi
     @GET("search/multi")
