@@ -8,6 +8,8 @@ import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.databinding.MiListaPeliculasHolderBinding
 
 class AdaptadorCarouselPeliculas (val listado: ArrayList<String>) : RecyclerView.Adapter<AdaptadorCarouselPeliculas.vistaCelda>() {
+
+    //Este adaptador hace que funcione el carusel orincipal de peliculas
     inner class vistaCelda(val binding: MiListaPeliculasHolderBinding ) : RecyclerView.ViewHolder(binding.root){
 
     }
