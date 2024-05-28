@@ -6,9 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.data.movie.Movie
+import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.FragmentFavoritosBinding
+import com.example.proyectomovie_api.ui.adapters.AdapterFav
+import com.example.proyectomovie_api.ui.adapters.AdapterFavTvShows
 import com.example.proyectomovie_api.ui.view.MyViewModel
 
 class Favoritos : Fragment() {
@@ -33,8 +38,37 @@ class Favoritos : Fragment() {
         val acountId = myViewModel.getAccountID(sesionId.toString())
 
         acountId.value?.let { myViewModel.getFavoriteMovies(it) }?.observe(viewLifecycleOwner){
-
+            configRecyclerMovies(it)
         }
+
+        acountId.value?.let { myViewModel.getFavoriteTVShows(it) }?.observe(viewLifecycleOwner){
+            configRecyclerTvShows(it)
+        }
+
+    }
+
+    private fun configRecyclerMovies(listaPeliculas: List<Movie>) {
+        val recyclerView = binding.rvPelis
+        val adapter = AdapterFav(listaPeliculas, object : AdapterFav.FavClick{
+            override fun onFavClick(movie: Movie) {
+                findNavController().navigate(R.id./*Tiene que ir a la pestaña de detalles de la peli*/)
+            }
+        })
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun configRecyclerTvShows(listaTVShow: List<TVShow>) {
+        val recyclerView = binding.rvSeries
+        val adapter = AdapterFavTvShows(listaTVShow, object : AdapterFavTvShows.FavClick{
+            override fun onFavClick(movie: Movie) {
+                findNavController().navigate(R.id./*Tiene que ir a la pestaña de detalles de la serie*/)
+            }
+        })
+        val layoutManager = StaggeredGridLayoutManager(1,, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
     }
 
 }

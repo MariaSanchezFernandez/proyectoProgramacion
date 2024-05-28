@@ -9,8 +9,8 @@ import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.databinding.HolderCarteleraFavBinding
 
 class AdapterFav(
-    private val context: Context,
-    private val listener: FavClick
+    val lista: List<Movie>,
+    val listener: FavClick
 ) : RecyclerView.Adapter<AdapterFav.FavoritoHolder>() {
 
     private var _binding: HolderCarteleraFavBinding? = null
@@ -19,8 +19,6 @@ class AdapterFav(
     fun interface FavClick {
         fun onFavClick(movie: Movie)
     }
-
-    var lista = ArrayList<Movie>()
 
     inner class FavoritoHolder(val binding: HolderCarteleraFavBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -45,10 +43,12 @@ class AdapterFav(
         return lista.size
     }
 
+    /*
     fun updateMovieList(arrayList: List<Movie>) {
         lista.clear()
         lista.addAll(arrayList)
         notifyDataSetChanged()
     }
+    */
 
 }

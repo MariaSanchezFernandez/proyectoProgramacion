@@ -10,8 +10,8 @@ import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.HolderCarteleraFavBinding
 
 class AdapterFavTvShows(
-    private val context: Context,
-    private val listener: FavClick
+    val lista: List<TVShow>,
+    val listener: FavClick
 ) : RecyclerView.Adapter<AdapterFavTvShows.FavoritoHolder>() {
 
     private var _binding: HolderCarteleraFavBinding? = null
@@ -20,8 +20,6 @@ class AdapterFavTvShows(
     fun interface FavClick {
         fun onFavClick(movie: Movie)
     }
-
-    var lista = ArrayList<TVShow>()
 
     inner class FavoritoHolder(val binding: HolderCarteleraFavBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -46,10 +44,12 @@ class AdapterFavTvShows(
         return lista.size
     }
 
+    /*
     fun updateMovieList(arrayList: List<TVShow>) {
         lista.clear()
         lista.addAll(arrayList)
         notifyDataSetChanged()
     }
+    */
 
 }
