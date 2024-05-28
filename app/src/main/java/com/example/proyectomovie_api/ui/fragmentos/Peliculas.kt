@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
@@ -97,46 +99,65 @@ class Peliculas : Fragment() {
         binding.RecyclerViewCarouselPeliculas.adapter = imageAdapter
         imageAdapter.submitList(imageList)
 
-        viewModel.getPopularMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){
-            val arrayListFavoritos = arrayListOf(
-                (it[0].poster_path),
-                (it[1].poster_path),
-                (it[2].poster_path),
-                (it[3].poster_path),
-            )
+        viewModel.getPopularMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){pelicula->
+//            val arrayListFavoritos = arrayListOf(
+//                (it[0].posterPath),
+//                (it[1].posterPath),
+//                (it[2].posterPath),
+//                (it[3].posterPath),
+//            )
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[0]].poster_path).into(binding.imPopularPelicula1)
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[1]].poster_path).into(binding.imPopularPelicula2)
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[2]].poster_path).into(binding.imPopularPelicula3)
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[3]].poster_path).into(binding.imPopularPelicula4)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[0]].posterPath).into(binding.imPopularPelicula1)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[1]].posterPath).into(binding.imPopularPelicula2)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[2]].posterPath).into(binding.imPopularPelicula3)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[3]].posterPath).into(binding.imPopularPelicula4)
 
-            val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
+            binding.imPopularPelicula1.setOnClickListener {
+                viewModel.setPelicula(pelicula[randomIndices[0]])
+                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+            }
 
+            binding.imPopularPelicula2.setOnClickListener {
+                viewModel.setPelicula(pelicula[randomIndices[1]])
+                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+            }
+
+            binding.imPopularPelicula3.setOnClickListener {
+                viewModel.setPelicula(pelicula[randomIndices[2]])
+                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+            }
+            binding.imPopularPelicula4.setOnClickListener {
+                viewModel.setPelicula(pelicula[randomIndices[3]])
+                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+            }
+
+
+            //val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
             binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
+           // binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
         }
 
         viewModel.getPopularMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){
 
             val arrayListFavoritos = arrayListOf(
-                (it[0].poster_path),
-                (it[1].poster_path),
-                (it[2].poster_path),
-                (it[3].poster_path),
+                (it[0].posterPath),
+                (it[1].posterPath),
+                (it[2].posterPath),
+                (it[3].posterPath),
             )
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[0]].poster_path).into(binding.imRatedPelicula1)
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[1]].poster_path).into(binding.imRatedPelicula2)
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[2]].poster_path).into(binding.imRatedPelicula3)
-            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[3]].poster_path).into(binding.imRatedPelicula4)
+            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[0]].posterPath).into(binding.imRatedPelicula1)
+            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[1]].posterPath).into(binding.imRatedPelicula2)
+            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[2]].posterPath).into(binding.imRatedPelicula3)
+            Glide.with(requireActivity()).load(baseUrl + it[randomIndices[3]].posterPath).into(binding.imRatedPelicula4)
 
             val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
             binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

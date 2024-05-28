@@ -346,11 +346,11 @@ interface MyService {
     ) : Response<WatchListResponse>
 
     //Ambas funciones obtiene fotos del contenido deseando, se debe enviar una ID
-    @GET("movie/{movie_id}/images")
-    suspend fun getMovieImages(
-        @Query("api_key") apiKey: String,
-        @Path("movie_id") movieId : Int
-    ) : Response<ImageResponse>
+//    @GET("movie/{movie_id}/images")
+//    suspend fun getMovieImages(
+//        @Query("api_key") apiKey: String,
+//        @Path("movie_id") movieId : Int
+//    ) : Response<ImageResponse>
 
     @GET("tv/{serie_id}/images")
     suspend fun getSerieImages(

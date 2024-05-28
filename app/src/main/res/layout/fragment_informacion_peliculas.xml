@@ -81,7 +81,7 @@
 
             <ImageView
                 android:id="@+id/ivCartelDetallesPelicula"
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:adjustViewBounds="true"
@@ -145,6 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvOriginCountryDetallesPelicula"
                 app:layout_constraintTop_toBottomOf="@+id/tvOriginCountryDetallesPelicula" />

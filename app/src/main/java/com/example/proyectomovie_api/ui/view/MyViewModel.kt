@@ -234,19 +234,19 @@ class MyViewModel: ViewModel() {
         return addFavoriteLiveData
     }
 
-    fun getMovieImages(apiKey: String, movieId: Int) : MutableLiveData<ImageResponse> {
-        val getMovieImagesLiveData = MutableLiveData<ImageResponse>()
-        viewModelScope.launch {
-            val respuesta = repositorio.getMovieimages(apiKey, movieId)
-            if(respuesta.code() == 200){
-                var addFavorite = respuesta.body()
-                addFavorite.let {
-                    getMovieImagesLiveData.postValue(it)
-                }
-            }
-        }
-        return getMovieImagesLiveData
-    }
+//    fun getMovieImages(apiKey: String, movieId: Int) : MutableLiveData<ImageResponse> {
+//        val getMovieImagesLiveData = MutableLiveData<ImageResponse>()
+//        viewModelScope.launch {
+//            val respuesta = repositorio.getMovieimages(apiKey, movieId)
+//            if(respuesta.code() == 200){
+//                var addFavorite = respuesta.body()
+//                addFavorite.let {
+//                    getMovieImagesLiveData.postValue(it)
+//                }
+//            }
+//        }
+//        return getMovieImagesLiveData
+//    }
 
     fun getSerieImages(apiKey: String, serieId: Int) : MutableLiveData<ImageResponse> {
         val getSerieImagesLiveData = MutableLiveData<ImageResponse>()

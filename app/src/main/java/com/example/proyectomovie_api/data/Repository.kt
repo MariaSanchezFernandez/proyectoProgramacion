@@ -40,7 +40,7 @@ class Repository {
     suspend fun addToWatchList(apiKey: String, accountId: Int, data : addWatchListBody) = RetrofitHelper.retrofitService.addToWatchList(apiKey,accountId,data)
     suspend fun addToFavorite(apiKey: String, accountId: Int, data : addFavoriteBody) = RetrofitHelper.retrofitService.addToFavorite(apiKey,accountId,data)
     suspend fun getSerieImages(apiKey: String, serieId: Int) = RetrofitHelper.retrofitService.getSerieImages(apiKey, serieId)
-    suspend fun getMovieimages(apiKey: String, movieId: Int) = RetrofitHelper.retrofitService.getMovieImages(apiKey, movieId)
+  //  suspend fun getMovieimages(apiKey: String, movieId: Int) = RetrofitHelper.retrofitService.getMovieImages(apiKey, movieId)
     suspend fun getTrendingTVShows(timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingTVShows(timeWindow)
 
     suspend fun getTrendingPeople(timeWindow: String = "day") = RetrofitHelper.retrofitService.trendingPeople( timeWindow)

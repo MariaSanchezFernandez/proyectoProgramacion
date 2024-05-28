@@ -39,14 +39,14 @@ class InformacionPeliculas : Fragment() {
         viewModel.getPelicula().observe(viewLifecycleOwner){ movie ->
             rellenaDatos(movie)
 
-            val respuestaImagenes = viewModel.getMovieImages("test", movie.id)
-            val sizeRespuesta = respuestaImagenes.value?.backdrops?.size
-            val listaURLs = ArrayList<String>()
-            var i = 0
-            while(i < sizeRespuesta!!){
-                respuestaImagenes.value?.backdrops?.get(i)?.let { listaURLs.add("https://image.tmdb.org/t/p/original" + it.file_path) }
-                ++i
-            }
+//            val respuestaImagenes = viewModel.getMovieImages("test", movie.id)
+//            val sizeRespuesta = respuestaImagenes.value?.backdrops?.size
+//            val listaURLs = ArrayList<String>()
+//            var i = 0
+//            while(i < sizeRespuesta!!){
+//                respuestaImagenes.value?.backdrops?.get(i)?.let { listaURLs.add("https://image.tmdb.org/t/p/original" + it.file_path) }
+//                ++i
+//            }
 
             binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
                 val data = addWatchListBody("movie", movie.id, true)
@@ -61,32 +61,35 @@ class InformacionPeliculas : Fragment() {
                 val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
                 snackbar.show()
             }
-            val imageList = listaURLs.map { ImagenCarousel(UUID.randomUUID().toString(), it) }
+            //val imageList = listaURLs.map { ImagenCarousel(UUID.randomUUID().toString(), it) }
 
             val imageAdapter = ImagenCarouselAdaptador()
             binding.recyclerViewDetallesPelicula.layoutManager = CarouselLayoutManager(HeroCarouselStrategy())
             binding.recyclerViewDetallesPelicula.adapter = imageAdapter
-            imageAdapter.submitList(imageList)
+           // imageAdapter.submitList(imageList)
 
         }
     }
 
     private fun rellenaDatos(peli: Movie) {
-        val originalURL = "https://media.themoviedb.org/t/p/original"
-        val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + peli.poster_path
-        val backgroundURL = "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces" + peli.backdrop_path
+        val originalURL = "https://media.themoviedb.org/t/p/original" + peli.backdropPath
+        val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + peli.posterPath
+        val backgroundURL = "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces"
         with(binding) {
 
             tvTituloDetallesPelicula.text = peli.title
-            tvReleaseDateDetallesPelicula.text = peli.release_date
+            tvReleaseDateDetallesPelicula.text = peli.releaseDate
 
             Glide.with(requireContext())
                 .load(posterURL)
                 .into(binding.ivCartelDetallesPelicula)
 
             Glide.with(requireContext())
-                .load(backgroundURL)
+                .load(originalURL)
                 .into(binding.ivFondoDetallesPelicula)
+
+            tvDuracionDetallesPelicula.text = peli.runtime.toString()
+            tvOverviewDetallesPelicula.text = peli.overview
 
             (requireActivity() as MainActivity).supportActionBar?.setTitle(peli.title)
 
