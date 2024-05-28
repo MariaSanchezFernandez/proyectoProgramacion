@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                app:backgroundTint="#101010"
+                app:backgroundTint="#3A2929"
                 app:layout_constraintBottom_toBottomOf="@+id/floatingbtnWatchListDetallesPelicula"
                 app:layout_constraintEnd_toStartOf="@+id/floatingbtnWatchListDetallesPelicula"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                app:backgroundTint="#101010"
+                app:backgroundTint="#3A2929"
                 app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesPelicula"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/floatingbtMiListaDetallesPelicula"
@@ -68,6 +68,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/ivGradienteDetalles"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/floatingbtMiListaDetallesPelicula"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivCartelDetallesPelicula"
+                app:srcCompat="@drawable/gradiente_detalles" />
 
             <ImageView
                 android:id="@+id/ivCartelDetallesPelicula"
@@ -150,6 +160,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/tvOverviewDetallesPelicula"
                 app:layout_constraintStart_toStartOf="@+id/tvOverviewDetallesPelicula"
                 app:layout_constraintTop_toBottomOf="@+id/tvOverviewDetallesPelicula" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
