@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                app:backgroundTint="#101010"
+                app:backgroundTint="#3A2929"
                 app:layout_constraintBottom_toBottomOf="@+id/floatingbtnWhatchListDetallesSeries"
                 app:layout_constraintEnd_toStartOf="@+id/floatingbtnWhatchListDetallesSeries"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                app:backgroundTint="#101010"
+                app:backgroundTint="#3A2929"
                 app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesSerie"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/floatingbtMiListaDetallesSerie"
@@ -55,6 +55,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/ivGradienteDetalles"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/floatingbtMiListaDetallesSerie"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivCartelDetallesSerie"
+                app:srcCompat="@drawable/gradiente_detalles" />
 
             <ImageView
                 android:id="@+id/ivCartelDetallesSerie"
