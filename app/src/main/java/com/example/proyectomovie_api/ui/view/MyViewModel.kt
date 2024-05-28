@@ -1,5 +1,6 @@
 package com.example.proyectomovie_api.ui.view
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -75,11 +76,11 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
-    fun createSession(bodySessionID: BodySessionID): MutableLiveData<CreateSessionResponse>{
+    fun createSession(authToken:String): MutableLiveData<CreateSessionResponse>{
         val liveData = MutableLiveData<CreateSessionResponse>()
 
         viewModelScope.launch {
-            val response = repositorio.createSession(bodySessionID)
+            val response = repositorio.createSession(authToken)
 
             if (response.code() == 200){
                 response.body()?.let {
@@ -88,6 +89,16 @@ class MyViewModel: ViewModel() {
             }
         }
         return liveData
+    }
+
+    fun deleteSession(sessionID: String){
+        viewModelScope.launch {
+            val response = repositorio.deleteSession(sessionID)
+
+            if (response.code() == 200){
+
+            }
+        }
     }
 
     //Da un objeto Response con los detalles de la cuenta
