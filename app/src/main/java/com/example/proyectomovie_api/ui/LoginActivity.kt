@@ -39,8 +39,13 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonAuthToken.setOnClickListener {
 
-            username = binding.etUsernameLogin.text.toString()
-            password = binding.etPasswordLogin.text.toString()
+
+
+           // username = binding.etUsernameLogin.text.toString()
+           // password = binding.etPasswordLogin.text.toString()
+
+            username="salvador.izquierdo"
+            password="e26522167Q"
 
             // COMPRUEBA QUE HAYA USUARIO Y CONTRASEÑA
             if (username.isNotEmpty() && password.isNotEmpty()){
@@ -81,8 +86,6 @@ class LoginActivity : AppCompatActivity() {
                 //  el token es el mismo que antes, por lo que volver a guardarlo es técnicamente innecesario
                 if (sessionIDLogin.success){
                     authToken = sessionIDLogin.request_token
-
-
 
                     viewModel.createSession(authToken).observe(this){
                         // guardamos la session ID en viewmodel

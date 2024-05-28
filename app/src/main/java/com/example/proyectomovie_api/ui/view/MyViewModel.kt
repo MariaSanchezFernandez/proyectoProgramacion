@@ -85,20 +85,28 @@ class MyViewModel: ViewModel() {
             if (response.code() == 200){
                 response.body()?.let {
                     liveData.postValue(it)
+                    sessionID.postValue(it.session_id)
                 }
             }
         }
+
         return liveData
     }
 
-    fun deleteSession(sessionID: String){
+    fun deleteSession(sessionID: String):MutableLiveData<Boolean>{
+        val done = MutableLiveData<Boolean>()
         viewModelScope.launch {
             val response = repositorio.deleteSession(sessionID)
 
             if (response.code() == 200){
-
+                response.body()?.let {
+                    done.postValue(it.success)
+                }
+            }else{
+                done.value = false
             }
         }
+        return done
     }
 
     //Da un objeto Response con los detalles de la cuenta

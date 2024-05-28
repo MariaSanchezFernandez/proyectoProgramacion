@@ -1,16 +1,19 @@
 package com.example.proyectomovie_api.ui.fragmentos
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
-import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.databinding.FragmentCuentaBinding
+import com.example.proyectomovie_api.ui.LoginActivity
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.view.MyViewModel
 
@@ -19,7 +22,6 @@ class Cuenta : Fragment() {
     private lateinit var binding: FragmentCuentaBinding
     private val viewModel by activityViewModels<MyViewModel>()
 
-    private val sessionID = viewModel.getSessionID()
 
 
     override fun onCreateView(
@@ -36,6 +38,11 @@ class Cuenta : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).supportActionBar?.title = "Cuenta"
 
+
+
+        /// ESTE SESSION ID NO ME RECOJE LA DATA EN EL VIEWMODEL, NO SE PORQUE
+        // -----------------------------------------------------------------------------
+        val sessionID = viewModel.getSessionID()
 
         viewModel.getAccountDetails(sessionID.toString()).observe(viewLifecycleOwner){
 
@@ -57,27 +64,33 @@ class Cuenta : Fragment() {
             }
 
 
+            binding.buttonCerrarSesion.setOnClickListener {
+
+                val builder = AlertDialog.Builder(requireContext())
+                val viewDialog = layoutInflater.inflate(R.layout.alert_dialog_cerrar_sesion, null)
+                builder.setView(viewDialog)
+
+                val dialog = builder.create()
+                dialog.window?.setDimAmount(0.7f)
+                dialog.show()
 
 
+                viewDialog.findViewById<Button>(R.id.bCancelAlertDialog).setOnClickListener {
+                    dialog.dismiss()
+                }
 
-
-
-
-            binding.buttonCerrarSesion.setOnClickListener{
-
+                viewDialog.findViewById<Button>(R.id.bCerrarSessionAlertDialog).setOnClickListener {
+                    viewModel.deleteSession(sessionID.toString()).observe(viewLifecycleOwner) { success ->
+                            if (success) {
+                                val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
+                                startActivity(intentCerrarSesion)
+                            } else {
+                                Toast.makeText(requireContext(), "Error Al Cerrar Sesión", Toast.LENGTH_LONG).show()
+                            }
+                            dialog.dismiss()
+                        }
+                }
             }
-
-
-
-
-
-
-
         }
-
-
-
-
-
     }
 }
