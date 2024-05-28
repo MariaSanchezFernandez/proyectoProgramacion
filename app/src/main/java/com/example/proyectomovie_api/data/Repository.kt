@@ -35,12 +35,13 @@ class Repository {
 
     suspend fun getTrendingMovies(timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingMovies(timeWindow)
 
-    suspend fun getMovieWatchProvider(apiKey: String, movieId:Int) = RetrofitHelper.retrofitService.getMovieWatchProvider(apiKey, movieId)
-    suspend fun getSerieWatchProvider(apiKey: String, serieId:Int) = RetrofitHelper.retrofitService.getSerieWatchProvider(apiKey, serieId)
-    suspend fun addToWatchList(apiKey: String, accountId: Int, data : addWatchListBody) = RetrofitHelper.retrofitService.addToWatchList(apiKey,accountId,data)
-    suspend fun addToFavorite(apiKey: String, accountId: Int, data : addFavoriteBody) = RetrofitHelper.retrofitService.addToFavorite(apiKey,accountId,data)
-    suspend fun getSerieImages(apiKey: String, serieId: Int) = RetrofitHelper.retrofitService.getSerieImages(apiKey, serieId)
-  //  suspend fun getMovieimages(apiKey: String, movieId: Int) = RetrofitHelper.retrofitService.getMovieImages(apiKey, movieId)
+    suspend fun getMovieWatchProvider(movieId:Int) = RetrofitHelper.retrofitService.getMovieWatchProvider(movieId)
+    suspend fun getSerieWatchProvider(serieId:Int) = RetrofitHelper.retrofitService.getSerieWatchProvider(serieId)
+    suspend fun addToWatchList( accountId: Int, data : addWatchListBody) = RetrofitHelper.retrofitService.addToWatchList(accountId,data)
+    suspend fun addToFavorite(accountId: Int, data : addFavoriteBody) = RetrofitHelper.retrofitService.addToFavorite(accountId,data)
+    suspend fun getSerieImages(serieId: Int) = RetrofitHelper.retrofitService.getSerieImages(serieId)
+    suspend fun getMovieImages(movieId: Int) = RetrofitHelper.retrofitService.getMovieImages(movieId)
+    suspend fun getMovieById(movieId: Int) = RetrofitHelper.retrofitService.getMovieById(movieId)
     suspend fun getTrendingTVShows(timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingTVShows(timeWindow)
 
     suspend fun getTrendingPeople(timeWindow: String = "day") = RetrofitHelper.retrofitService.trendingPeople( timeWindow)

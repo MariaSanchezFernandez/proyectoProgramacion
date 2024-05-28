@@ -37,7 +37,7 @@ class InformacionSeries : Fragment() {
         viewModel.getSerie().observe(viewLifecycleOwner){ serie ->
             rellenaDatos(serie)
 
-            val respuestaImagenes = viewModel.getSerieImages("test", serie.id)
+            val respuestaImagenes = viewModel.getSerieImages(serie.id)
             val sizeRespuesta = respuestaImagenes.value?.backdrops?.size
             val listaURLs = ArrayList<String>()
             var i = 0
@@ -48,14 +48,14 @@ class InformacionSeries : Fragment() {
 
             binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
                 val data = addWatchListBody("tv", serie.id, true)
-                viewModel.addToWatchList("1234",123124, data)
+                viewModel.addToWatchList(123124, data)
                 val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
                 snackbar.show()
             }
 
             binding.floatingbtMiListaDetallesSerie.setOnClickListener {
                 val data = addFavoriteBody("movie", serie.id, true)
-                viewModel.addToFavorite("test", 21314, data)
+                viewModel.addToFavorite(21314, data)
                 val snackbar = Snackbar.make(binding.root, "Serie añadida a tus favoritos", Snackbar.LENGTH_SHORT)
                 snackbar.show()
             }

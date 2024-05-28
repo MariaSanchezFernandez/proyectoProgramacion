@@ -38,10 +38,7 @@
                 android:clickable="true"
                 app:backgroundTint="#3A2929"
                 app:layout_constraintBottom_toBottomOf="@+id/floatingbtnWatchListDetallesPelicula"
-                app:layout_constraintEnd_toStartOf="@+id/floatingbtnWatchListDetallesPelicula"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ivCartelDetallesPelicula"
-                app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesPelicula"
+                app:layout_constraintStart_toStartOf="@+id/ivCartelDetallesPelicula"
                 app:layout_constraintTop_toTopOf="@+id/floatingbtnWatchListDetallesPelicula"
                 app:srcCompat="@drawable/baseline_favorite_24"
                 app:tint="#FFFFFF" />
@@ -50,12 +47,11 @@
                 android:id="@+id/floatingbtnWatchListDetallesPelicula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:clickable="true"
                 app:backgroundTint="#3A2929"
-                app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesPelicula"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/floatingbtMiListaDetallesPelicula"
-                app:layout_constraintTop_toBottomOf="@+id/tvReleaseDateDetallesPelicula"
+                app:layout_constraintEnd_toEndOf="@+id/ivCartelDetallesPelicula"
+                app:layout_constraintTop_toBottomOf="@+id/ivCartelDetallesPelicula"
                 app:srcCompat="@drawable/baseline_add_circle_24"
                 app:tint="#FFFFFF" />
 
@@ -96,7 +92,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
+                android:gravity="center"
                 android:textColor="#FFFFFF"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/ivCartelDetallesPelicula"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,19 +105,20 @@
                 android:id="@+id/tvReleaseDateDetallesPelicula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="15dp"
+                android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesPelicula"
                 app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesPelicula"
-                app:layout_constraintTop_toTopOf="@+id/tvTituloDetallesPelicula" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTituloDetallesPelicula" />
 
             <TextView
                 android:id="@+id/tvGenresDetallesPelicula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="@+id/ivCartelDetallesPelicula"
-                app:layout_constraintTop_toBottomOf="@+id/ivCartelDetallesPelicula" />
+                app:layout_constraintTop_toBottomOf="@+id/floatingbtMiListaDetallesPelicula" />
 
             <TextView
                 android:id="@+id/tvOriginCountryDetallesPelicula"
@@ -135,6 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="@+id/tvOriginCountryDetallesPelicula"
                 app:layout_constraintStart_toEndOf="@+id/tvOriginCountryDetallesPelicula"
                 app:layout_constraintTop_toTopOf="@+id/tvOriginCountryDetallesPelicula" />
@@ -145,6 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:textColor="#FFFFFF"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvOriginCountryDetallesPelicula"

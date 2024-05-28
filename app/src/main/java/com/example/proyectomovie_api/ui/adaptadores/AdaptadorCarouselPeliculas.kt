@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovie_api.data.movie.Movie
-import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.databinding.MiListaPeliculasHolderBinding
 
 class AdaptadorCarouselPeliculas (val listado: ArrayList<String>) : RecyclerView.Adapter<AdaptadorCarouselPeliculas.vistaCelda>() {
@@ -14,7 +13,7 @@ class AdaptadorCarouselPeliculas (val listado: ArrayList<String>) : RecyclerView
 
     }
     interface MyClick {
-        fun onHolderClick(pelicula: MovieResponse)
+        fun onHolderClick(pelicula: Movie)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): vistaCelda {
