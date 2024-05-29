@@ -28,6 +28,7 @@
         android:id="@+id/fragmentSeries"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Series"
         android:label="fragment_series"
+
         tools:layout="@layout/fragment_series" >
         <action
             android:id="@+id/action_fragmentSeries_to_informacion"
@@ -38,4 +39,12 @@
         android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionPeliculas"
         android:label="Informacion"
         tools:layout="@layout/fragment_informacion_peliculas" />
+
+        tools:layout="@layout/fragment_series" />
+    <fragment
+        android:id="@+id/favoritos"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.Favoritos"
+        android:label="fragment_favoritos"
+        tools:layout="@layout/fragment_favoritos" />
+
 </navigation>
