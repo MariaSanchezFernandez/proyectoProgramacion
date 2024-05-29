@@ -165,7 +165,7 @@ class Peliculas : Fragment() {
             Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[3]].poster_path).into(binding.imRatedPelicula4)
 
             binding.imRatedPelicula1.setOnClickListener {
-                val id = pelicula[randomIndices[3]].id
+                val id = pelicula[randomIndices[0]].id
                 viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
                     if (it2 != null) {
                         viewModel.setPelicula(it2)
@@ -175,7 +175,7 @@ class Peliculas : Fragment() {
             }
 
             binding.imRatedPelicula2.setOnClickListener {
-                val id = pelicula[randomIndices[3]].id
+                val id = pelicula[randomIndices[1]].id
                 viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
                     if (it2 != null) {
                         viewModel.setPelicula(it2)
@@ -185,7 +185,7 @@ class Peliculas : Fragment() {
             }
 
             binding.imRatedPelicula3.setOnClickListener {
-                val id = pelicula[randomIndices[3]].id
+                val id = pelicula[randomIndices[2]].id
                 viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
                     if (it2 != null) {
                         viewModel.setPelicula(it2)

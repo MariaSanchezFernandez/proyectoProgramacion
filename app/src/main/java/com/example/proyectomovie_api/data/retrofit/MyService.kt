@@ -316,12 +316,13 @@ interface MyService {
         "accept: application/json",
         "Authorization: Bearer $BEARER_TOKEN"
     )
-
     @GET("tv/{serie_id}/images")
     suspend fun getSerieImages(
         @Path("serie_id") serieId : Int
     ) : Response<ImageResponse>
 
+
+    // Obtenemos todos los datos detallados de una Pelicula pasándole una Id de serie
     @Headers(
         "accept: application/json",
         "Authorization: Bearer $BEARER_TOKEN"
@@ -332,6 +333,8 @@ interface MyService {
         @Query("language") language: String
     ): Response<MovieDetallesResponse>
 
+
+    // Obtenemos todos los datos detallados de una Serie pasándole una Id de serie
     @Headers(
         "accept: application/json",
         "Authorization: Bearer $BEARER_TOKEN"
