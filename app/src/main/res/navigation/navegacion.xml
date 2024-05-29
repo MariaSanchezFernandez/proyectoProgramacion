@@ -30,12 +30,16 @@
         android:label="fragment_series"
         tools:layout="@layout/fragment_series" >
         <action
-            android:id="@+id/action_fragmentSeries_to_informacion"
-            app:destination="@id/informacion" />
+            android:id="@+id/action_fragmentSeries_to_informacionSeries"
+            app:destination="@id/informacionSeries" />
     </fragment>
     <fragment
         android:id="@+id/informacion"
         android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionPeliculas"
         android:label="Informacion"
         tools:layout="@layout/fragment_informacion_peliculas" />
+    <fragment
+        android:id="@+id/informacionSeries"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionSeries"
+        android:label="InformacionSeries" />
 </navigation>

@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.favorite.addFavoriteBody
+import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.FragmentInformacionSeriesBinding
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.example.proyectomovie_api.data.watchlist.addWatchListBody
+import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselSeries
+import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaSerie
+import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.CarouselSnapHelper
@@ -37,14 +41,27 @@ class InformacionSeries : Fragment() {
         viewModel.getSerie().observe(viewLifecycleOwner){ serie ->
             rellenaDatos(serie)
 
-            val respuestaImagenes = viewModel.getSerieImages(serie.id)
-            val sizeRespuesta = respuestaImagenes.value?.backdrops?.size
-            val listaURLs = ArrayList<String>()
-            var i = 0
-            while(i < sizeRespuesta!!){
-                respuestaImagenes.value?.backdrops?.get(i)?.let { listaURLs.add("https://image.tmdb.org/t/p/original" + it.file_path) }
-                ++i
+            viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner){ it2 ->
+                val sizeRespuesta = it2.backdrops?.size
+                val listaURLs = ArrayList<ImagenCarousel>()
+                var i = 0
+                while(i < sizeRespuesta!!){
+                    it2.backdrops?.get(i)?.let {
+                        val imagen = ImagenCarousel(i, "https://image.tmdb.org/t/p/original" + it.file_path)
+                        listaURLs.add(imagen) }
+                    ++i
+                }
+
+                val adaptadorSeriesDetalles = ImagenCarouselAdaptador(listaURLs.toList(), object : ImagenCarouselAdaptador.MyClick{
+                    override fun onHolderClick(imagenCarousel: ImagenCarousel) {
+                    }
+
+                })
+                binding.recyclerViewDetallesSerie.layoutManager = CarouselLayoutManager()
+                binding.recyclerViewDetallesSerie.adapter = adaptadorSeriesDetalles
+                adaptadorSeriesDetalles.submitList(listaURLs)
             }
+
 
             binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
                 val data = addWatchListBody("tv", serie.id, true)
@@ -60,25 +77,31 @@ class InformacionSeries : Fragment() {
                 snackbar.show()
             }
             //recyclerViewDetallesSerie
+
         }
     }
 
-    private fun rellenaDatos(serie: TVShow) {
-        val originalURL = "https://media.themoviedb.org/t/p/original/"
-        val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" + serie.poster_path
-        val backgroundURL = "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/" + serie.backdrop_path
+    private fun rellenaDatos(serie: SerieDetallesResponse) {
+        val originalURL = "https://media.themoviedb.org/t/p/original/" + serie.backdropPath
+        val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" + serie.posterPath
+        val backgroundURL = "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/"
         with(binding) {
 
             tvTituloDetallesSerie.text = serie.name
-            tvReleaseDateDetallesSerie.text = serie.first_air_date
+            tvReleaseDateDetallesSerie.text = serie.firstAirDate
 
             Glide.with(requireContext())
                 .load(posterURL)
                 .into(binding.ivCartelDetallesSerie)
 
             Glide.with(requireContext())
-                .load(backgroundURL)
+                .load(originalURL)
                 .into(binding.ivFondoDetallesSerie)
+
+            tvGenresDetallesSerie.text = serie.genres?.get(0)?.name.toString()
+            tvOriginCountryDetallesSerie.text = serie.originCountry?.get(0).toString() + " · "
+            tvOverviewDetallesSerie.text = serie.overview
+            tvDuracionDetallesSerie.text = serie.numberOfSeasons.toString() + " temporada(s)"
 
             (requireActivity() as MainActivity).supportActionBar?.setTitle(serie.name)
 

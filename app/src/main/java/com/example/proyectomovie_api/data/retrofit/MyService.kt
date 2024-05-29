@@ -18,6 +18,7 @@ import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.movie_detalles.MovieDetallesResponse
 import com.example.proyectomovie_api.data.movie_detalles.SpokenLanguage
 import com.example.proyectomovie_api.data.people.PeopleResponse
+import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
 import com.example.proyectomovie_api.data.watchlist.WatchListResponse
@@ -28,6 +29,8 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+
+private const val BEARER_TOKEN = ""
 
 interface MyService {
 
@@ -372,9 +375,10 @@ interface MyService {
         "accept: application/json",
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
     )
+
     @GET("tv/{serie_id}/images")
     suspend fun getSerieImages(
-        @Path("movie_id") movieId : Int
+        @Path("serie_id") serieId : Int
     ) : Response<ImageResponse>
 
     @Headers(
@@ -386,5 +390,15 @@ interface MyService {
         @Path("movie_id") movieId : Int,
         @Query("language") language: String
     ): Response<MovieDetallesResponse>
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDg3ZWZjNGM2NTg3ZGFlODg0MWE2ZmI4MDIyMjdhOCIsInN1YiI6IjY2MThmYmNmZTEwZjQ2MDE3ZGI1NTMwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Pf3dDGEP6GsXawai5v32lPhplaFcK30ryMoeQaDKMx0"
+    )
+    @GET("tv/{serie_id}")
+    suspend fun getSerieById(
+        @Path("serie_id") serieId: Int,
+        @Query("language") language: String
+    ): Response<SerieDetallesResponse>
 
 }

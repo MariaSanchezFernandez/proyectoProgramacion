@@ -43,6 +43,8 @@ class Repository {
     suspend fun getSerieImages(serieId: Int) = RetrofitHelper.retrofitService.getSerieImages(serieId)
     suspend fun getMovieImages(movieId: Int) = RetrofitHelper.retrofitService.getMovieImages(movieId)
     suspend fun getMovieById(movieId: Int, language: String) = RetrofitHelper.retrofitService.getMovieById(movieId, language)
+    suspend fun getSerieById(serieId: Int, language: String) = RetrofitHelper.retrofitService.getSerieById(serieId, language)
+
     suspend fun getTrendingTVShows(timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingTVShows(timeWindow)
 
     suspend fun getTrendingPeople(timeWindow: String = "day") = RetrofitHelper.retrofitService.trendingPeople( timeWindow)
