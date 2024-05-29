@@ -16,6 +16,7 @@ import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.movie_detalles.MovieDetallesResponse
+import com.example.proyectomovie_api.data.movie_detalles.SpokenLanguage
 import com.example.proyectomovie_api.data.people.PeopleResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
@@ -378,10 +379,12 @@ interface MyService {
 
     @Headers(
         "accept: application/json",
-        "Authorization: Bearer 5d87efc4c6587dae8841a6fb802227a8")
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDg3ZWZjNGM2NTg3ZGFlODg0MWE2ZmI4MDIyMjdhOCIsInN1YiI6IjY2MThmYmNmZTEwZjQ2MDE3ZGI1NTMwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Pf3dDGEP6GsXawai5v32lPhplaFcK30ryMoeQaDKMx0"
+    )
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
-        @Path("movie_id") movieId : Int
+        @Path("movie_id") movieId : Int,
+        @Query("language") language: String
     ): Response<MovieDetallesResponse>
 
 }

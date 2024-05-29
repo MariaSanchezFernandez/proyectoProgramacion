@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacion"
-    app:startDestination="@id/informacion">
+    app:startDestination="@id/fragmentPeliculas">
 
     <fragment
         android:id="@+id/fragmentInicio"
@@ -28,7 +28,11 @@
         android:id="@+id/fragmentSeries"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Series"
         android:label="fragment_series"
-        tools:layout="@layout/fragment_series" />
+        tools:layout="@layout/fragment_series" >
+        <action
+            android:id="@+id/action_fragmentSeries_to_informacion"
+            app:destination="@id/informacion" />
+    </fragment>
     <fragment
         android:id="@+id/informacion"
         android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionPeliculas"

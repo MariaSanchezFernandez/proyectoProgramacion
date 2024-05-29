@@ -266,17 +266,13 @@ class MyViewModel: ViewModel() {
         return getSerieImagesLiveData
     }
 
-    fun getMovieById(context: Context, movieId: Int) : MutableLiveData<MovieDetallesResponse>{
-        val getMovieByIdLiveData = MutableLiveData<MovieDetallesResponse>()
+    fun getMovieById(movieId: Int, language: String) : MutableLiveData<MovieDetallesResponse?>{
+        val getMovieByIdLiveData = MutableLiveData<MovieDetallesResponse?>()
         viewModelScope.launch {
-            val respuesta = repositorio.getMovieById(movieId)
+            val respuesta = repositorio.getMovieById(movieId, language)
             if(respuesta.code() == 200){
                 val addFavorite = respuesta.body()
-                addFavorite.let {
-                    getMovieByIdLiveData.postValue(it)
-                }
-            }else{
-                Toast.makeText(context, respuesta.code().toString() , Toast.LENGTH_SHORT).show()
+                 getMovieByIdLiveData.postValue(addFavorite)
             }
         }
         return getMovieByIdLiveData

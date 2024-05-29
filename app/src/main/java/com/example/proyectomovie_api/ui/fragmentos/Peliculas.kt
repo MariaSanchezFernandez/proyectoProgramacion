@@ -119,35 +119,43 @@ class Peliculas : Fragment() {
 
             binding.imPopularPelicula1.setOnClickListener {
                 val id = pelicula[randomIndices[0]].id
-                val pelicula = viewModel.getMovieById(requireContext(), id)
-                pelicula.observe(viewLifecycleOwner){ it2 ->
-                    viewModel.setPelicula(it2)
-                    findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
                 }
             }
 
-//            binding.imPopularPelicula2.setOnClickListener {
-//                val id = pelicula[randomIndices[1]].id
-//                viewModel.getMovieById(id).observe(viewLifecycleOwner){ it2 ->
-//                    viewModel.setPelicula(it2)
-//                    findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
-//                }
-//            }
-//
-//            binding.imPopularPelicula3.setOnClickListener {
-//                val id = pelicula[randomIndices[2]].id
-//                viewModel.getMovieById(id).observe(viewLifecycleOwner){ it2 ->
-//                    viewModel.setPelicula(it2)
-//                    findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
-//                }
-//            }
-//            binding.imPopularPelicula4.setOnClickListener {
-//                val id = pelicula[randomIndices[3]].id
-//                viewModel.getMovieById(id).observe(viewLifecycleOwner){ it2 ->
-//                    viewModel.setPelicula(it2)
-//                    findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
-//                }
-//            }
+            binding.imPopularPelicula2.setOnClickListener {
+                val id = pelicula[randomIndices[1]].id
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
+                }
+            }
+
+            binding.imPopularPelicula3.setOnClickListener {
+                val id = pelicula[randomIndices[2]].id
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
+                }
+            }
+
+            binding.imPopularPelicula4.setOnClickListener {
+                val id = pelicula[randomIndices[3]].id
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
+                }
+            }
 
 
             //val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)

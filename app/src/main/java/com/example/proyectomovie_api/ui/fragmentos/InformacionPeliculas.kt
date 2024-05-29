@@ -34,16 +34,18 @@ class InformacionPeliculas : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMovieById(requireContext(),653346).observe(viewLifecycleOwner){ movie ->
+        viewModel.getPelicula().observe(viewLifecycleOwner){ movie ->
             rellenaDatos(movie)
 
-            val respuestaImagenes = movie.id?.let { viewModel.getMovieImages(it) }
-            val sizeRespuesta = respuestaImagenes?.value?.backdrops?.size
-            val listaURLs = ArrayList<String>()
-            var i = 0
-            while(i < sizeRespuesta!!){
-                respuestaImagenes.value?.backdrops?.get(i)?.let { listaURLs.add("https://image.tmdb.org/t/p/original" + it.file_path) }
-                ++i
+            movie.id?.let { viewModel.getMovieImages(it).observe(viewLifecycleOwner){ it2 ->
+                val sizeRespuesta = it2?.backdrops?.size
+                val listaURLs = ArrayList<String>()
+                var i = 0
+                while(i < sizeRespuesta!!){
+                    it2.backdrops.get(i).let { listaURLs.add("https://image.tmdb.org/t/p/original" + it.file_path) }
+                    ++i
+                }
+                }
             }
 
             binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
@@ -63,13 +65,6 @@ class InformacionPeliculas : Fragment() {
                 val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
                 snackbar.show()
             }
-            //val imageList = listaURLs.map { ImagenCarousel(UUID.randomUUID().toString(), it) }
-
-            val imageAdapter = ImagenCarouselAdaptador()
-            binding.recyclerViewDetallesPelicula.layoutManager = CarouselLayoutManager(HeroCarouselStrategy())
-            binding.recyclerViewDetallesPelicula.adapter = imageAdapter
-           // imageAdapter.submitList(imageList)
-
         }
     }
 
@@ -89,8 +84,8 @@ class InformacionPeliculas : Fragment() {
             Glide.with(requireContext())
                 .load(originalURL)
                 .into(binding.ivFondoDetallesPelicula)
-            tvGenresDetallesPelicula.text = peli.genres?.get(0).toString()
-            tvOriginCountryDetallesPelicula.text = peli.originCountry?.get(0).toString()
+            tvGenresDetallesPelicula.text = peli.genres?.get(0)?.name.toString()
+            tvOriginCountryDetallesPelicula.text = peli.originCountry?.get(0).toString() + " · "
             tvDuracionDetallesPelicula.text = peli.runtime.toString() + " min"
             tvOverviewDetallesPelicula.text = peli.overview
 

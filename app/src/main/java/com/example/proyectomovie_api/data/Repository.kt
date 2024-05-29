@@ -6,6 +6,7 @@ import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.retrofit.RetrofitHelper
 import com.example.proyectomovie_api.data.watchlist.addWatchListBody
+import org.intellij.lang.annotations.Language
 
 class Repository {
 
@@ -41,7 +42,7 @@ class Repository {
     suspend fun addToFavorite(accountId: Int, data : addFavoriteBody) = RetrofitHelper.retrofitService.addToFavorite(accountId,data)
     suspend fun getSerieImages(serieId: Int) = RetrofitHelper.retrofitService.getSerieImages(serieId)
     suspend fun getMovieImages(movieId: Int) = RetrofitHelper.retrofitService.getMovieImages(movieId)
-    suspend fun getMovieById(movieId: Int) = RetrofitHelper.retrofitService.getMovieById(movieId)
+    suspend fun getMovieById(movieId: Int, language: String) = RetrofitHelper.retrofitService.getMovieById(movieId, language)
     suspend fun getTrendingTVShows(timeWindow:String = "day") = RetrofitHelper.retrofitService.trendingTVShows(timeWindow)
 
     suspend fun getTrendingPeople(timeWindow: String = "day") = RetrofitHelper.retrofitService.trendingPeople( timeWindow)
