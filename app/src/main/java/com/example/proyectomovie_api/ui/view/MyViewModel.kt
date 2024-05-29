@@ -1,6 +1,5 @@
 package com.example.proyectomovie_api.ui.view
 
-import android.graphics.Region
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,6 +31,10 @@ class MyViewModel: ViewModel() {
     private val listaFavSeries = MutableLiveData<List<TVShow>>()
     private val listaMovies = MutableLiveData<List<Movie>>()
     private val actorInfo = MutableLiveData<List<People>>()
+    private val listaMoviesBuscador = MutableLiveData<List<Movie>>()
+    private val listaShowBuscador = MutableLiveData<List<TVShow>>()
+    private val listaPersonaBuscador = MutableLiveData<List<People>>()
+
 
 
     //Obtener las peliculas más populares
@@ -210,7 +213,7 @@ class MyViewModel: ViewModel() {
 
     fun getInfoPeople(timeWindow: String = "day") : MutableLiveData<List<People>>{
         viewModelScope.launch {
-            val respuesta = repositorio.getTrendingPeople()
+            val respuesta = repositorio.getTrendingPeople(timeWindow)
             if(respuesta.code() == 200){
                 val peopleTrending = respuesta.body()
                 peopleTrending?.let {
@@ -221,6 +224,59 @@ class MyViewModel: ViewModel() {
 
         return actorInfo
     }
+
+
+    fun getMovieBuscador(buscador : String) : MutableLiveData<List<Movie>>{
+        viewModelScope.launch {
+            val respuesta = repositorio.getBuscadorMovie(buscador)
+            if (respuesta.code() == 200){
+                val movieBuscador = respuesta.body()
+                movieBuscador?.let {
+                    listaMoviesBuscador.postValue(it.results)
+                }
+            }
+        }
+
+        return listaMoviesBuscador
+    }
+
+    fun getSerieBuscador(buscador : String) : MutableLiveData<List<TVShow>>{
+        viewModelScope.launch {
+            val respuesta = repositorio.getBuscarSerie(buscador)
+            if (respuesta.code() == 200){
+                val serieBuscador = respuesta.body()
+                serieBuscador?.let {
+                    listaShowBuscador.postValue(it.results)
+                }
+            }
+        }
+
+        return listaShowBuscador
+    }
+
+
+    fun getPersonBuscador(buscador: String) : MutableLiveData<List<People>>{
+        viewModelScope.launch {
+            val respuesta = repositorio.getBuscarPersona(buscador)
+            if (respuesta.code() == 200){
+                val personBuscador = respuesta.body()
+                personBuscador?.let {
+                    listaPersonaBuscador.postValue(it.results)
+                }
+            }
+        }
+
+        return listaPersonaBuscador
+    }
+
+
+    fun getBuscadorActores() = listaPersonaBuscador
+
+    fun getBuscadorPeliculas() = listaMoviesBuscador
+
+    fun getBuscadorSeries() = listaShowBuscador
+
+
 
 }
 

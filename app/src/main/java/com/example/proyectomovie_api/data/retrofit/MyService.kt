@@ -1,7 +1,6 @@
 package com.example.proyectomovie_api.data.retrofit
 
 import com.example.proyectomovie_api.data.account.AccountDetailsResponse
-import com.example.proyectomovie_api.data.buscador.BuscadorMultiResponse
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
@@ -284,11 +283,36 @@ interface MyService {
     ):Response<TVResponse>
 
 
-    //Buscador Multi
-    @GET("search/multi")
-    suspend fun searchMulti(
-        @Query("string") buscador : String
-    ):Response<BuscadorMultiResponse>
+    //Buscadores
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("search/movie")
+    suspend fun getMovieBuscar(
+        @Query("query") buscador : String
+    ):Response<MovieResponse>
+
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("search/tv")
+    suspend fun getShowBuscar(
+        @Query("query") buscador: String
+    ): Response<TVResponse>
+
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("search/person")
+    suspend fun getPersonBuscador(
+        @Query("query") buscador: String
+    ): Response<PeopleResponse>
+
 
 
 

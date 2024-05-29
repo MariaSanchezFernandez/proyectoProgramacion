@@ -56,6 +56,11 @@ class Repository {
 
 
 
-    //Funcion para buscador
-    suspend fun searchMulti(buscador: String) = RetrofitHelper.retrofitService.searchMulti(buscador)
+    //FUNCIÓN PARA BUSCADORES
+    suspend fun getBuscadorMovie(buscador:String) = RetrofitHelper.retrofitService.getMovieBuscar(buscador)
+
+    suspend fun getBuscarSerie(buscador: String) = RetrofitHelper.retrofitService.getShowBuscar(buscador)
+
+    suspend fun getBuscarPersona(buscador: String) = RetrofitHelper.retrofitService.getPersonBuscador(buscador)
+
 }
