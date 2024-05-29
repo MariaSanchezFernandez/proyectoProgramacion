@@ -11,6 +11,7 @@ import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
+import com.example.proyectomovie_api.data.inicioSesion.DeleteSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
@@ -24,12 +25,14 @@ import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
 import com.example.proyectomovie_api.data.watchlist.WatchListResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+lateinit var tokenAcceso:String
 private const val BEARER_TOKEN = ""
 
 interface MyService {
@@ -98,6 +101,17 @@ interface MyService {
     @GET("authentication/guest_session/new")
     suspend fun createGuestSession(
     ):Response<CreateGuestSessionResponse>
+
+    // DELETE SESSION
+    @Headers(
+        "Content-Type: application/json",
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MzkxMTg2YTU2OTA4YjYyNWYzMTYxZTllYjAxY2I1ZCIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.u_BACdgwUbPA0HU_WGGAiJ_hCxTz9-l2VHYxexXVdbA"
+    )
+    @DELETE("authentication/session")
+    suspend fun deleteSession(
+        @Query("session_id") id:String
+    ):Response<DeleteSessionResponse>
 
 
     // -------------------------------------------------------------------------------------------------
