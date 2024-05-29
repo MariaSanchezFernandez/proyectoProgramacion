@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navegacion"
+    app:startDestination="@id/fragmentPeliculas">
+
+    <fragment
+        android:id="@+id/fragmentInicio"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.Inicio"
+        android:label="fragment_peliculas"
+        tools:layout="@layout/fragment_inicio" />
+    <fragment
+        android:id="@+id/fragmentPeliculas"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.Peliculas"
+        android:label="fragment_peliculas"
+        tools:layout="@layout/fragment_peliculas" >
+        <action
+            android:id="@+id/action_fragmentPeliculas_to_informacion"
+            app:destination="@id/informacion" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCuenta"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.Cuenta"
+        android:label="fragment_cuenta"
+        tools:layout="@layout/fragment_cuenta" />
+    <fragment
+        android:id="@+id/fragmentSeries"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.Series"
+        android:label="fragment_series"
+        tools:layout="@layout/fragment_series" />
+    <fragment
+        android:id="@+id/informacion"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionPeliculas"
+        android:label="Informacion"
+        tools:layout="@layout/fragment_informacion_peliculas" />
+</navigation>
