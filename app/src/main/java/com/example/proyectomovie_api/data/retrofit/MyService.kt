@@ -98,7 +98,6 @@ interface MyService {
     * ------------------ PETICIONES PARA LA PÁGINA DE CUENTA ----------------
      */
 
-
     // Account Details
     @Headers(
         "accept: application/json",

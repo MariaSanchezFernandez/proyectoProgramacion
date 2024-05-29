@@ -24,6 +24,7 @@ import java.util.UUID
 class Peliculas : Fragment() {
     private lateinit var binding: FragmentPeliculasBinding
     private val viewModel by activityViewModels<MyViewModel>()
+    private val sessionID = viewModel.getSessionID()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -164,10 +165,6 @@ class Peliculas : Fragment() {
                 findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
             }
 
-
-            //val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
-            binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-           // binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
         }
 
         viewModel.getPopularMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){
@@ -191,6 +188,13 @@ class Peliculas : Fragment() {
             val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
             binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
+        }
+
+        viewModel.getFavoriteMovies().observe(viewLifecycleOwner){
+            val arrayListFavoritos =
+            val adaptadorFavoritos = AdaptadorMiListaPeliculas(arrayListFavoritos)
+            binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            // binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
         }
     }
 }
