@@ -149,6 +149,7 @@
                 tools:layout_editor_absoluteY="903dp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvWLseries"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

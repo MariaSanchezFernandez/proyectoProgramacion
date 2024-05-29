@@ -45,6 +45,14 @@ class Favoritos : Fragment() {
             configRecyclerTvShows(it)
         }
 
+        acountId.value?.let { myViewModel.getFavoriteWatchListMovies(it) }?.observe(viewLifecycleOwner) {
+            configRecyclerMoviesWl(it)
+        }
+
+        acountId.value?.let { myViewModel.getFavouriteWatchListTVShows(it) }?.observe(viewLifecycleOwner) {
+            configRecyclerTvShowsWl(it)
+        }
+
         binding.btVerMas1.setOnClickListener{
             findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
         }
@@ -87,6 +95,28 @@ class Favoritos : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    /*Aquí hacer la función donde pongan las lista de series y de películas juntas*/
+    private fun configRecyclerMoviesWl(listaPeliculas: List<Movie>) {
+        val recyclerView = binding.rvWLpelis
+        val adapter = AdapterFav(listaPeliculas, object : AdapterFav.FavClick{
+            override fun onFavClick(movie: Movie) {
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
+            }
+        })
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun configRecyclerTvShowsWl(listaTVShow: List<TVShow>) {
+        val recyclerView = binding.rvWLseries
+        val adapter = AdapterFavTvShows(listaTVShow, object : AdapterFavTvShows.FavClick{
+            override fun onFavClick(movie: Movie) {
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
+            }
+        })
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
 
 }

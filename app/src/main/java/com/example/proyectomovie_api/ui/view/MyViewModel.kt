@@ -327,6 +327,34 @@ class MyViewModel: ViewModel() {
         return listaFavSeries
     }
 
+    fun getFavoriteWatchListMovies(accountId: Int): MutableLiveData<List<Movie>> {
+        val listaWlMoviesFavLiveData = MutableLiveData<List<Movie>>()
+        viewModelScope.launch {
+            val respuesta = repositorio.getFavouriteWatchListMovies(accountId)
+            if (respuesta.code() == 200) {
+                var listaWLMoviesFav = respuesta.body()
+                listaWLMoviesFav?.let {
+                    listaWlMoviesFavLiveData.postValue(it.results)
+                }
+            }
+        }
+        return listaWlMoviesFavLiveData
+    }
+
+    fun getFavouriteWatchListTVShows(accountId: Int): MutableLiveData<List<TVShow>> {
+        val listaWlTVshowsFavLiveData = MutableLiveData<List<TVShow>>()
+        viewModelScope.launch {
+            val respuesta = repositorio.getFavouriteWatchListTVShows(accountId)
+            if(respuesta?.code() == 200) {
+                val listaWLTVShowsFav = respuesta.body()
+                listaWLTVShowsFav?.let {
+                    listaWlTVshowsFavLiveData.postValue(it.results)
+                }
+            }
+        }
+        return listaWlTVshowsFavLiveData
+    }
+
     fun setAccountId(id: Int) {
         accountID.value = id
     }
