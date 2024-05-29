@@ -45,13 +45,29 @@ class Favoritos : Fragment() {
             configRecyclerTvShows(it)
         }
 
+        binding.btVerMas1.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
+        binding.btVerMas2.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
+        binding.btVerMas3.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
+        binding.btVerMas4.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
     }
 
     private fun configRecyclerMovies(listaPeliculas: List<Movie>) {
         val recyclerView = binding.rvPelis
         val adapter = AdapterFav(listaPeliculas, object : AdapterFav.FavClick{
             override fun onFavClick(movie: Movie) {
-                findNavController().navigate(R.id./*Tiene que ir a la pestaña de detalles de la peli*/)
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
             }
         })
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
@@ -63,12 +79,14 @@ class Favoritos : Fragment() {
         val recyclerView = binding.rvSeries
         val adapter = AdapterFavTvShows(listaTVShow, object : AdapterFavTvShows.FavClick{
             override fun onFavClick(movie: Movie) {
-                findNavController().navigate(R.id./*Tiene que ir a la pestaña de detalles de la serie*/)
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
             }
         })
-        val layoutManager = StaggeredGridLayoutManager(1,, StaggeredGridLayoutManager.HORIZONTAL)
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
     }
+
+    /*Aquí hacer la función donde pongan las lista de series y de películas juntas*/
 
 }

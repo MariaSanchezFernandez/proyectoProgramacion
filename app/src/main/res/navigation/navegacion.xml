@@ -45,6 +45,18 @@
         android:id="@+id/favoritos"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Favoritos"
         android:label="fragment_favoritos"
-        tools:layout="@layout/fragment_favoritos" />
+        tools:layout="@layout/fragment_favoritos" >
+        <action
+            android:id="@+id/action_favoritos_to_informacion"
+            app:destination="@id/informacion" />
+        <action
+            android:id="@+id/action_favoritos_to_fragment_btVerMas3_Fav"
+            app:destination="@id/fragment_btVerMas3_Fav" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_btVerMas3_Fav"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.fragment_btVerMas3_Fav"
+        android:label="fragment_bt_ver_mas3__fav"
+        tools:layout="@layout/fragment_bt_ver_mas3__fav" />
 
 </navigation>

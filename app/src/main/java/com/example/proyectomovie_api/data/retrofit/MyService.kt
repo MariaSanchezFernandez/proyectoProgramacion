@@ -168,7 +168,7 @@ interface MyService {
     @GET("account/{account_id}/favorite/movies")
     suspend fun getFavMovies(
         @Path("account_id") userID: Int
-    ): Response<Movie>
+    ): Response<MovieResponse>
 
     //TVShows favoritos del usuario
     @Headers(
