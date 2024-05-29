@@ -40,7 +40,7 @@ class Repository {
     suspend fun createSessionLogin(body:BodyLogin) = RetrofitHelper.retrofitService.createSessionLogin(body)
     suspend fun createSession(authToken:String) = RetrofitHelper.retrofitService.createSessionID(BodySessionID(authToken))
     suspend fun createGuestSession() = RetrofitHelper.retrofitService.createGuestSession()
-    suspend fun deleteSession(sessionID: String) = RetrofitHelper.retrofitService.deleteSession(BodySessionID( sessionID))
+    suspend fun deleteSession(sessionID: String) = RetrofitHelper.retrofitService.deleteSession(sessionID)
 
 
     // FUNCION PARA LOS DETALLES DE LA CUENTA

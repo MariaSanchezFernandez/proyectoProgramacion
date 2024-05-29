@@ -21,6 +21,8 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+lateinit var tokenAcceso:String
+
 interface MyService {
 
     // El Token es este, si no funciona puede que lo haya re generado, preguntad a salva :
@@ -83,7 +85,7 @@ interface MyService {
     )
     @DELETE("authentication/session")
     suspend fun deleteSession(
-        @Body bodySessionID: BodySessionID
+        @Query("session_id") id:String
     ):Response<DeleteSessionResponse>
 
 
