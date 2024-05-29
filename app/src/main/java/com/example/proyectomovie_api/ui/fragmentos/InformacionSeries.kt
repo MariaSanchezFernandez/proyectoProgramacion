@@ -75,30 +75,38 @@ class InformacionSeries : Fragment() {
 
 
             binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
-                val data = addWatchListBody("tv", serie.id, true)
-                viewModel.addToWatchList(21216522, data).observe(viewLifecycleOwner){
-                    if (it.success){
-                        val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
-                    }else{
-                        val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
+                viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                        val data = addWatchListBody("tv", serie.id, true)
+                        viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner){
+                            if (it.success){
+                                val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }else{
+                                val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }
                     }
                 }
 
             }
 
             binding.floatingbtMiListaDetallesSerie.setOnClickListener {
-                val data = addFavoriteBody("tv", serie.id, true)
-                viewModel.addToFavorite(requireContext(), 21216522, data).observe(viewLifecycleOwner){
-                    if (it.success){
-                        val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
-                    }else{
-                        val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
+                viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                        val data = addFavoriteBody("tv", serie.id, true)
+                        viewModel.addToFavorite(requireContext(), accountId, data).observe(viewLifecycleOwner){
+                            if (it.success){
+                                val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }else{
+                                val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }
+                        }
                     }
                 }
+            }
 
             }
             //recyclerViewDetallesSerie

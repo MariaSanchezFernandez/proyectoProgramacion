@@ -53,7 +53,7 @@ class InformacionPeliculas : Fragment() {
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                         val data = movie.id?.let { it1 -> addWatchListBody("movie", it1, true) }
                         if (data != null) {
-                            viewModel.addToWatchList( accountId, data)
+                            viewModel.addToWatchList( 21209376, data)
                         }
                         val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tu watchlist", Snackbar.LENGTH_SHORT)
                         snackbar.show()

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
@@ -21,6 +22,7 @@ import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
+import com.google.android.material.snackbar.Snackbar
 import java.util.UUID
 
 class Peliculas : Fragment() {
@@ -203,8 +205,8 @@ class Peliculas : Fragment() {
         }
 
         viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
-            viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
+            viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                viewModel.getFavoriteMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
 
                     val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
                         override fun onHolderClick(pelicula: Movie) {
@@ -213,6 +215,28 @@ class Peliculas : Fragment() {
                                 if (it != null) {
                                     viewModel.setPelicula(it)
                                     findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                                }
+                            }
+                        }
+
+                        override fun onItemLongClick(pelicula: Movie) {
+                            val id = pelicula.id
+                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                                if (it != null) {
+                                    val deleteFavorito = addFavoriteBody("movie", id, false)
+                                    viewModel.getSessionID().observe(viewLifecycleOwner){ session ->
+                                        viewModel.getAccountID(session).observe(viewLifecycleOwner){accountId ->
+                                            context?.let { it1 -> viewModel.addToFavorite(it1, accountId, deleteFavorito).observe(viewLifecycleOwner){ respuesta ->
+                                                if (respuesta.success){
+                                                    val snackbar = Snackbar.make(binding.root, "Pelicula eliminada de favoritos", Snackbar.LENGTH_SHORT)
+                                                    snackbar.show()
+                                                }else{
+                                                    val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                                                    snackbar.show()
+                                                }
+                                            } }
+                                        }
+                                    }
                                 }
                             }
                         }

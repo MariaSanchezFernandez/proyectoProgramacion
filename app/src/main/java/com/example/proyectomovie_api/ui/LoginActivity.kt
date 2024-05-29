@@ -39,13 +39,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonAuthToken.setOnClickListener {
 
-
-
-           // username = binding.etUsernameLogin.text.toString()
-           // password = binding.etPasswordLogin.text.toString()
-
-            username="salvador.izquierdo"
-            password="e26522167Q"
+            username = binding.etUsernameLogin.text.toString()
+            password = binding.etPasswordLogin.text.toString()
 
             // COMPRUEBA QUE HAYA USUARIO Y CONTRASEÑA
             if (username.isNotEmpty() && password.isNotEmpty()){

@@ -18,6 +18,7 @@ class AdaptadorMiListaSerie(val listado: List<TVShow>, val listener: MyClick) : 
 
     interface MyClick {
         fun onHolderClick(serie: TVShow)
+        fun onItemLongClick(serie: TVShow)
     }
 
     override fun getItemCount(): Int {
@@ -33,6 +34,10 @@ class AdaptadorMiListaSerie(val listado: List<TVShow>, val listener: MyClick) : 
 
         holder.itemView.setOnClickListener {
             listener.onHolderClick(data)
+        }
+        holder.itemView.setOnLongClickListener {
+            listener.onItemLongClick(data)
+            return@setOnLongClickListener true
         }
     }
 }
