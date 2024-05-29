@@ -65,12 +65,13 @@ class LoginActivity : AppCompatActivity() {
                       }else{
                         Toast.makeText(this, "Error al generar token...", Toast.LENGTH_LONG ).show()
                     }
+                    cambiaBotones()
                 }
 
             }else{
                 Toast.makeText(this, "Debes introducir un usuario y una contraseña", Toast.LENGTH_LONG).show()
             }
-            cambiaBotones()
+
         }
 
         // BOTON PARA INICIAR UNA SESION

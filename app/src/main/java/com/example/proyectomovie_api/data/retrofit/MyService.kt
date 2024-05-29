@@ -1,5 +1,11 @@
 package com.example.proyectomovie_api.data.retrofit
 
+//import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
+//import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
+//import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
+import com.example.proyectomovie_api.data.images.ImageResponse
+import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import com.example.proyectomovie_api.data.account.AccountDetailsResponse
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
 import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
@@ -7,11 +13,16 @@ import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionRespons
 import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.DeleteSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
+import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
+import com.example.proyectomovie_api.data.movie_detalles.MovieDetallesResponse
+import com.example.proyectomovie_api.data.movie_detalles.SpokenLanguage
 import com.example.proyectomovie_api.data.people.PeopleResponse
+import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
+import com.example.proyectomovie_api.data.watchlist.WatchListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -22,6 +33,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 lateinit var tokenAcceso:String
+private const val BEARER_TOKEN = ""
 
 interface MyService {
 
@@ -31,8 +43,21 @@ interface MyService {
     *    ------------- PETICIONES PARA EL LOGIN -----------------------
      */
 
-
     // Create Request Token
+
+    // Lista de descubrimientos de películas
+    @GET("discover/movie?sort_by=popularity.desc")
+    suspend fun discoverMovies(
+        @Query("api_key") apiKey:String
+    ): Response<Movie>
+
+    // Lista de descubrimientos de TVShows
+    @GET("discover/tv?sort_by=popularity.desc")
+    suspend fun discoverTVShows(
+        @Query("api_key") apiKey:String
+    ): Response<TVResponse>
+
+    // Plataformas en las que se puede ver una peli
     // CREA UN TOKEN PARA ENVIARLO A LA PAGINA Y VALIDARLO
     @Headers(
         "accept: application/json",
@@ -120,7 +145,7 @@ interface MyService {
     )
     @GET("discover/movie?sort_by=popularity.desc")
     suspend fun discoverMovies(
-    ): Response<MovieResponse>
+    ): Response<Movie>
 
     // Lista de descubrimientos de TVShows
     @Headers(
@@ -142,6 +167,7 @@ interface MyService {
     ): Response<MovieProviderResponse>
 
     // Plataformas en las que se puede ver un TVShow
+
     @Headers(
         "accept: application/json",
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
@@ -159,7 +185,7 @@ interface MyService {
     @GET("account/{account_id}/favorite/movies")
     suspend fun getFavMovies(
         @Path("account_id") userID: Int
-    ): Response<MovieResponse>
+    ): Response<Movie>
 
     //TVShows favoritos del usuario
     @Headers(
@@ -179,7 +205,7 @@ interface MyService {
     @GET("movie/popular")
     suspend fun popularMovies(
         @Query("region") region:String
-    ):Response<MovieResponse>
+    ):Response<Movie>
 
     // Películas mejor valoradas
     @Headers(
@@ -229,7 +255,7 @@ interface MyService {
     @GET("trending/movie/{time_window}")
     suspend fun trendingMovies(
         @Path("time_window") timeWindow:String
-    ):Response<MovieResponse>
+    ):Response<Movie>
 
 
     // TVShows Trending del día o semana
@@ -245,5 +271,153 @@ interface MyService {
 
 
 
+    // Películas favoritas del usuario
+    @GET("account/{account_id}/favorite/movies")
+    suspend fun getFavMovies(
+        @Query("api_key") apiKey:String,
+        @Path("account_id") userID: Int
+    ): Response<Movie>
+
+
+    //TVShows favoritos del usuario
+    @GET("account/{account_id}/favorite/tv")
+    suspend fun getFavTVShows(
+        @Query("api_key") apiKey:String,
+        @Path("account_id") userID: Int
+    ): Response<TVResponse>
+
+    // Películas más populares
+    @GET("movie/popular")
+    suspend fun popularMovies(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<MovieResponse>
+
+    // Películas mejor valoradas
+    @GET("movie/top_rated")
+    suspend fun topRatedMovies(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<MovieResponse>
+
+    // TVShows más populares
+    @GET("tv/popular")
+    suspend fun popularTVShows(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<TVResponse>
+
+    // TVShows mejor valorados
+    @GET("tv/top_rated")
+    suspend fun topRatedTVShows(
+        @Query("api_key") apiKey:String,
+        @Query("region") region:String
+    ):Response<TVResponse>
+
+    // Personas Trending del día o semana
+//    @GET("trending/person/{time_window}")
+//    suspend fun trendingPeople(
+//        @Query("api_key") apiKey:String,
+//        @Path("time_window") timeWindow:String
+//    ):Response<PeopleResponse>
+
+    // Peliculas Trending del día o semana
+    @GET("trending/movie/{time_window}")
+    suspend fun trendingMovies(
+        @Query("api_key") apiKey:String,
+        @Path("time_window") timeWindow:String
+    ):Response<Movie>
+
+
+    // TVShows Trending del día o semana
+    @GET("trending/tv/{time_window}")
+    suspend fun trendingTVShows(
+        @Query("api_key") apiKey:String,
+        @Path("time_window") timeWindow:String
+    ):Response<TVResponse>
+
+
+    // Obtiene la lista de proveedores por país donde la serie está disponible
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("tv/{serie_id}/watch/providers")
+    suspend fun getSerieWatchProvider(
+        @Path("serie_id") movieId: Int
+    ):Response<TVSerieResponse>
+
+    // Obtiene la lista de proveedores por país donde la película está disponible
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("movie/{movie_id}/watch/providers")
+    suspend fun getMovieWatchProvider(
+        @Path("movie_id") movieId: Int
+    ):Response<MovieProviderResponse>
+
+
+    // Añadir contenido a tu watchlist pasándole un objeto de tipo addWatchListBody como body y la id del usuario por URL (Path)
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @POST("account/{account_id}/watchlist")
+    suspend fun addToWatchList(
+        @Path("accoun_id") accountId : Int,
+        @Body data : addWatchListBody
+    ) : Response<WatchListResponse>
+
+    // Añadir contenido a tus favoritos pasándole un objeto de tipo addFavoriteBody como body y la id del usuario por URL (Path)
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @POST("account/{account_id}/favorite")
+    suspend fun addToFavorite(
+        @Path("accoun_id") accountId : Int,
+        @Body data : addFavoriteBody
+    ) : Response<WatchListResponse>
+
+    //Ambas funciones obtiene fotos del contenido deseando, se debe enviar una ID
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("movie/{movie_id}/images")
+    suspend fun getMovieImages(
+        @Path("movie_id") movieId : Int
+    ) : Response<ImageResponse>
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+
+    @GET("tv/{serie_id}/images")
+    suspend fun getSerieImages(
+        @Path("serie_id") serieId : Int
+    ) : Response<ImageResponse>
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDg3ZWZjNGM2NTg3ZGFlODg0MWE2ZmI4MDIyMjdhOCIsInN1YiI6IjY2MThmYmNmZTEwZjQ2MDE3ZGI1NTMwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Pf3dDGEP6GsXawai5v32lPhplaFcK30ryMoeQaDKMx0"
+    )
+    @GET("movie/{movie_id}")
+    suspend fun getMovieById(
+        @Path("movie_id") movieId : Int,
+        @Query("language") language: String
+    ): Response<MovieDetallesResponse>
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDg3ZWZjNGM2NTg3ZGFlODg0MWE2ZmI4MDIyMjdhOCIsInN1YiI6IjY2MThmYmNmZTEwZjQ2MDE3ZGI1NTMwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Pf3dDGEP6GsXawai5v32lPhplaFcK30ryMoeQaDKMx0"
+    )
+    @GET("tv/{serie_id}")
+    suspend fun getSerieById(
+        @Path("serie_id") serieId: Int,
+        @Query("language") language: String
+    ): Response<SerieDetallesResponse>
 
 }
