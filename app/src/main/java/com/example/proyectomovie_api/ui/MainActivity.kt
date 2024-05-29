@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         if (sessionCode != null) {
             viewModel.setSessionID(sessionCode)
         }
+        val tipoUser = intent.getStringExtra("tipoUser")
 
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHost
         navController = navHost.navController

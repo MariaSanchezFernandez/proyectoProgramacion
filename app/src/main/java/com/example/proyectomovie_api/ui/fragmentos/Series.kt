@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.FragmentSeriesBinding
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselPeliculas
@@ -95,7 +96,7 @@ class Series : Fragment() {
         binding.RecycledViewCarouselSeries.adapter = imageAdapter
         imageAdapter.submitList(randomImageUrls)
 
-        viewModel.getPopularTVShow("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){series ->
+        viewModel.getPopularTVShow().observe(viewLifecycleOwner){series ->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -146,7 +147,7 @@ class Series : Fragment() {
             }
         }
 
-        viewModel.topRatedTVShow("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){series ->
+        viewModel.topRatedTVShow().observe(viewLifecycleOwner){series ->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -201,9 +202,22 @@ class Series : Fragment() {
             viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
                 viewModel.getFavoriteTVShows(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
 
-                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos)
-                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos, object : AdaptadorMiListaSerie.MyClick {
+                        override fun onHolderClick(serie: TVShow) {
+                            val id = serie.id
+                            viewModel.getSerieById(id, "es-ES").observe(viewLifecycleOwner) {
+                                if (it != null) {
+                                    viewModel.setSerie(it)
+                                    findNavController().navigate(R.id.action_fragmentSeries_to_informacionSeries)
+                                }
+                            }
+                        }
+                    })
+                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
                     binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
+                    if (listaFavoritos.size > 0){
+                        binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
+                    }
                 }
             }
         }

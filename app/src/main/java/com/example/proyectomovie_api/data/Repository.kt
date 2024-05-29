@@ -10,9 +10,9 @@ import org.intellij.lang.annotations.Language
 
 class Repository {
 
-    suspend fun getPopularMovies(apiKey:String) = RetrofitHelper.retrofitService.popularMovies(apiKey, "ES")
+    suspend fun getPopularMovies() = RetrofitHelper.retrofitService.popularMovies( "ES")
 
-    suspend fun getPopularTVShows(apiKey:String) = RetrofitHelper.retrofitService.popularTVShows(apiKey, "ES")
+    suspend fun getPopularTVShows() = RetrofitHelper.retrofitService.popularTVShows( "ES")
 
     suspend fun discoverMovies() = RetrofitHelper.retrofitService.discoverMovies()
 
@@ -61,9 +61,6 @@ class Repository {
     // FUNCION PARA LOS DETALLES DE LA CUENTA
 
     suspend fun getAccountDetails(sessionID:String) = RetrofitHelper.retrofitService.getAccountDetails(sessionID)
-
-
-    suspend fun topRatedTVShows(apiKey: String) = RetrofitHelper.retrofitService.topRatedTVShows(apiKey, "ES")
-
-    suspend fun topRatedMovies(apiKey: String) = RetrofitHelper.retrofitService.topRatedMovies(apiKey, "ES")
+    suspend fun topRatedTVShows() = RetrofitHelper.retrofitService.topRatedTVShows( "ES")
+    suspend fun topRatedMovies() = RetrofitHelper.retrofitService.topRatedMovies( "ES")
 }

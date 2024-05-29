@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselPeliculas
@@ -96,7 +97,7 @@ class Peliculas : Fragment() {
         imageAdapter.submitList(randomImageUrls)
 
 
-        viewModel.getPopularMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){pelicula->
+        viewModel.getPopularMovies().observe(viewLifecycleOwner){pelicula->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -148,7 +149,9 @@ class Peliculas : Fragment() {
             }
 
         }
-      viewModel.topRatedMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){pelicula ->
+      viewModel.topRatedMovies(
+
+      ).observe(viewLifecycleOwner){pelicula ->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -203,8 +206,22 @@ class Peliculas : Fragment() {
             viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
                 viewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
 
-                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos)
-                    binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
+                        override fun onHolderClick(pelicula: Movie) {
+                            val id = pelicula.id
+                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                                if (it != null) {
+                                    viewModel.setPelicula(it)
+                                    findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                                }
+                            }
+                        }
+
+                    })
+                    binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
+                    if (listaFavoritos.size > 0){
+                        binding.tvMensajeNingunFav.visibility = View.INVISIBLE
+                    }
                     binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
                 }
             }
