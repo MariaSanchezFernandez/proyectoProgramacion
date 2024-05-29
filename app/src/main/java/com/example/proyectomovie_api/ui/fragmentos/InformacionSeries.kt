@@ -42,7 +42,7 @@ class InformacionSeries : Fragment() {
             rellenaDatos(serie)
 
             viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner){ it2 ->
-                val sizeRespuesta = it2.backdrops?.size
+                val sizeRespuesta = it2.backdrops?.size ?: 0
                 val listaURLs = ArrayList<ImagenCarousel>()
                 var i = 0
                 while(i < sizeRespuesta!!){
@@ -60,6 +60,7 @@ class InformacionSeries : Fragment() {
                 binding.recyclerViewDetallesSerie.layoutManager = CarouselLayoutManager()
                 binding.recyclerViewDetallesSerie.adapter = adaptadorSeriesDetalles
                 adaptadorSeriesDetalles.submitList(listaURLs)
+
             }
 
 
