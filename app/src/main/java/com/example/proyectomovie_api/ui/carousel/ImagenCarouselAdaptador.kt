@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselPeliculas
 
-class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel, ImagenCarouselAdaptador.ViewHolder>(DiffCallback()) {
+class ImagenCarouselAdaptador (val listado: List<ImagenCarousel>, val listener: MyClick) : ListAdapter<ImagenCarousel, ImagenCarouselAdaptador.ViewHolder>(DiffCallback()){
     class DiffCallback : DiffUtil.ItemCallback<ImagenCarousel>() {
         override fun areItemsTheSame(oldItem: ImagenCarousel, newItem: ImagenCarousel): Boolean {
             return oldItem.id == newItem.id
@@ -21,6 +22,10 @@ class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel, ImagenCarouselAdapta
         }
     }
 
+    interface MyClick {
+        fun onHolderClick(imagenCarousel: ImagenCarousel)
+    }
+
     open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
 
@@ -28,6 +33,8 @@ class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel, ImagenCarouselAdapta
             Glide.with(itemView)
                 .load(item.url)
                 .into(imageView)
+
+
         }
     }
 
@@ -38,6 +45,10 @@ class ImagenCarouselAdaptador : ListAdapter<ImagenCarousel, ImagenCarouselAdapta
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //holder.bindData(getItem(position))
+        val data = listado[position]
         holder.bindData(getItem(position))
+        holder.itemView.setOnClickListener{
+           listener.onHolderClick(data)
+        }
     }
 }

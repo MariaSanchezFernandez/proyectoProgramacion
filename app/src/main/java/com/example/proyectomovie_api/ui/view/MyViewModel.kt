@@ -22,6 +22,7 @@ import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.movie_detalles.MovieDetallesResponse
+import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
@@ -38,7 +39,7 @@ class MyViewModel: ViewModel() {
     private val listaTVShowRated = MutableLiveData<List<TVShow>>()
     private val listaPeliculasPopularesLiveData1 = MutableLiveData<MovieResponse>()
     private val peliculaLivedata = MutableLiveData<MovieDetallesResponse>()
-    private val serieLiveData = MutableLiveData<TVShow>()
+    private val serieLiveData = MutableLiveData<SerieDetallesResponse>()
     private val requestToken = MutableLiveData<String>()
     private val sessionID = MutableLiveData<String>()
     private val listaFavMovies = MutableLiveData<List<Movie>>()
@@ -285,6 +286,18 @@ class MyViewModel: ViewModel() {
         return getMovieByIdLiveData
     }
 
+    fun getSerieById(serieId: Int, language: String) : MutableLiveData<SerieDetallesResponse?>{
+        val getSerieByIdLiveData = MutableLiveData<SerieDetallesResponse?>()
+        viewModelScope.launch {
+            val respuesta = repositorio.getSerieById(serieId, language)
+            if(respuesta.code() == 200){
+                val getSerie = respuesta.body()
+                getSerieByIdLiveData.postValue(getSerie)
+            }
+        }
+        return getSerieByIdLiveData
+    }
+
     //Guardar película al cambio de pantalla
     fun setPelicula(pelicula: MovieDetallesResponse){
         peliculaLivedata.value = pelicula
@@ -294,7 +307,7 @@ class MyViewModel: ViewModel() {
 
 
     //Guardar TVShow al cambio de pantalla
-    fun setSerie(serie: TVShow){
+    fun setSerie(serie: SerieDetallesResponse){
         serieLiveData.value = serie
     }
 
@@ -307,7 +320,7 @@ class MyViewModel: ViewModel() {
             if (respuesta.code() == 200){
                 var listaMoviesFav = respuesta.body()
                 listaMoviesFav?.let {
-                    listaFavMovies.postValue(it.results)
+                    listaFavMovies.postValue(listOf(it))
 
         fun getFavoriteMovies(acountId: Int): MutableLiveData<List<Movie>> {
             viewModelScope.launch {
