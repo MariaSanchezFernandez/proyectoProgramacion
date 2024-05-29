@@ -1,7 +1,5 @@
 package com.example.proyectomovie_api.ui.view
 
-import android.graphics.Region
-import android.media.Image
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +16,6 @@ import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
-import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
 import com.example.proyectomovie_api.data.watchlist.WatchListResponse
