@@ -2,15 +2,16 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ProyectoMovieAPI" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">#151515</item>
         <item name="fontFamily">@font/inter</item>
     </style>
     <style name="Base.Theme.Login" parent="Theme.Material3.DayNight.NoActionBar">
     <!-- Customize your light theme here. -->
-    <item name="colorPrimary">@color/white</item>
+    <item name="colorPrimary">#151515</item>
     </style>
     <style name="hamburguesa" parent="Base.Theme.ProyectoMovieAPI">
         <item name="android:textColorSecondary">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
     </style>
     <style name="Theme.ProyectoMovieAPI" parent="Base.Theme.ProyectoMovieAPI" />
 </resources>
