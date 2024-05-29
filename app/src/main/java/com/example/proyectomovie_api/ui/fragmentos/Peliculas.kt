@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -89,33 +90,53 @@ class Peliculas : Fragment() {
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
-            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[0]].posterPath).into(binding.imPopularPelicula1)
-            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[1]].posterPath).into(binding.imPopularPelicula2)
-            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[2]].posterPath).into(binding.imPopularPelicula3)
-            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[3]].posterPath).into(binding.imPopularPelicula4)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[0]].poster_path).into(binding.imPopularPelicula1)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[1]].poster_path).into(binding.imPopularPelicula2)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[2]].poster_path).into(binding.imPopularPelicula3)
+            Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[3]].poster_path).into(binding.imPopularPelicula4)
 
             binding.imPopularPelicula1.setOnClickListener {
-                viewModel.setPelicula(pelicula[randomIndices[0]])
-                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                val id = pelicula[randomIndices[0]].id
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
+                }
             }
 
             binding.imPopularPelicula2.setOnClickListener {
-                viewModel.setPelicula(pelicula[randomIndices[1]])
-                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                val id = pelicula[randomIndices[1]].id
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
+                }
             }
 
             binding.imPopularPelicula3.setOnClickListener {
-                viewModel.setPelicula(pelicula[randomIndices[2]])
-                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                val id = pelicula[randomIndices[2]].id
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
+                }
             }
+
             binding.imPopularPelicula4.setOnClickListener {
-                viewModel.setPelicula(pelicula[randomIndices[3]])
-                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                val id = pelicula[randomIndices[3]].id
+                viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
+                    if (it2 != null) {
+                        viewModel.setPelicula(it2)
+                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                    }
+                }
             }
 
         }
-
-        viewModel.topRatedMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){pelicula ->
+      viewModel.topRatedMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){pelicula ->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 

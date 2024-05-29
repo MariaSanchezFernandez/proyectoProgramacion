@@ -12,8 +12,11 @@ import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
+import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
+import com.example.proyectomovie_api.data.movie_detalles.MovieDetallesResponse
+import com.example.proyectomovie_api.data.movie_detalles.SpokenLanguage
 import com.example.proyectomovie_api.data.people.PeopleResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
@@ -40,7 +43,7 @@ interface MyService {
     @GET("discover/movie?sort_by=popularity.desc")
     suspend fun discoverMovies(
         @Query("api_key") apiKey:String
-    ): Response<MovieResponse>
+    ): Response<Movie>
 
     // Lista de descubrimientos de TVShows
     @GET("discover/tv?sort_by=popularity.desc")
@@ -119,7 +122,7 @@ interface MyService {
     )
     @GET("discover/movie?sort_by=popularity.desc")
     suspend fun discoverMovies(
-    ): Response<MovieResponse>
+    ): Response<Movie>
 
     // Lista de descubrimientos de TVShows
     @Headers(
@@ -159,7 +162,7 @@ interface MyService {
     @GET("account/{account_id}/favorite/movies")
     suspend fun getFavMovies(
         @Path("account_id") userID: Int
-    ): Response<MovieResponse>
+    ): Response<Movie>
 
     //TVShows favoritos del usuario
     @Headers(
@@ -179,7 +182,7 @@ interface MyService {
     @GET("movie/popular")
     suspend fun popularMovies(
         @Query("region") region:String
-    ):Response<MovieResponse>
+    ):Response<Movie>
 
     // Películas mejor valoradas
     @Headers(
@@ -229,7 +232,7 @@ interface MyService {
     @GET("trending/movie/{time_window}")
     suspend fun trendingMovies(
         @Path("time_window") timeWindow:String
-    ):Response<MovieResponse>
+    ):Response<Movie>
 
 
     // TVShows Trending del día o semana
@@ -251,7 +254,7 @@ interface MyService {
     suspend fun getFavMovies(
         @Query("api_key") apiKey:String,
         @Path("account_id") userID: Int
-    ): Response<MovieResponse>
+    ): Response<Movie>
 
 
     //TVShows favoritos del usuario
@@ -301,7 +304,7 @@ interface MyService {
     suspend fun trendingMovies(
         @Query("api_key") apiKey:String,
         @Path("time_window") timeWindow:String
-    ):Response<MovieResponse>
+    ):Response<Movie>
 
 
     // TVShows Trending del día o semana
@@ -313,49 +316,75 @@ interface MyService {
 
 
     // Obtiene la lista de proveedores por país donde la serie está disponible
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
     @GET("tv/{serie_id}/watch/providers")
     suspend fun getSerieWatchProvider(
-        @Query("api_key") apiKey:String,
         @Path("serie_id") movieId: Int
     ):Response<TVSerieResponse>
 
     // Obtiene la lista de proveedores por país donde la película está disponible
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
     @GET("movie/{movie_id}/watch/providers")
     suspend fun getMovieWatchProvider(
-        @Query("api_key") apiKey: String,
         @Path("movie_id") movieId: Int
     ):Response<MovieProviderResponse>
 
 
     // Añadir contenido a tu watchlist pasándole un objeto de tipo addWatchListBody como body y la id del usuario por URL (Path)
-    @Headers("Content-Type: application/json")
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
     @POST("account/{account_id}/watchlist")
     suspend fun addToWatchList(
-        @Query("api_key") apiKey: String,
         @Path("accoun_id") accountId : Int,
         @Body data : addWatchListBody
     ) : Response<WatchListResponse>
 
     // Añadir contenido a tus favoritos pasándole un objeto de tipo addFavoriteBody como body y la id del usuario por URL (Path)
-    @Headers("Content-Type: application/json")
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
     @POST("account/{account_id}/favorite")
     suspend fun addToFavorite(
-        @Query("api_key") apiKey: String,
         @Path("accoun_id") accountId : Int,
         @Body data : addFavoriteBody
     ) : Response<WatchListResponse>
 
     //Ambas funciones obtiene fotos del contenido deseando, se debe enviar una ID
-//    @GET("movie/{movie_id}/images")
-//    suspend fun getMovieImages(
-//        @Query("api_key") apiKey: String,
-//        @Path("movie_id") movieId : Int
-//    ) : Response<ImageResponse>
-
-    @GET("tv/{serie_id}/images")
-    suspend fun getSerieImages(
-        @Query("api_key") apiKey: String,
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("movie/{movie_id}/images")
+    suspend fun getMovieImages(
         @Path("movie_id") movieId : Int
     ) : Response<ImageResponse>
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("tv/{serie_id}/images")
+    suspend fun getSerieImages(
+        @Path("movie_id") movieId : Int
+    ) : Response<ImageResponse>
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDg3ZWZjNGM2NTg3ZGFlODg0MWE2ZmI4MDIyMjdhOCIsInN1YiI6IjY2MThmYmNmZTEwZjQ2MDE3ZGI1NTMwOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Pf3dDGEP6GsXawai5v32lPhplaFcK30ryMoeQaDKMx0"
+    )
+    @GET("movie/{movie_id}")
+    suspend fun getMovieById(
+        @Path("movie_id") movieId : Int,
+        @Query("language") language: String
+    ): Response<MovieDetallesResponse>
 
 }

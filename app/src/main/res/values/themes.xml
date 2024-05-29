@@ -11,6 +11,7 @@
     </style>
     <style name="hamburguesa" parent="Base.Theme.ProyectoMovieAPI">
         <item name="android:textColorSecondary">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
     </style>
     <style name="Theme.ProyectoMovieAPI" parent="Base.Theme.ProyectoMovieAPI" />
 </resources>
