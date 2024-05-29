@@ -26,7 +26,8 @@ class fragment_btVerMas3_Fav : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        myViewModel.getFavMovies().observe(viewLifecycleOwner){}
+        myViewModel.getFavTVShows().observe(viewLifecycleOwner){}
 
     }
 

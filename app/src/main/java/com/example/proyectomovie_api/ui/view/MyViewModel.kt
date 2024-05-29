@@ -314,6 +314,8 @@ class MyViewModel: ViewModel() {
         return listaFavMovies
     }
 
+    fun getFavMovies() = listaFavMovies
+
     fun getFavoriteTVShows(acountId: Int): MutableLiveData<List<TVShow>> {
         viewModelScope.launch {
             val respuesta = repositorio.getFavoriteTVShows(acountId)
@@ -326,6 +328,8 @@ class MyViewModel: ViewModel() {
         }
         return listaFavSeries
     }
+
+    fun getFavTVShows() = listaFavSeries
 
     fun getFavoriteWatchListMovies(accountId: Int): MutableLiveData<List<Movie>> {
         val listaWlMoviesFavLiveData = MutableLiveData<List<Movie>>()
