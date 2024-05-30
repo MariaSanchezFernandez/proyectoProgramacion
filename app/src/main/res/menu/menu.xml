@@ -17,4 +17,7 @@
     <item
         android:id="@+id/fragmentCuenta"
         android:title="Cuenta" />
+    <item
+        android:id="@+id/fragmentFav"
+        android:title="Favoritos" />
 </menu>

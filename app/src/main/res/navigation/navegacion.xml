@@ -51,10 +51,10 @@
         android:label="InformacionSeries"
         tools:layout="@layout/fragment_series" />
     <fragment
-        android:id="@+id/favoritos"
+        android:id="@+id/fragmentFav"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Favoritos"
-        android:label="fragment_favoritos"
-        tools:layout="@layout/fragment_favoritos" >
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_favoritos">
         <action
             android:id="@+id/action_favoritos_to_informacion"
             app:destination="@id/informacion" />
@@ -70,6 +70,12 @@
     <fragment
         android:id="@+id/fragment_btVerMas3_Fav"
         android:name="com.example.proyectomovie_api.ui.fragmentos.fragment_btVerMas3_Fav"
+        android:label="Carteleras"
+        tools:layout="@layout/fragment_bt_ver_mas3__fav">
+        <action
+            android:id="@+id/action_fragment_btVerMas3_Fav_to_informacion"
+            app:destination="@id/informacion" />
+    </fragment>
         android:label="fragment_bt_ver_mas3__fav"
         tools:layout="@layout/fragment_bt_ver_mas3__fav" />
 </navigation>

@@ -49,7 +49,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragmentInicio,
                 R.id.fragmentPeliculas,
                 R.id.fragmentSeries,
-                R.id.fragmentCuenta
+                R.id.fragmentCuenta,
+                R.id.fragmentFav
             ),binding.DrawerLayourFrame
         )
 //Cambios

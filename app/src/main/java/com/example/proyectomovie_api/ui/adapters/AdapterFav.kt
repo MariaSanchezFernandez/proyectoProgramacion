@@ -13,8 +13,7 @@ class AdapterFav(
     val listener: FavClick
 ) : RecyclerView.Adapter<AdapterFav.FavoritoHolder>() {
 
-    private var _binding: HolderCarteleraFavBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: HolderCarteleraFavBinding
 
     fun interface FavClick {
         fun onFavClick(movie: Movie)
@@ -31,6 +30,8 @@ class AdapterFav(
     override fun onBindViewHolder(holder: FavoritoHolder, position: Int) {
         val favorito = lista[position]
         Glide.with(holder.itemView.context)
+            //.with(holder.itemView.context)
+            //.with(holder.binding.imgPortada)
             .load(favorito.poster_path)
             .into(holder.binding.imgPortada)
 
