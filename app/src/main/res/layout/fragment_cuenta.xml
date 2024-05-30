@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragmentos.Cuenta"/>
+    tools:context=".ui.fragmentos.Cuenta">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/CLCuenta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewUSerAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="91dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/cuentaUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:text="username"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewUSerAvatar"
+            app:layout_constraintStart_toStartOf="@+id/imageViewUSerAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewUSerAvatar" />
+
+        <TextView
+            android:id="@+id/textViewnombreUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="nombre"
+            app:layout_constraintEnd_toEndOf="@+id/cuentaUsername"
+            app:layout_constraintStart_toStartOf="@+id/cuentaUsername"
+            app:layout_constraintTop_toBottomOf="@+id/cuentaUsername" />
+
+        <TextView
+            android:id="@+id/textViewtNacionalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="Nacionalidad"
+            app:layout_constraintEnd_toStartOf="@+id/textViewTIdioma"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewnombreUser" />
+
+        <TextView
+            android:id="@+id/textViewTIdioma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="Idioma"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewtNacionalidad"
+            app:layout_constraintTop_toBottomOf="@+id/textViewnombreUser" />
+
+        <TextView
+            android:id="@+id/textViewNacionalidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/textViewtNacionalidad"
+            app:layout_constraintStart_toStartOf="@+id/textViewtNacionalidad"
+            app:layout_constraintTop_toBottomOf="@+id/textViewtNacionalidad" />
+
+        <TextView
+            android:id="@+id/textViewIdioma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTIdioma"
+            app:layout_constraintStart_toStartOf="@+id/textViewTIdioma"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTIdioma" />
+
+        <Button
+            android:id="@+id/buttonCerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="196dp"
+            android:text="LOG-OFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewnombreUser" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

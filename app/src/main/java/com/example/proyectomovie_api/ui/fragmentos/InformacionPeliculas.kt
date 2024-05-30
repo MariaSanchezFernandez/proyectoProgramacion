@@ -49,21 +49,29 @@ class InformacionPeliculas : Fragment() {
             }
 
             binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
-                val data = movie.id?.let { it1 -> addWatchListBody("movie", it1, true) }
-                if (data != null) {
-                    viewModel.addToWatchList( 21314, data)
+                viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                        val data = movie.id?.let { it1 -> addWatchListBody("movie", it1, true) }
+                        if (data != null) {
+                            viewModel.addToWatchList( accountId, data)
+                        }
+                        val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tu watchlist", Snackbar.LENGTH_SHORT)
+                        snackbar.show()
+                    }
                 }
-                val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                snackbar.show()
             }
 
             binding.floatingbtMiListaDetallesPelicula.setOnClickListener {
-                val data = movie.id?.let { it1 -> addFavoriteBody("movie", it1, true) }
-                if (data != null) {
-                    viewModel.addToFavorite(21314, data)
+                viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                        val data = movie.id?.let { it1 -> addFavoriteBody("movie", it1, true) }
+                        if (data != null) {
+                            viewModel.addToFavorite(requireContext(),accountId, data)
+                        }
+                        val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
+                        snackbar.show()
+                    }
                 }
-                val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
-                snackbar.show()
             }
         }
     }
@@ -84,13 +92,13 @@ class InformacionPeliculas : Fragment() {
             Glide.with(requireContext())
                 .load(originalURL)
                 .into(binding.ivFondoDetallesPelicula)
+
             tvGenresDetallesPelicula.text = peli.genres?.get(0)?.name.toString()
             tvOriginCountryDetallesPelicula.text = peli.originCountry?.get(0).toString() + " · "
             tvDuracionDetallesPelicula.text = peli.runtime.toString() + " min"
             tvOverviewDetallesPelicula.text = peli.overview
 
             (requireActivity() as MainActivity).supportActionBar?.setTitle(peli.title)
-
         }
     }
 }

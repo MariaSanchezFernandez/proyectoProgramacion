@@ -25,10 +25,8 @@
                 android:clickable="true"
                 app:backgroundTint="#3A2929"
                 app:layout_constraintBottom_toBottomOf="@+id/floatingbtnWhatchListDetallesSeries"
-                app:layout_constraintEnd_toStartOf="@+id/floatingbtnWhatchListDetallesSeries"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ivCartelDetallesSerie"
-                app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesSerie"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="@+id/ivCartelDetallesSerie"
                 app:layout_constraintTop_toTopOf="@+id/floatingbtnWhatchListDetallesSeries"
                 app:srcCompat="@drawable/baseline_favorite_24"
                 app:tint="#FFFFFF" />
@@ -37,12 +35,11 @@
                 android:id="@+id/floatingbtnWhatchListDetallesSeries"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:clickable="true"
                 app:backgroundTint="#3A2929"
-                app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesSerie"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/floatingbtMiListaDetallesSerie"
-                app:layout_constraintTop_toBottomOf="@+id/tvReleaseDateDetallesSerie"
+                app:layout_constraintEnd_toEndOf="@+id/ivCartelDetallesSerie"
+                app:layout_constraintTop_toBottomOf="@+id/ivCartelDetallesSerie"
                 app:srcCompat="@drawable/baseline_add_circle_24"
                 app:tint="#FFFFFF" />
 
@@ -60,15 +57,18 @@
                 android:id="@+id/ivGradienteDetalles"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:paddingBottom="50dp"
                 app:layout_constraintBottom_toTopOf="@+id/floatingbtMiListaDetallesSerie"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/ivCartelDetallesSerie"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/gradiente_detalles" />
 
             <ImageView
                 android:id="@+id/ivCartelDetallesSerie"
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:adjustViewBounds="true"
@@ -83,7 +83,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
-                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/ivCartelDetallesSerie"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,19 +96,20 @@
                 android:id="@+id/tvReleaseDateDetallesSerie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesSerie"
                 app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesSerie"
-                app:layout_constraintTop_toTopOf="@+id/tvTituloDetallesSerie" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTituloDetallesSerie" />
 
             <TextView
                 android:id="@+id/tvGenresDetallesSerie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="@+id/ivCartelDetallesSerie"
-                app:layout_constraintTop_toBottomOf="@+id/ivCartelDetallesSerie" />
+                app:layout_constraintTop_toBottomOf="@+id/floatingbtMiListaDetallesSerie" />
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -118,7 +121,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewDetallesSerie"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="200dp" />
             </RelativeLayout>
 
             <TextView
@@ -126,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="@+id/tvGenresDetallesSerie"
                 app:layout_constraintTop_toBottomOf="@+id/tvGenresDetallesSerie" />
 
@@ -134,7 +137,7 @@
                 android:id="@+id/tvDuracionDetallesSerie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tvOriginCountryDetallesSerie"
                 app:layout_constraintStart_toEndOf="@+id/tvOriginCountryDetallesSerie"
                 app:layout_constraintTop_toTopOf="@+id/tvOriginCountryDetallesSerie" />
@@ -145,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvOriginCountryDetallesSerie"
                 app:layout_constraintTop_toBottomOf="@+id/tvOriginCountryDetallesSerie" />
@@ -155,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Galeria de imágenes"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tvOverviewDetallesSerie"
                 app:layout_constraintStart_toStartOf="@+id/tvOverviewDetallesSerie"

@@ -39,8 +39,13 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonAuthToken.setOnClickListener {
 
-            username = binding.etUsernameLogin.text.toString()
-            password = binding.etPasswordLogin.text.toString()
+
+
+           // username = binding.etUsernameLogin.text.toString()
+           // password = binding.etPasswordLogin.text.toString()
+
+            username="salvador.izquierdo"
+            password="e26522167Q"
 
             // COMPRUEBA QUE HAYA USUARIO Y CONTRASEÑA
             if (username.isNotEmpty() && password.isNotEmpty()){
@@ -83,17 +88,14 @@ class LoginActivity : AppCompatActivity() {
                 if (sessionIDLogin.success){
                     authToken = sessionIDLogin.request_token
 
-
-                    //CREA UN BODY CON EL TOKEN, PARA ESTA VEZ CREAR LA SESIÓN ID
-
-                    val body = BodySessionID(authToken)
-                    viewModel.createSession(body).observe(this){
+                    viewModel.createSession(authToken).observe(this){
                         // guardamos la session ID en viewmodel
                         viewModel.setSessionID(it.session_id)
                         sessionID = it.session_id
                         // Intent con la sessión id se manda al main activity
                         val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
                             putExtra("sessionID", sessionID)
+                            putExtra("tipoUSer","Usuario")
                         }
                         startActivity(intentCreateGuestSessionID)
                         finish()
@@ -114,6 +116,7 @@ class LoginActivity : AppCompatActivity() {
                     sessionID = it.guest_session_id
                     val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
                         putExtra("sessionID", sessionID)
+                        putExtra("tipoUSer","Invitado")
                     }
                     startActivity(intentCreateGuestSessionID)
                     finish()
@@ -121,7 +124,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 
     // FUNCIÓN SIMPLE QUE CAMBIA AMBOS BOTONES, DE FORMA QUE EL USUARIO LO PERCIBA COMO UN ÚNICO BOTÓN
     fun cambiaBotones(){
