@@ -39,13 +39,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonAuthToken.setOnClickListener {
 
-
-
-           // username = binding.etUsernameLogin.text.toString()
-           // password = binding.etPasswordLogin.text.toString()
-
-            username="salvador.izquierdo"
-            password="e26522167Q"
+            username = binding.etUsernameLogin.text.toString()
+            password = binding.etPasswordLogin.text.toString()
 
             // COMPRUEBA QUE HAYA USUARIO Y CONTRASEÑA
             if (username.isNotEmpty() && password.isNotEmpty()){
@@ -95,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
                         // Intent con la sessión id se manda al main activity
                         val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
                             putExtra("sessionID", sessionID)
-                            putExtra("tipoUSer","Usuario")
+                            putExtra("tipoUser","Usuario")
                         }
                         startActivity(intentCreateGuestSessionID)
                         finish()
@@ -116,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
                     sessionID = it.guest_session_id
                     val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
                         putExtra("sessionID", sessionID)
-                        putExtra("tipoUSer","Invitado")
+                        putExtra("tipoUser","Invitado")
                     }
                     startActivity(intentCreateGuestSessionID)
                     finish()

@@ -9,44 +9,33 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.databinding.MisFavoritosPeliculasBinding
+import com.example.proyectomovie_api.databinding.MisFotosInformacionBinding
+import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselInformacionPeliculas
 
 
-class ImagenCarouselAdaptadorInformacion(val listado: List<ImagenCarousel>, val listener: MyClick) :
-    ListAdapter<ImagenCarousel, ImagenCarouselAdaptadorInformacion.ViewHolder>(DiffCallback()) {
+class ImagenCarouselAdaptadorInformacion(val listado: List<ImagenCarousel>) :
+    RecyclerView.Adapter<ImagenCarouselAdaptadorInformacion.VistaCelda>() {
 
-    class DiffCallback : DiffUtil.ItemCallback<ImagenCarousel>() {
-        override fun areItemsTheSame(oldItem: ImagenCarousel, newItem: ImagenCarousel): Boolean {
-            return oldItem.id == newItem.id
-        }
+    inner class VistaCelda (val binding: MisFotosInformacionBinding) : RecyclerView.ViewHolder(binding.root)
 
-        override fun areContentsTheSame(oldItem: ImagenCarousel, newItem: ImagenCarousel): Boolean {
-            return oldItem == newItem
-        }
-    }
-    interface MyClick {
-        fun onHolderClick(imagenCarousel: ImagenCarousel)
-    }
-
-
-    open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView = itemView.findViewById(R.id.imageView)
-
-        fun bindData(item: ImagenCarousel) {
-            Glide.with(itemView)
-                .load(item.url)
-                .into(imageView)
-        }
-    }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ImagenCarouselAdaptadorInformacion.VistaCelda {
+        return VistaCelda(MisFotosInformacionBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: VistaCelda, position: Int) {
         val data = listado[position]
-        holder.bindData(getItem(position))
-        holder.itemView.setOnClickListener{
-            listener.onHolderClick(data)
-        }
+        Glide.with(holder.itemView.context)
+            .load(data.url)
+            .into(holder.binding.imageView4)
     }
+
+    override fun getItemCount(): Int {
+        return listado.size
+    }
+
+
 }

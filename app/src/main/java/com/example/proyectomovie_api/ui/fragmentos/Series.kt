@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.FragmentSeriesBinding
 import com.example.proyectomovie_api.ui.MainActivity
@@ -20,6 +21,7 @@ import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
+import com.google.android.material.snackbar.Snackbar
 import java.util.UUID
 
 class Series : Fragment() {
@@ -200,7 +202,7 @@ class Series : Fragment() {
 
         viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavoriteTVShows(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
+                viewModel.getFavoriteTVShows(21209376).observe(viewLifecycleOwner){listaFavoritos ->
 
                     val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos, object : AdaptadorMiListaSerie.MyClick {
                         override fun onHolderClick(serie: TVShow) {
@@ -212,9 +214,31 @@ class Series : Fragment() {
                                 }
                             }
                         }
+
+                        override fun onItemLongClick(serie: TVShow) {
+                            val id = serie.id
+                            viewModel.getSerieById(id, "es-ES").observe(viewLifecycleOwner){
+                                if (it != null) {
+                                    val deleteFavorito = addFavoriteBody("tv", id, false)
+                                    viewModel.getSessionID().observe(viewLifecycleOwner){ session ->
+                                        viewModel.getAccountID(session).observe(viewLifecycleOwner){accountId ->
+                                            context?.let { it1 -> viewModel.addToFavorite(it1, accountId, deleteFavorito).observe(viewLifecycleOwner){ respuesta ->
+                                                if (respuesta.success){
+                                                    val snackbar = Snackbar.make(binding.root, "Serie eliminada de favoritos", Snackbar.LENGTH_SHORT)
+                                                    snackbar.show()
+                                                }else{
+                                                    val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                                                    snackbar.show()
+                                                }
+                                            }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     })
-                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
-                    binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
+                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     if (listaFavoritos.size > 0){
                         binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
                     }

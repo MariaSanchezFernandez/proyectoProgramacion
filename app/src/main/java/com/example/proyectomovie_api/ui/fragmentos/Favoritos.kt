@@ -23,7 +23,7 @@ class Favoritos : Fragment() {
 
     private var _binding: FragmentFavoritosBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<MyViewModel>()
+    private val myViewModel by activityViewModels<MyViewModel>()
     
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,10 +36,25 @@ class Favoritos : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        configRecyclerMovies()
-        configRecyclerTvShows()
-        configRecyclerMoviesWl()
-        configRecyclerTvShowsWl()
+        val sesionId = myViewModel.getSessionID()
+
+        val acountId = myViewModel. getAccountID(sesionId.toString())
+
+        acountId.value?.let { myViewModel.getFavoriteMovies(it) }?.observe(viewLifecycleOwner){
+            configRecyclerMovies()
+        }
+
+        acountId.value?.let { myViewModel.getFavoriteTVShows(it) }?.observe(viewLifecycleOwner){
+            configRecyclerTvShows()
+        }
+
+        acountId.value?.let { myViewModel.getFavoriteWatchListMovies(it) }?.observe(viewLifecycleOwner) {
+            configRecyclerMoviesWl()
+        }
+
+        acountId.value?.let { myViewModel.getFavouriteWatchListTVShows(it) }?.observe(viewLifecycleOwner) {
+            configRecyclerTvShowsWl()
+        }
 
         binding.btVerMas1.setOnClickListener{
             findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
@@ -60,20 +75,22 @@ class Favoritos : Fragment() {
     }
 
     private fun configRecyclerMovies() {
-        viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
-            viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
+        myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
+            myViewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
+                myViewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
                     val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
                         override fun onHolderClick(pelicula: Movie) {
                             val id = pelicula.id
-                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                            myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
-                                    viewModel.setPelicula(it)
+                                    myViewModel.setPelicula(it)
                                     findNavController().navigate(R.id.action_favoritos_to_informacion)
                                 }
                             }
                         }
+                        override fun onItemLongClick(pelicula: Movie) {
 
+                        }
                     })
                     binding.rvPelis.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     binding.rvPelis.adapter = adaptadorFavoritos
@@ -83,18 +100,21 @@ class Favoritos : Fragment() {
     }
 
     private fun configRecyclerTvShows() {
-        viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
-            viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavoriteTVShows(accountId.id).observe(viewLifecycleOwner){listaTVShow ->
+        myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
+            myViewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
+                myViewModel.getFavoriteTVShows(accountId.id).observe(viewLifecycleOwner){listaTVShow ->
                     val adaptadorFavoritos = AdaptadorMiListaSerie(listaTVShow, object : AdaptadorMiListaSerie.MyClick{
                         override fun onHolderClick(serie: TVShow) {
                             val id = serie.id
-                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                            myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
-                                    viewModel.setPelicula(it)
+                                    myViewModel.setPelicula(it)
                                     findNavController().navigate(R.id.action_favoritos_to_informacion)
                                 }
                             }
+                        }
+                        override fun onItemLongClick(serie: TVShow) {
+
                         }
                     })
                     binding.rvSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -105,20 +125,22 @@ class Favoritos : Fragment() {
     }
 
     private fun configRecyclerMoviesWl() {
-        viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
-            viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
+        myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
+            myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                myViewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
                     val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
                         override fun onHolderClick(pelicula: Movie) {
                             val id = pelicula.id
-                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                            myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
-                                    viewModel.setPelicula(it)
+                                    myViewModel.setPelicula(it)
                                     findNavController().navigate(R.id.action_favoritos_to_informacion)
                                 }
                             }
                         }
+                        override fun onItemLongClick(pelicula: Movie) {
 
+                        }
                     })
                     binding.rvWLpelis.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     binding.rvWLpelis.adapter = adaptadorFavoritos
@@ -128,20 +150,22 @@ class Favoritos : Fragment() {
     }
 
     private fun configRecyclerTvShowsWl() {
-        viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
-            viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){listaTVShow ->
+        myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
+            myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                myViewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){listaTVShow ->
                     val adaptadorFavoritos = AdaptadorMiListaSerie(listaTVShow, object : AdaptadorMiListaSerie.MyClick{
                         override fun onHolderClick(serie: TVShow) {
                             val id = serie.id
-                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                            myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
-                                    viewModel.setPelicula(it)
+                                    myViewModel.setPelicula(it)
                                     findNavController().navigate(R.id.action_favoritos_to_informacion)
                                 }
                             }
                         }
+                        override fun onItemLongClick(serie: TVShow) {
 
+                        }
                     })
                     binding.rvWLseries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     binding.rvWLseries.adapter = adaptadorFavoritos

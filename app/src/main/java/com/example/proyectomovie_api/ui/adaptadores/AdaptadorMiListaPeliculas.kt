@@ -15,6 +15,7 @@ class AdaptadorMiListaPeliculas(val listado: List<Movie>, val listener: MyClick)
 
     interface MyClick {
         fun onHolderClick(pelicula: Movie)
+        fun onItemLongClick(pelicula: Movie)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaCelda {
@@ -34,6 +35,12 @@ class AdaptadorMiListaPeliculas(val listado: List<Movie>, val listener: MyClick)
 
         holder.itemView.setOnClickListener {
             listener.onHolderClick(data)
+        }
+        holder.itemView.setOnLongClickListener {
+            listener.onItemLongClick(data)
+            notifyItemRemoved(position)
+            holder.itemView.refreshDrawableState()
+            return@setOnLongClickListener true
         }
     }
 }

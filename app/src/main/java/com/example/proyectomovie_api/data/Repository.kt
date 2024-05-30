@@ -24,7 +24,7 @@ class Repository {
 
     suspend fun getFavoriteMovies(accountID:Int ) = RetrofitHelper.retrofitService.getFavMovies(accountID)
 
-    suspend fun getFavoriteTVShows(accountID: Int) = RetrofitHelper.retrofitService.getFavTVShows(accountID)
+    suspend fun getFavoriteTVShows(account_id: Int) = RetrofitHelper.retrofitService.getFavTVShows(account_id)
 
     suspend fun getFavouriteWatchListMovies(accountID: Int) = RetrofitHelper.retrofitService.getFavWatchListMovies(accountID)
 

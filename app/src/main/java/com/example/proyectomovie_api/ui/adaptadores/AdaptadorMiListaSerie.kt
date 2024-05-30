@@ -12,12 +12,13 @@ import com.example.proyectomovie_api.databinding.MisFavoritosPeliculasBinding
 class AdaptadorMiListaSerie(val listado: List<TVShow>, val listener: MyClick) : RecyclerView.Adapter<AdaptadorMiListaSerie.VistaCelda>() {
     inner class VistaCelda (val binding: MisFavoritosPeliculasBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaCelda {
-        return VistaCelda(MisFavoritosPeliculasBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
-
     interface MyClick {
         fun onHolderClick(serie: TVShow)
+        fun onItemLongClick(serie: TVShow)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VistaCelda {
+        return VistaCelda(MisFavoritosPeliculasBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -33,6 +34,12 @@ class AdaptadorMiListaSerie(val listado: List<TVShow>, val listener: MyClick) : 
 
         holder.itemView.setOnClickListener {
             listener.onHolderClick(data)
+        }
+        holder.itemView.setOnLongClickListener {
+            listener.onItemLongClick(data)
+            notifyItemRemoved(position)
+            holder.itemView.refreshDrawableState()
+            return@setOnLongClickListener true
         }
     }
 }
