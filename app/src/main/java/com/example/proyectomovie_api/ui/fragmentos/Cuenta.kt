@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
@@ -16,6 +16,7 @@ import com.example.proyectomovie_api.databinding.FragmentCuentaBinding
 import com.example.proyectomovie_api.ui.LoginActivity
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.view.MyViewModel
+import java.util.Locale
 
 class Cuenta : Fragment() {
 
@@ -38,30 +39,51 @@ class Cuenta : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).supportActionBar?.title = "Cuenta"
 
+        viewModel.getUserType().observe(viewLifecycleOwner){userType ->
+            if (userType == "Usuario"){
+                viewModel.getSessionID().observe(viewLifecycleOwner){sessionID ->
+                    viewModel.getAccountDetails(sessionID).observe(viewLifecycleOwner){accountDetails ->
+
+                        if (accountDetails.avatar.tmdb.avatar_path.isNullOrBlank()){
+                            val imgURL = "https://secure.gravatar.com/avatar/${accountDetails.avatar.gravatar.hash}"
+                            Glide.with(requireActivity()).load(imgURL).into(binding.imageViewUSerAvatar)
+                        }else{
+                            val imgURL= "https://image.tmdb.org/t/p/w200${accountDetails.avatar.tmdb.avatar_path}"
+                            Glide.with(requireActivity()).load(imgURL).into(binding.imageViewUSerAvatar)
+                        }
+
+                        binding.cuentaUsername.text = accountDetails.username
+
+                        if (accountDetails.name.length>4){
+                            binding.textViewnombreUser.text =accountDetails.name
+                        }else{
+                            binding.textViewnombreUser.visibility = View.GONE
+                        }
+
+                        val targetLocale = Locale(accountDetails.iso_639_1,accountDetails.iso_3166_1)
+                        val languageLocale = Locale(accountDetails.iso_639_1)
+                        val countryLocale = Locale("",accountDetails.iso_3166_1)
+
+                        val languageName = languageLocale.getDisplayLanguage(targetLocale)
+                        val countryName = countryLocale.getDisplayCountry(targetLocale)
 
 
-        /// ESTE SESSION ID NO ME RECOJE LA DATA EN EL VIEWMODEL, NO SE PORQUE
-        // -----------------------------------------------------------------------------
-        viewModel.getSessionID().observe(viewLifecycleOwner){sessionID ->
-            viewModel.getAccountDetails(sessionID.toString()).observe(viewLifecycleOwner) {
-
-                if (it.avatar.tmdb.avatar_path?.isEmpty() == true) {
-                    val imgURL = "https://secure.gravatar.com/avatar/${it.avatar.gravatar.hash}"
-                    Glide.with(requireContext()).load(imgURL).into(binding.imageViewUSerAvatar)
-                } else {
-                    val imgURL = "https://image.tmdb.org/t/p/w200${it.avatar.tmdb.avatar_path}"
-                    Glide.with(requireContext()).load(imgURL).into(binding.imageViewUSerAvatar)
+                        binding.textViewIdioma.text = languageName
+                        binding.textViewNacionalidad.text = countryName
+                    }
                 }
+            }else{
+                binding.imageViewUSerAvatar.visibility = View.GONE
+                binding.textViewIdioma.visibility = View.GONE
+                binding.textViewNacionalidad.visibility = View.GONE
+                binding.textViewTIdioma.visibility = View.GONE
+                binding.textViewtNacionalidad.visibility = View.GONE
+                binding.textViewnombreUser.visibility = View.GONE
+                binding.cuentaUsername.text = userType
 
-                binding.cuentaUsername.text = it.username
-
-                if (it.name.length > 4) {
-                    binding.textViewnombreUser.text = it.name
-                } else {
-                    binding.textViewnombreUser.visibility = View.GONE
-                }
-
+                binding.textViewInvitado.visibility = View.VISIBLE
             }
+
 
 
             binding.buttonCerrarSesion.setOnClickListener {
@@ -80,12 +102,21 @@ class Cuenta : Fragment() {
                 }
 
                 viewDialog.findViewById<Button>(R.id.bCerrarSessionAlertDialog).setOnClickListener {
-                    viewModel.deleteSession(sessionID.toString()).observe(viewLifecycleOwner) { success ->
-                        if (success) {
-                            val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
-                            startActivity(intentCerrarSesion)
-                            requireActivity().finishAffinity()
+                    if (userType == "Usuario"){
+                        viewModel.getSessionID().observe(viewLifecycleOwner){sessionID ->
+                            viewModel.deleteSession(sessionID.toString()).observe(viewLifecycleOwner) { success ->
+                                if (success) {
+                                    val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
+                                    startActivity(intentCerrarSesion)
+                                    requireActivity().finishAffinity()
+                                }
+                                dialog.dismiss()
+                            }
                         }
+                    }else{
+                        val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
+                        startActivity(intentCerrarSesion)
+                        requireActivity().finishAffinity()
                         dialog.dismiss()
                     }
                 }

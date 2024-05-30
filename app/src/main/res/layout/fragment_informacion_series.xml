@@ -94,13 +94,14 @@
 
             <TextView
                 android:id="@+id/tvReleaseDateDetallesSerie"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:gravity="center"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesSerie"
                 app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesSerie"
-                app:layout_constraintTop_toBottomOf="@+id/tvTituloDetallesSerie" />
+                app:layout_constraintTop_toBottomOf="@+id/tvRateDetallesSerie" />
 
             <TextView
                 android:id="@+id/tvGenresDetallesSerie"
@@ -161,7 +162,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tvOverviewDetallesSerie"
                 app:layout_constraintStart_toStartOf="@+id/tvOverviewDetallesSerie"
-                app:layout_constraintTop_toBottomOf="@+id/tvOverviewDetallesSerie" />
+                app:layout_constraintTop_toBottomOf="@+id/tvProviderDetallesSerie" />
 
             <TextView
                 android:id="@+id/tvStatusDetallesSerie"
@@ -183,6 +184,25 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="@+id/tvOriginCountryDetallesSerie"
                 app:layout_constraintTop_toBottomOf="@+id/tvOriginCountryDetallesSerie" />
+
+            <TextView
+                android:id="@+id/tvProviderDetallesSerie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="@+id/tvOverviewDetallesSerie"
+                app:layout_constraintTop_toBottomOf="@+id/tvOverviewDetallesSerie" />
+
+            <TextView
+                android:id="@+id/tvRateDetallesSerie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesSerie"
+                app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesSerie"
+                app:layout_constraintTop_toBottomOf="@+id/tvTituloDetallesSerie" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

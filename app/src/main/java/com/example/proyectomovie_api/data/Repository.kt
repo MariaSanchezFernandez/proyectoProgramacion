@@ -30,10 +30,6 @@ class Repository {
 
     suspend fun getFavouriteWatchListTVShows(accountID: Int) = RetrofitHelper.retrofitService.getFavWatchListTVShows(accountID)
 
-   // suspend fun getPopularMovies(region:String = "ES")  = RetrofitHelper.retrofitService.popularMovies(region)
-
-   // suspend fun getPopularTVShows(region:String = "ES") = RetrofitHelper.retrofitService.popularTVShows(region)
-
     suspend fun getTopRatedMovies(region:String = "ES") = RetrofitHelper.retrofitService.topRatedMovies( region)
 
     suspend fun getTopRatedTVShows(region:String = "ES") = RetrofitHelper.retrofitService.topRatedTVShows( region)
@@ -67,4 +63,13 @@ class Repository {
     suspend fun getAccountDetails(sessionID:String) = RetrofitHelper.retrofitService.getAccountDetails(sessionID)
     suspend fun topRatedTVShows() = RetrofitHelper.retrofitService.topRatedTVShows( "ES")
     suspend fun topRatedMovies() = RetrofitHelper.retrofitService.topRatedMovies( "ES")
+
+
+    //FUNCIÓN PARA BUSCADORES
+    suspend fun getBuscadorMovie(buscador:String) = RetrofitHelper.retrofitService.getMovieBuscar(buscador)
+
+    suspend fun getBuscarSerie(buscador: String) = RetrofitHelper.retrofitService.getTVBuscar (buscador)
+
+
+
 }

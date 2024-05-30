@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -28,6 +32,7 @@ import java.util.UUID
 class Peliculas : Fragment() {
     private lateinit var binding: FragmentPeliculasBinding
     private val viewModel by activityViewModels<MyViewModel>()
+    private lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,7 +106,7 @@ class Peliculas : Fragment() {
 
         viewModel.getPopularMovies().observe(viewLifecycleOwner){pelicula->
 
-            var baseUrl = "https://image.tmdb.org/t/p/original"
+            val baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
@@ -206,7 +211,7 @@ class Peliculas : Fragment() {
             viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 viewModel.getFavoriteMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
 
-                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
+                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos as ArrayList<Movie>, object : AdaptadorMiListaPeliculas.MyClick{
                         override fun onHolderClick(pelicula: Movie) {
                             val id = pelicula.id
                             viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
@@ -247,6 +252,30 @@ class Peliculas : Fragment() {
                     binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
                 }
             }
+        }
+
+
+
+        //AlertDialog que abre buscador, pones título de la pelicula que buscas y al darle al boton navega a otro fragment
+        binding.btnBuscarPeliculas.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            val viewBinding = layoutInflater.inflate(R.layout.alertdialog_bucador, null)
+            builder.setView(viewBinding)
+            val dialog = builder.create()
+
+            viewBinding.findViewById<Button>(R.id.button2).setOnClickListener {
+                val name = viewBinding.findViewById<EditText>(R.id.textInputEditText).text.toString()
+
+                viewModel.getMovieBuscador(name).observe(viewLifecycleOwner){
+                    viewModel.setBuscador(it)
+                    findNavController().navigate(R.id.action_fragmentPeliculas_to_buscadorLista)
+                }
+
+
+
+                dialog.dismiss()
+            }
+            dialog.show()
         }
 
     }

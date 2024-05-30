@@ -39,8 +39,12 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonAuthToken.setOnClickListener {
 
+
+
             username = binding.etUsernameLogin.text.toString()
             password = binding.etPasswordLogin.text.toString()
+
+
 
             // COMPRUEBA QUE HAYA USUARIO Y CONTRASEÑA
             if (username.isNotEmpty() && password.isNotEmpty()){
@@ -57,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intentValidateToken)
                         } catch (_: ActivityNotFoundException) { }
 
-                      }else{
+                    }else{
                         Toast.makeText(this, "Error al generar token...", Toast.LENGTH_LONG ).show()
                     }
                     cambiaBotones()
@@ -90,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
                         // Intent con la sessión id se manda al main activity
                         val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
                             putExtra("sessionID", sessionID)
-                            putExtra("tipoUser","Usuario")
+                            putExtra("userType","Usuario")
                         }
                         startActivity(intentCreateGuestSessionID)
                         finish()
@@ -111,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                     sessionID = it.guest_session_id
                     val intentCreateGuestSessionID = Intent(this, MainActivity::class.java).apply{
                         putExtra("sessionID", sessionID)
-                        putExtra("tipoUser","Invitado")
+                        putExtra("userType","Invitado")
                     }
                     startActivity(intentCreateGuestSessionID)
                     finish()

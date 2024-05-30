@@ -100,7 +100,7 @@ class Series : Fragment() {
 
         viewModel.getPopularTVShow().observe(viewLifecycleOwner){series ->
 
-            var baseUrl = "https://image.tmdb.org/t/p/original"
+            val baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
@@ -151,7 +151,7 @@ class Series : Fragment() {
 
         viewModel.topRatedTVShow().observe(viewLifecycleOwner){series ->
 
-            var baseUrl = "https://image.tmdb.org/t/p/original"
+            val baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
@@ -204,7 +204,7 @@ class Series : Fragment() {
             viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
                 viewModel.getFavoriteTVShows(21209376).observe(viewLifecycleOwner){listaFavoritos ->
 
-                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos, object : AdaptadorMiListaSerie.MyClick {
+                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos as ArrayList<TVShow>, object : AdaptadorMiListaSerie.MyClick {
                         override fun onHolderClick(serie: TVShow) {
                             val id = serie.id
                             viewModel.getSerieById(id, "es-ES").observe(viewLifecycleOwner) {

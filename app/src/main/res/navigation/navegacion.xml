@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacion"
-    app:startDestination="@id/fragmentPeliculas">
+    app:startDestination="@id/fragmentInicio">
 
     <fragment
         android:id="@+id/fragmentInicio"
@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_fragmentPeliculas_to_informacion"
             app:destination="@id/informacion" />
+        <action
+            android:id="@+id/action_fragmentPeliculas_to_buscadorLista"
+            app:destination="@id/buscadorLista" />
     </fragment>
     <fragment
         android:id="@+id/fragmentCuenta"
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_fragmentSeries_to_informacionSeries"
             app:destination="@id/informacionSeries" />
+        <action
+            android:id="@+id/action_fragmentSeries_to_buscadorLista"
+            app:destination="@id/buscadorLista" />
     </fragment>
     <fragment
         android:id="@+id/informacion"
@@ -42,8 +48,7 @@
     <fragment
         android:id="@+id/informacionSeries"
         android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionSeries"
-        android:label="InformacionSeries" />
-
+        android:label="InformacionSeries"
         tools:layout="@layout/fragment_series" />
     <fragment
         android:id="@+id/fragmentFav"
@@ -58,6 +63,11 @@
             app:destination="@id/fragment_btVerMas3_Fav" />
     </fragment>
     <fragment
+        android:id="@+id/buscadorLista"
+        android:name="com.example.proyectomovie_api.ui.fragmentos.BuscadorLista"
+        android:label="fragment_buscador_lista"
+        tools:layout="@layout/fragment_buscador_lista" />
+    <fragment
         android:id="@+id/fragment_btVerMas3_Fav"
         android:name="com.example.proyectomovie_api.ui.fragmentos.fragment_btVerMas3_Fav"
         android:label="Carteleras"
@@ -66,5 +76,6 @@
             android:id="@+id/action_fragment_btVerMas3_Fav_to_informacion"
             app:destination="@id/informacion" />
     </fragment>
-
+        android:label="fragment_bt_ver_mas3__fav"
+        tools:layout="@layout/fragment_bt_ver_mas3__fav" />
 </navigation>

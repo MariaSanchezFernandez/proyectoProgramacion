@@ -22,6 +22,9 @@ import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptadorInformac
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
 import com.google.android.material.snackbar.Snackbar
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 class InformacionPeliculas : Fragment() {
 
@@ -66,7 +69,6 @@ class InformacionPeliculas : Fragment() {
                             viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner) {
                                 val snackbarPositiva = Snackbar.make(binding.root, "Pelicula añadida a tu watchlist", Snackbar.LENGTH_SHORT)
                                 val snackbarNegativa = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-
                                 if (it.success) {
                                     snackbarPositiva.show()
                                 } else {
@@ -82,19 +84,44 @@ class InformacionPeliculas : Fragment() {
                 viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                         val data = movie.id?.let { it1 -> addFavoriteBody("movie", it1, true) }
-                        if (data != null) {
-                            viewModel.addToFavorite(requireContext(),accountId, data).observe(viewLifecycleOwner){
-                                val snackbarPositiva = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
-                                val snackbarNegativa = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                        viewModel.getFavoriteMovies(accountId).observe(viewLifecycleOwner) { lista ->
+                            var encontrado = false
+                            lista.forEach { objeto ->
+                                if (objeto.id == data?.media_id) {
+                                    encontrado = true
+                                }
+                            }
+                            if (encontrado) {
+                                val snackbar = Snackbar.make(binding.root,"Ya tienes esta película en favoritos",Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            } else {
+                                if (data != null) {
+                                    viewModel.addToFavorite(requireContext(),accountId, data).observe(viewLifecycleOwner) {
+                                        val snackbarPositiva = Snackbar.make(binding.root,"Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
+                                        val snackbarNegativa = Snackbar.make(binding.root,"Error", Snackbar.LENGTH_SHORT)
 
-                                if(it.success){
-                                    snackbarPositiva.show()
-                                }else{
-                                    snackbarNegativa.show()
+                                        if (it.success) {
+                                            snackbarPositiva.show()
+                                        } else {
+                                            snackbarNegativa.show()
+                                        }
+                                    }
                                 }
                             }
                         }
+                    }
+                }
+            }
 
+            movie.id?.let {
+                viewModel.getMovieWatchProvider(it).observe(viewLifecycleOwner){ provider ->
+                    binding.tvProviderDetallesPelicula.text = "No está disponible en servicios de streaming"
+                    provider.results?.let { providerResult ->
+                        providerResult.ES?.let {spain ->
+                            spain.buy?.let {compra ->
+                            binding.tvProviderDetallesPelicula.text = "Disponible en: " + compra.first().provider_name
+                            }
+                        }
                     }
                 }
             }
@@ -105,9 +132,15 @@ class InformacionPeliculas : Fragment() {
         val originalURL = "https://media.themoviedb.org/t/p/original" + peli.backdropPath
         val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + peli.posterPath
         val backgroundURL = "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces"
+
+        val df = DecimalFormat("#.#")
+        df.roundingMode = RoundingMode.HALF_UP
+        val ratingRedondeado = df.format(peli.voteAverage)
+
         with(binding) {
 
             tvTituloDetallesPelicula.text = peli.title
+            tvRateDetallesPelicula.text = "Valoración: " + ratingRedondeado.toString() + " / 10"
             tvReleaseDateDetallesPelicula.text = peli.releaseDate
 
             Glide.with(requireContext())

@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/imageViewUSerAvatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
             android:layout_marginTop="91dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,5 +90,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewnombreUser" />
+
+        <TextView
+            android:id="@+id/textViewInvitado"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:text="Para obtener los datos de tu cuenta debes iniciar sesión"
+            android:textAlignment="center"
+            android:textSize="34sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/buttonCerrarSesion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

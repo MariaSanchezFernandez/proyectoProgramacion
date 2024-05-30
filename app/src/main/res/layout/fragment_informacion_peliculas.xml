@@ -108,7 +108,7 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesPelicula"
                 app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesPelicula"
-                app:layout_constraintTop_toBottomOf="@+id/tvTituloDetallesPelicula" />
+                app:layout_constraintTop_toBottomOf="@+id/tvRateDetallesPelicula" />
 
             <TextView
                 android:id="@+id/tvGenresDetallesPelicula"
@@ -159,7 +159,27 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/tvOverviewDetallesPelicula"
                 app:layout_constraintStart_toStartOf="@+id/tvOverviewDetallesPelicula"
+                app:layout_constraintTop_toBottomOf="@+id/tvProviderDetallesPelicula" />
+
+            <TextView
+                android:id="@+id/tvProviderDetallesPelicula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="@+id/tvOverviewDetallesPelicula"
                 app:layout_constraintTop_toBottomOf="@+id/tvOverviewDetallesPelicula" />
+
+            <TextView
+                android:id="@+id/tvRateDetallesPelicula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="@+id/tvTituloDetallesPelicula"
+                app:layout_constraintStart_toStartOf="@+id/tvTituloDetallesPelicula"
+                app:layout_constraintTop_toBottomOf="@+id/tvTituloDetallesPelicula" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -19,7 +19,7 @@ import com.example.proyectomovie_api.data.movie_detalles.SpokenLanguage
 import com.example.proyectomovie_api.data.people.PeopleResponse
 import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
-import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
+import com.example.proyectomovie_api.data.tvSerieProvider.TVProviderResponse
 import com.example.proyectomovie_api.data.watchlist.WatchListResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -164,7 +164,7 @@ interface MyService {
     @GET("tv/{series_id}/watch/providers")
     suspend fun getTVShowProvider(
         @Path("series_id") tvID:Int
-    ): Response<TVSerieResponse>
+    ): Response<TVProviderResponse>
 
 
 
@@ -290,7 +290,7 @@ interface MyService {
     @GET("tv/{serie_id}/watch/providers")
     suspend fun getSerieWatchProvider(
         @Path("serie_id") movieId: Int
-    ):Response<TVSerieResponse>
+    ):Response<TVProviderResponse>
 
     // Obtiene la lista de proveedores por país donde la película está disponible
     @Headers(
@@ -325,6 +325,7 @@ interface MyService {
         @Body data : addFavoriteBody
     ) : Response<WatchListResponse>
 
+
     //Ambas funciones obtiene fotos del contenido deseando, se debe enviar una ID
     @Headers(
         "accept: application/json",
@@ -344,6 +345,15 @@ interface MyService {
         @Path("serie_id") serieId : Int
     ) : Response<ImageResponse>
 
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/person")
+    suspend fun getPersonBuscador(
+        @Query("query") buscador: String
+    ): Response<PeopleResponse>
 
     // Obtenemos todos los datos detallados de una Pelicula pasándole una Id de serie
     @Headers(
@@ -367,5 +377,34 @@ interface MyService {
         @Path("serie_id") serieId: Int,
         @Query("language") language: String
     ): Response<SerieDetallesResponse>
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/movie")
+    suspend fun getMovieBuscar(
+        @Query("query") textIntroducido : String
+    ):Response<MovieResponse>
+
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/person")
+    suspend fun getPersonBuscar(
+        @Query("query") textIntroducido : String
+    ):Response<PeopleResponse>
+
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/tv")
+    suspend fun getTVBuscar(
+        @Query("query") textIntroducido : String
+    ):Response<TVResponse>
 
 }
