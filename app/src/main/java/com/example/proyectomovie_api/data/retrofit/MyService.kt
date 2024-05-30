@@ -32,8 +32,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-lateinit var tokenAcceso:String
-private const val BEARER_TOKEN = ""
 
 interface MyService {
 
@@ -45,19 +43,7 @@ interface MyService {
 
     // Create Request Token
 
-    // Lista de descubrimientos de películas
-    @GET("discover/movie?sort_by=popularity.desc")
-    suspend fun discoverMovies(
-        @Query("api_key") apiKey:String
-    ): Response<Movie>
 
-    // Lista de descubrimientos de TVShows
-    @GET("discover/tv?sort_by=popularity.desc")
-    suspend fun discoverTVShows(
-        @Query("api_key") apiKey:String
-    ): Response<TVResponse>
-
-    // Plataformas en las que se puede ver una peli
     // CREA UN TOKEN PARA ENVIARLO A LA PAGINA Y VALIDARLO
     @Headers(
         "accept: application/json",
@@ -185,7 +171,7 @@ interface MyService {
     @GET("account/{account_id}/favorite/movies")
     suspend fun getFavMovies(
         @Path("account_id") userID: Int
-    ): Response<Movie>
+    ): Response<MovieResponse>
 
     //TVShows favoritos del usuario
     @Headers(
