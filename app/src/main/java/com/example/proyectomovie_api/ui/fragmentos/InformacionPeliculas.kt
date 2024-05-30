@@ -44,10 +44,9 @@ class InformacionPeliculas : Fragment() {
                 val listaURLs = it2?.backdrops?.mapIndexed{index, backdrop ->
                     ImagenCarousel(index,"https://image.tmdb.org/t/p/original${backdrop.file_path}" )
                 } ?: emptyList()
-                binding.recyclerViewDetallesPelicula.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                binding.recyclerViewDetallesPelicula.adapter = ImagenCarouselAdaptadorInformacion(listaURLs)
-
-            }
+                    binding.recyclerViewDetallesPelicula.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.recyclerViewDetallesPelicula.adapter = ImagenCarouselAdaptadorInformacion(listaURLs)
+                }
             }
 
             binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
