@@ -101,8 +101,9 @@ class fragment_btVerMas3_Fav : Fragment() {
             ViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 ViewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){ listaWatchListMovies ->
                     val adaptadorFavoritos = AdapterWLMoviesFav(listaWatchListMovies, object : AdapterWLMoviesFav.FavClick{
-                        override fun onHolderClick(addWatchListBody: addWatchListBody) {
-                            val id = addWatchListBody.media_id
+
+                        override fun onHolderClick(movie: Movie) {
+                            val id = movie.id
                             ViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
                                     ViewModel.setPelicula(it)
@@ -123,8 +124,9 @@ class fragment_btVerMas3_Fav : Fragment() {
             ViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 ViewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){ listaWatchListTVShows ->
                     val adaptadorFavoritos = AdapterWLTVShowsFav(listaWatchListTVShows, object : AdapterWLTVShowsFav.FavClick{
-                        override fun onHolderClick(addWatchListBody: addWatchListBody) {
-                            val id = addWatchListBody.media_id
+
+                        override fun onHolderClick(tvShow: TVShow) {
+                            val id = tvShow.id
                             ViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
                                     ViewModel.setPelicula(it)

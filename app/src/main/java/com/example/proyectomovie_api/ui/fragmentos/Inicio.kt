@@ -85,7 +85,7 @@ class Inicio : Fragment() {
         val sesionId = myViewModel.getSessionID()
         val acountId = myViewModel.getAccountID(sesionId.toString())
 
-        acountId.value?.let {myViewModel.getFavoriteMovies(it)}?.observe(viewLifecycleOwner){
+        acountId.value?.let {myViewModel.getFavoriteWatchListMovies(it)}?.observe(viewLifecycleOwner){
             configRecyclerMovies(it)
         }
 
@@ -115,6 +115,7 @@ class Inicio : Fragment() {
 
                 binding.recyclerViewPeliculasTuLista.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 binding.recyclerViewPeliculasTuLista.adapter = adaptadorWatchList
+
 
             }
 

@@ -133,15 +133,15 @@ class Favoritos : Fragment() {
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){ listaWatchListMovies ->
                     val adaptadorFavoritos = AdapterWLMoviesFav(listaWatchListMovies, object : AdapterWLMoviesFav.FavClick{
-                        override fun onHolderClick(addWatchListBody: addWatchListBody) {
-                            val id = addWatchListBody.media_id
+
+                        override fun onHolderClick(movie: Movie) {
+                            val id = movie.id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
                                     myViewModel.setPelicula(it)
                                     findNavController().navigate(R.id.action_favoritos_to_informacion)
                                 }
-                            }
-                        }
+                            }                        }
                     })
                     binding.rvWLpelis.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     binding.rvWLpelis.adapter = adaptadorFavoritos
@@ -155,8 +155,9 @@ class Favoritos : Fragment() {
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){ listaWatchListTVShows ->
                     val adaptadorFavoritos = AdapterWLTVShowsFav(listaWatchListTVShows, object : AdapterWLTVShowsFav.FavClick{
-                        override fun onHolderClick(addWatchListBody: addWatchListBody) {
-                            val id = addWatchListBody.media_id
+
+                        override fun onHolderClick(tvShow: TVShow) {
+                            val id = tvShow.id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
                                     myViewModel.setPelicula(it)
