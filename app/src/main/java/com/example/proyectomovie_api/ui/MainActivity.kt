@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         if (sessionCode != null) {
             viewModel.setSessionID(sessionCode)
         }
-        val tipoUser = intent.getStringExtra("tipoUser")
+        val tipoUser = intent.getStringExtra("userType")
         if (tipoUser != null) {
             viewModel.setUserType(tipoUser)
         }

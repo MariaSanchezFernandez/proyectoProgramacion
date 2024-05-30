@@ -2,18 +2,14 @@ package com.example.proyectomovie_api.ui.view
 
 import android.widget.Toast
 import android.content.Context
-import android.graphics.Region
-import android.media.Image
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectomovie_api.data.Repository
 import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.images.ImageResponse
-
 import com.example.proyectomovie_api.data.account.AccountDetailsResponse
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
-import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.data.inicioSesion.CreateGuestSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.CreateSessionResponse
 import com.example.proyectomovie_api.data.inicioSesion.RequestTokenResponse
@@ -22,7 +18,6 @@ import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.movieProvider.MovieProviderResponse
 import com.example.proyectomovie_api.data.movie_detalles.MovieDetallesResponse
 import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
-import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.people.People
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.data.tvSerieProvider.TVProviderResponse

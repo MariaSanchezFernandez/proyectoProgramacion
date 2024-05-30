@@ -82,7 +82,7 @@ class Favoritos : Fragment() {
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){ listaFavoritos ->
-                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
+                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos as ArrayList<Movie>, object : AdaptadorMiListaPeliculas.MyClick{
                         override fun onHolderClick(pelicula: Movie) {
                             val id = pelicula.id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
@@ -107,7 +107,7 @@ class Favoritos : Fragment() {
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavoriteTVShows(accountId.id).observe(viewLifecycleOwner){listaTVShow ->
-                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaTVShow, object : AdaptadorMiListaSerie.MyClick{
+                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaTVShow as ArrayList<TVShow>, object : AdaptadorMiListaSerie.MyClick{
                         override fun onHolderClick(serie: TVShow) {
                             val id = serie.id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){

@@ -11,11 +11,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.FragmentCuentaBinding
 import com.example.proyectomovie_api.ui.LoginActivity
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.view.MyViewModel
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import java.util.Locale
 
 class Cuenta : Fragment() {
@@ -49,7 +51,10 @@ class Cuenta : Fragment() {
                             Glide.with(requireActivity()).load(imgURL).into(binding.imageViewUSerAvatar)
                         }else{
                             val imgURL= "https://image.tmdb.org/t/p/w200${accountDetails.avatar.tmdb.avatar_path}"
-                            Glide.with(requireActivity()).load(imgURL).into(binding.imageViewUSerAvatar)
+                            Glide.with(requireActivity())
+                                .load(imgURL)
+                                .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(45, 0)))
+                                .into(binding.imageViewUSerAvatar)
                         }
 
                         binding.cuentaUsername.text = accountDetails.username

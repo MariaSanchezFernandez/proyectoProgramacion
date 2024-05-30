@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#151515"
     tools:context=".ui.fragmentos.Cuenta">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +15,11 @@
         <ImageView
             android:id="@+id/imageViewUSerAvatar"
             android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="91dp"
+            android:adjustViewBounds="true"
+            android:shape="ring"
+            android:thicknessRatio="1.9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,8 +29,11 @@
             android:id="@+id/cuentaUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="52dp"
             android:text="username"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imageViewUSerAvatar"
             app:layout_constraintStart_toStartOf="@+id/imageViewUSerAvatar"
             app:layout_constraintTop_toBottomOf="@+id/imageViewUSerAvatar" />
@@ -35,8 +42,10 @@
             android:id="@+id/textViewnombreUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="11dp"
             android:text="nombre"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/cuentaUsername"
             app:layout_constraintStart_toStartOf="@+id/cuentaUsername"
             app:layout_constraintTop_toBottomOf="@+id/cuentaUsername" />
@@ -47,7 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:text="Nacionalidad"
-            app:layout_constraintEnd_toStartOf="@+id/textViewTIdioma"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewnombreUser" />
 
@@ -57,9 +69,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
             android:text="Idioma"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewtNacionalidad"
-            app:layout_constraintTop_toBottomOf="@+id/textViewnombreUser" />
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textViewtNacionalidad"
+            app:layout_constraintStart_toStartOf="@+id/textViewtNacionalidad"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNacionalidad" />
 
         <TextView
             android:id="@+id/textViewNacionalidad"
@@ -67,6 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/textViewtNacionalidad"
             app:layout_constraintStart_toStartOf="@+id/textViewtNacionalidad"
             app:layout_constraintTop_toBottomOf="@+id/textViewtNacionalidad" />
@@ -77,6 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/textViewTIdioma"
             app:layout_constraintStart_toStartOf="@+id/textViewTIdioma"
             app:layout_constraintTop_toBottomOf="@+id/textViewTIdioma" />
@@ -85,11 +104,15 @@
             android:id="@+id/buttonCerrarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="196dp"
-            android:text="LOG-OFF"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="LOG-OUT"
+            android:textColor="#000000"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewnombreUser" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewIdioma" />
 
         <TextView
             android:id="@+id/textViewInvitado"
