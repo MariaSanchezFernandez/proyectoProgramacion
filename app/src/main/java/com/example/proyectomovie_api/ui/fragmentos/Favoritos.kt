@@ -35,7 +35,7 @@ class Favoritos : Fragment() {
 
         val sesionId = myViewModel.getSessionID()
 
-        val acountId = myViewModel.getAccountID(sesionId.toString())
+        val acountId = myViewModel. getAccountID(sesionId.toString())
 
         acountId.value?.let { myViewModel.getFavoriteMovies(it) }?.observe(viewLifecycleOwner){
             configRecyclerMovies(it)

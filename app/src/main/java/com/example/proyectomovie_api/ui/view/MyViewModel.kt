@@ -166,21 +166,6 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
-    // Devuelve la ID de la cuenta
-    fun getAccountID(sessionID: String): MutableLiveData<Int> {
-
-        viewModelScope.launch {
-            val response = repositorio.getAccountDetails(sessionID)
-
-            if (response.code() == 200) {
-                response.body()?.id.let {
-                    accountID.postValue(it)
-
-                }
-            }
-        }
-        return accountID
-    }
 
         fun getPopularTVShow(): MutableLiveData<List<TVShow>> {
             viewModelScope.launch {
@@ -192,9 +177,10 @@ class MyViewModel: ViewModel() {
                     }
                 }
             }
+            return listaTVShowsPopulares
+
         }
-        return listaTVShowsPopulares
-    }
+
 
         fun topRatedMovies(): MutableLiveData<List<Movie>> {
             viewModelScope.launch {
@@ -206,9 +192,9 @@ class MyViewModel: ViewModel() {
                     }
                 }
             }
+            return listaMovieRated
         }
-        return listaMovieRated
-    }
+
 
         fun topRatedTVShow(): MutableLiveData<List<TVShow>> {
             viewModelScope.launch {
@@ -220,9 +206,9 @@ class MyViewModel: ViewModel() {
                     }
                 }
             }
+            return listaTVShowRated
         }
-        return listaTVShowRated
-    }
+
 
 
     // Devuelve un objeto con los proveedores de la Película
