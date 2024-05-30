@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
+import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselPeliculas
@@ -20,6 +22,7 @@ import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
+import com.google.android.material.snackbar.Snackbar
 import java.util.UUID
 
 class Peliculas : Fragment() {
@@ -96,7 +99,7 @@ class Peliculas : Fragment() {
         imageAdapter.submitList(randomImageUrls)
 
 
-        viewModel.getPopularMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){pelicula->
+        viewModel.getPopularMovies().observe(viewLifecycleOwner){pelicula->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -148,7 +151,9 @@ class Peliculas : Fragment() {
             }
 
         }
-      viewModel.topRatedMovies("3fc6d274dd2c1c8f102b25412728f319").observe(viewLifecycleOwner){pelicula ->
+      viewModel.topRatedMovies(
+
+      ).observe(viewLifecycleOwner){pelicula ->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -160,7 +165,7 @@ class Peliculas : Fragment() {
             Glide.with(requireActivity()).load(baseUrl + pelicula[randomIndices[3]].poster_path).into(binding.imRatedPelicula4)
 
             binding.imRatedPelicula1.setOnClickListener {
-                val id = pelicula[randomIndices[3]].id
+                val id = pelicula[randomIndices[0]].id
                 viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
                     if (it2 != null) {
                         viewModel.setPelicula(it2)
@@ -170,7 +175,7 @@ class Peliculas : Fragment() {
             }
 
             binding.imRatedPelicula2.setOnClickListener {
-                val id = pelicula[randomIndices[3]].id
+                val id = pelicula[randomIndices[1]].id
                 viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
                     if (it2 != null) {
                         viewModel.setPelicula(it2)
@@ -180,7 +185,7 @@ class Peliculas : Fragment() {
             }
 
             binding.imRatedPelicula3.setOnClickListener {
-                val id = pelicula[randomIndices[3]].id
+                val id = pelicula[randomIndices[2]].id
                 viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ it2 ->
                     if (it2 != null) {
                         viewModel.setPelicula(it2)
@@ -200,11 +205,47 @@ class Peliculas : Fragment() {
         }
 
         viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
-            viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
+            viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                viewModel.getFavoriteMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
 
-                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos)
-                    binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
+                        override fun onHolderClick(pelicula: Movie) {
+                            val id = pelicula.id
+                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                                if (it != null) {
+                                    viewModel.setPelicula(it)
+                                    findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                                }
+                            }
+                        }
+
+                        override fun onItemLongClick(pelicula: Movie) {
+                            val id = pelicula.id
+                            viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
+                                if (it != null) {
+                                    val deleteFavorito = addFavoriteBody("movie", id, false)
+                                    viewModel.getSessionID().observe(viewLifecycleOwner){ session ->
+                                        viewModel.getAccountID(session).observe(viewLifecycleOwner){accountId ->
+                                            context?.let { it1 -> viewModel.addToFavorite(it1, accountId, deleteFavorito).observe(viewLifecycleOwner){ respuesta ->
+                                                if (respuesta.success){
+                                                    val snackbar = Snackbar.make(binding.root, "Pelicula eliminada de favoritos", Snackbar.LENGTH_SHORT)
+                                                    snackbar.show()
+                                                }else{
+                                                    val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                                                    snackbar.show()
+                                                }
+                                            } }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    })
+                    binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
+                    if (listaFavoritos.size > 0){
+                        binding.tvMensajeNingunFav.visibility = View.INVISIBLE
+                    }
                     binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
                 }
             }

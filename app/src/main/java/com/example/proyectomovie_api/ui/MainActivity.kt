@@ -1,6 +1,7 @@
 package com.example.proyectomovie_api.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
@@ -10,9 +11,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.MenuMainBinding
+import com.example.proyectomovie_api.ui.view.MyViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MenuMainBinding
+    private val viewModel by viewModels<MyViewModel>()
+
 
     //Configura las barras
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -26,6 +30,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar2)
+
+
+        val sessionCode = intent.getStringExtra("sessionID")
+        if (sessionCode != null) {
+            viewModel.setSessionID(sessionCode)
+        }
+        val tipoUser = intent.getStringExtra("tipoUser")
 
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHost
         navController = navHost.navController
