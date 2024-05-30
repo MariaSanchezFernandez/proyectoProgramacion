@@ -257,6 +257,8 @@ class Peliculas : Fragment() {
         }
 
 
+
+        //AlertDialog que abre buscador, pones título de la pelicula que buscas y al darle al boton navega a otro fragment
         binding.btnBuscarPeliculas.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             val viewBinding = layoutInflater.inflate(R.layout.alertdialog_bucador, null)
@@ -265,10 +267,6 @@ class Peliculas : Fragment() {
 
             viewBinding.findViewById<Button>(R.id.button2).setOnClickListener {
                 val name = viewBinding.findViewById<EditText>(R.id.textInputEditText).text.toString()
-                //val intent = Intent(requireContext(), Inicio::class.java)
-                //intent.putExtra("informacion", name)
-
-                //Bundle bundle = new Bundle()
 
                 viewModel.getMovieBuscador(name).observe(viewLifecycleOwner){
                     viewModel.setBuscador(it)
@@ -276,7 +274,7 @@ class Peliculas : Fragment() {
                 }
 
 
-                // startActivity(intent)
+
                 dialog.dismiss()
             }
             dialog.show()

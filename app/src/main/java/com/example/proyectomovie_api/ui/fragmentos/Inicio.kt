@@ -48,6 +48,8 @@ class Inicio : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).supportActionBar?.title = "Inicio"
 
+
+        //Recoge la información que necesitamos de la pelicula, titulo, fecha y poster y lo muestra
             myViewModel.getInfoMovie().observe(viewLifecycleOwner){movieList->
 
                 val topMovie = movieList[0]
@@ -60,6 +62,7 @@ class Inicio : Fragment() {
 
             }
 
+        //Recoge la información que necesitamos del actor/actriz, nombre, 1 pelicula donde ha participado y la foto del mismo
             myViewModel.getInfoPeople().observe(viewLifecycleOwner){people ->
                 val topActor = people[0]
 
@@ -76,12 +79,8 @@ class Inicio : Fragment() {
 
 
 
-            val observer = Observer<Movie>{
-//                configRecycler(it)
-            }
-    }
-
-    private fun configRecycler(list: List<Movie>){
 
     }
+
+
 }

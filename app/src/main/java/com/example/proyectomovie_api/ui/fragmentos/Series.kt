@@ -252,7 +252,7 @@ class Series : Fragment() {
             }
         }
 
-
+        //AlertDialog que abre buscador, pones título de la serie que buscas y al darle al boton navega a otro fragment
         binding.btnBuscarSeries.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             val viewBinding = layoutInflater.inflate(R.layout.alertdialog_bucador, null)
@@ -261,17 +261,16 @@ class Series : Fragment() {
 
             viewBinding.findViewById<Button>(R.id.button2).setOnClickListener {
                 val name = viewBinding.findViewById<EditText>(R.id.textInputEditText).text.toString()
-                //val intent = Intent(requireContext(), Inicio::class.java)
-                //intent.putExtra("informacion", name)
 
-                //Bundle bundle = new Bundle()
+                viewModel.getSerieBuscador(name).observe(viewLifecycleOwner){
+                    viewModel.setBuscadorSerie(it)
+                    findNavController().navigate(R.id.action_fragmentSeries_to_buscadorLista)
+                }
 
-                //myViewModel.getMovi(name)
 
 
-                findNavController().navigate(R.id.action_fragmentSeries_to_buscadorLista)
 
-                // startActivity(intent)
+
                 dialog.dismiss()
             }
             dialog.show()

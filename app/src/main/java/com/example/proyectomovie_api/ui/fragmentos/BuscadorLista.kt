@@ -40,11 +40,13 @@ class BuscadorLista : Fragment() {
             configRecylerMovie(it)
         }
 
-/*        myViewModel.getBuscadorSeries().observe(viewLifecycleOwner){
+        myViewModel.getBuscadorSeries().observe(viewLifecycleOwner){
             configRecylerSeries(it)
-        }*/
+        }
     }
 
+
+    //Recoge los datos del AdaptadorBuscadorPeliculas y los guarda para mostrarlos, al pulsar en la imagen da el detalle
     private fun configRecylerMovie(list:List<Movie>){
         val recyclerView = binding.recycler
          val adapterMovie = AdaptadorBuscadorPeliculas(list, object :AdaptadorBuscadorPeliculas.MiClick{
@@ -66,6 +68,8 @@ class BuscadorLista : Fragment() {
         recyclerView.adapter = adapterMovie
          }
 
+
+    ////Recoge los datos del AdaptadorBuscadorSeries y los guarda para mostrarlos, al pulsar en la imagen da el detalle
     private fun configRecylerSeries(list:List<TVShow>){
         val recyclerView = binding.recycler
         val adapterMovie = AdaptadorBuscadorSeries(list, object : AdaptadorBuscadorSeries.MiClick{

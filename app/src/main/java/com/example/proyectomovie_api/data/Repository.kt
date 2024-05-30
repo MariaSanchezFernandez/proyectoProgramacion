@@ -70,6 +70,6 @@ class Repository {
 
     suspend fun getBuscarSerie(buscador: String) = RetrofitHelper.retrofitService.getTVBuscar (buscador)
 
-    suspend fun getBuscarPersona(buscador: String) = RetrofitHelper.retrofitService.getPersonBuscador(buscador)
+
 
 }

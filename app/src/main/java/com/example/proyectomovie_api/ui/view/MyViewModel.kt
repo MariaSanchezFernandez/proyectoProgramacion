@@ -49,7 +49,7 @@ class MyViewModel: ViewModel() {
     private val listaMoviesBuscador = MutableLiveData<List<Movie>>()
     private val listaShowBuscador = MutableLiveData<List<TVShow>>()
     private val listaBuscadorLiveData = MutableLiveData<List<Movie>>()
-
+    private val listaBuscadorSerieLiveData = MutableLiveData<List<TVShow>>()
 
     //Id del acountId de Salva -> 548
     // Esto al juntarse con el resto del código tiene que cambiarse para que esté bien
@@ -465,9 +465,13 @@ class MyViewModel: ViewModel() {
         listaBuscadorLiveData.value = lista
     }
 
+    fun setBuscadorSerie(lista : List<TVShow>){
+        listaBuscadorSerieLiveData.value = lista
+    }
+
     fun getBuscadorPeliculas() = listaMoviesBuscador
 
-    fun getBuscadorSeries() = listaBuscadorLiveData
+    fun getBuscadorSeries() = listaBuscadorSerieLiveData
 
     fun getFavoriteTVShows(acountId: Int): MutableLiveData<List<TVShow>> {
         viewModelScope.launch {
