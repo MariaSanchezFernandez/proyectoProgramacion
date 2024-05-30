@@ -19,7 +19,7 @@ import com.example.proyectomovie_api.data.movie_detalles.SpokenLanguage
 import com.example.proyectomovie_api.data.people.PeopleResponse
 import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
-import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
+import com.example.proyectomovie_api.data.tvSerieProvider.TVProviderResponse
 import com.example.proyectomovie_api.data.watchlist.WatchListResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -164,7 +164,7 @@ interface MyService {
     @GET("tv/{series_id}/watch/providers")
     suspend fun getTVShowProvider(
         @Path("series_id") tvID:Int
-    ): Response<TVSerieResponse>
+    ): Response<TVProviderResponse>
 
 
 
@@ -195,7 +195,7 @@ interface MyService {
     )
     @GET("account/{account_id}/watchlist/movies")
     suspend fun getFavWatchListMovies(
-        @Path("acount_id") userID: Int
+        @Path("account_id") userID: Int
     ): Response<MovieResponse>
 
     // TVShows favoritos del usuario WatchList
@@ -205,7 +205,7 @@ interface MyService {
     )
     @GET("account/{account_id}/watchlist/tv")
     suspend fun getFavWatchListTVShows(
-        @Path("acount_id") userID: Int
+        @Path("account_id") userID: Int
     ): Response<TVResponse>
 
 
@@ -290,7 +290,7 @@ interface MyService {
     @GET("tv/{serie_id}/watch/providers")
     suspend fun getSerieWatchProvider(
         @Path("serie_id") movieId: Int
-    ):Response<TVSerieResponse>
+    ):Response<TVProviderResponse>
 
     // Obtiene la lista de proveedores por país donde la película está disponible
     @Headers(
