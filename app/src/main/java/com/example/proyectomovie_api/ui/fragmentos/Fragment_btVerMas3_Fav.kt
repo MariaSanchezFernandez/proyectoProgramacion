@@ -29,8 +29,6 @@ class fragment_btVerMas3_Fav : Fragment() {
         myViewModel.getFavMovies().observe(viewLifecycleOwner){}
         myViewModel.getFavTVShows().observe(viewLifecycleOwner){}
 
-
-
     }
 
 }

@@ -382,32 +382,32 @@ class MyViewModel: ViewModel() {
     fun getFavTVShows() = listaFavSeries
 
     fun getFavoriteWatchListMovies(accountId: Int): MutableLiveData<List<Movie>> {
-        val listaWlMoviesFavLiveData = MutableLiveData<List<Movie>>()
+        //val listaWlMoviesFavLiveData = MutableLiveData<List<Movie>>()
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListMovies(accountId)
             if (respuesta.code() == 200) {
-                var listaWLMoviesFav = respuesta.body()
+                val listaWLMoviesFav = respuesta?.body()
                 listaWLMoviesFav?.let {
-                    listaWlMoviesFavLiveData.postValue(it.results)
+                    listaFavMovies.postValue(it.results)
                 }
             }
         }
-        return listaWlMoviesFavLiveData
+        return listaFavMovies
     }
 
     fun getFavouriteWatchListTVShows(accountId: Int): MutableLiveData<List<TVShow>> {
-        val listaWlTVshowsFavLiveData = MutableLiveData<List<TVShow>>()
+        //val listaWlTVshowsFavLiveData = MutableLiveData<List<TVShow>>()
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListTVShows(accountId)
             if(respuesta?.code() == 200) {
                 val listaWLTVShowsFav = respuesta.body()
                 listaWLTVShowsFav?.let {
-                    listaWlTVshowsFavLiveData.postValue(it.results)
+                    listaFavSeries.postValue(it.results)
                 }
 
             }
         }
-        return listaWlTVshowsFavLiveData
+        return listaFavSeries
     }
 
     fun setAccountId(id: Int) {
