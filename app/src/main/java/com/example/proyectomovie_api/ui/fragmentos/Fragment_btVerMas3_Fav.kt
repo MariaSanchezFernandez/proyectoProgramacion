@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.proyectomovie_api.R
@@ -62,7 +63,8 @@ class fragment_btVerMas3_Fav : Fragment() {
 
                         }
                     })
-                    binding.rvFavInter.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvFavInter.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, true)
+                    //binding.rvFavInter.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                     binding.rvFavInter.adapter = adaptadorFavoritos
                 }
             }
@@ -87,7 +89,7 @@ class fragment_btVerMas3_Fav : Fragment() {
 
                         }
                     })
-                    binding.rvFavInter.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvFavInter.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, true)
                     binding.rvFavInter.adapter = adaptadorFavoritos
                 }
             }
@@ -109,7 +111,7 @@ class fragment_btVerMas3_Fav : Fragment() {
                             }
                         }
                     })
-                    binding.rvFavInter.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvFavInter.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, true)
                     binding.rvFavInter.adapter = adaptadorFavoritos
                 }
             }
@@ -131,7 +133,7 @@ class fragment_btVerMas3_Fav : Fragment() {
                             }
                         }
                     })
-                    binding.rvFavInter.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.rvFavInter.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, true)
                     binding.rvFavInter.adapter = adaptadorFavoritos
                 }
             }
