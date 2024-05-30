@@ -37,6 +37,7 @@ class AdapterWLTVShowsFav(
 
         holder.binding.clHolderFav.setOnClickListener{
             // Click en la portada para enviarte a los detalles de la película
+            listener.onHolderClick(watchList)
         }
     }
 
