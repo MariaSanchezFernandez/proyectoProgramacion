@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.movie.Movie
@@ -14,7 +15,9 @@ import com.example.proyectomovie_api.databinding.FragmentInformacionPeliculasBin
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.example.proyectomovie_api.data.watchlist.addWatchListBody
+import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
+import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptadorInformacion
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
 import com.google.android.material.snackbar.Snackbar
@@ -38,14 +41,13 @@ class InformacionPeliculas : Fragment() {
             rellenaDatos(movie)
 
             movie.id?.let { viewModel.getMovieImages(it).observe(viewLifecycleOwner){ it2 ->
-                val sizeRespuesta = it2?.backdrops?.size
-                val listaURLs = ArrayList<String>()
-                var i = 0
-                while(i < sizeRespuesta!!){
-                    it2.backdrops.get(i).let { listaURLs.add("https://image.tmdb.org/t/p/original" + it.file_path) }
-                    ++i
-                }
-                }
+                val listaURLs = it2?.backdrops?.mapIndexed{index, backdrop ->
+                    ImagenCarousel(index,"https://image.tmdb.org/t/p/original${backdrop.file_path}" )
+                } ?: emptyList()
+                binding.recyclerViewDetallesPelicula.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                binding.recyclerViewDetallesPelicula.adapter = ImagenCarouselAdaptadorInformacion(listaURLs)
+
+            }
             }
 
             binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
