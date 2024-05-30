@@ -9,7 +9,11 @@
         android:id="@+id/fragmentInicio"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Inicio"
         android:label="fragment_peliculas"
-        tools:layout="@layout/fragment_inicio" />
+        tools:layout="@layout/fragment_inicio" >
+        <action
+            android:id="@+id/action_fragmentInicio_to_informacion"
+            app:destination="@id/informacion" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentPeliculas"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Peliculas"

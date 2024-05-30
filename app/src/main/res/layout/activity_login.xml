@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/component_1" />
+        app:srcCompat="@drawable/component_1" />
 
     <TextView
         android:id="@+id/textViewLogin"

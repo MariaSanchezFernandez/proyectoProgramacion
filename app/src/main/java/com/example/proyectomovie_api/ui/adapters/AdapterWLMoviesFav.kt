@@ -16,7 +16,7 @@ class AdapterWLMoviesFav(
     private var _binding: HolderCarteleraFavBinding? = null
     private val binding get() = _binding!!
 
-    fun interface FavClick {
+    interface FavClick {
         fun onHolderClick(movie: Movie)
     }
 
@@ -30,14 +30,16 @@ class AdapterWLMoviesFav(
 
     override fun onBindViewHolder(holder: FavoritoHolder, position: Int) {
         val watchList = lista[position]
+
+        val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/" + watchList.poster_path
+
         Glide.with(holder.itemView.context)
-            .load(watchList.poster_path)
+            .load(posterURL)
             //.load(watchList.poster_path)
             .into(holder.binding.imgPortada)
 
         holder.binding.clHolderFav.setOnClickListener{
-            // Click en la portada para enviarte a los detalles de la película
-
+            listener.onHolderClick(watchList)
         }
     }
 

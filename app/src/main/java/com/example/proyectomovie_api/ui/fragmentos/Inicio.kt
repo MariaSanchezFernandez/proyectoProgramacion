@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
+import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
 import com.example.proyectomovie_api.data.watchlist.addWatchListBody
@@ -28,6 +29,7 @@ import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
 import com.example.proyectomovie_api.ui.adapters.AdapterWLMoviesFav
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.search.SearchView
+import com.google.android.material.snackbar.Snackbar
 
 class Inicio : Fragment() {
 
@@ -105,12 +107,10 @@ class Inicio : Fragment() {
                         myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                             if (it !== null){
                                 myViewModel.setPelicula(it)
-                                findNavController().navigate(R.id.action_favoritos_to_informacion)
+                                findNavController().navigate(R.id.action_fragmentInicio_to_informacion)
                             }
                         }
                     }
-
-
                 })
 
                 binding.recyclerViewPeliculasTuLista.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
