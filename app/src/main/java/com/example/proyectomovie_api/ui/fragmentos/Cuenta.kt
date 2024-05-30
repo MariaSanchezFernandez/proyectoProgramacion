@@ -81,7 +81,7 @@ class Cuenta : Fragment() {
                 binding.textViewnombreUser.visibility = View.GONE
                 binding.cuentaUsername.text = userType
 
-               // binding.textViewInvitado.visibility = View.VISIBLE
+                binding.textViewInvitado.visibility = View.VISIBLE
             }
 
 
