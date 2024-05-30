@@ -9,7 +9,7 @@ import com.example.proyectomovie_api.databinding.HolderCarteleraFavBinding
 
 class AdapterWLTVShowsFav(
     val lista: List<TVShow>,
-    val listener: AdapterWLMoviesFav.FavClick
+    val listener: FavClick
 ) : RecyclerView.Adapter<AdapterWLTVShowsFav.FavoritoHolder>(){
 
     private var _binding: HolderCarteleraFavBinding? = null
