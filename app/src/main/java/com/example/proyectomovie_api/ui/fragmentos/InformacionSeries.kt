@@ -63,29 +63,15 @@ class InformacionSeries : Fragment() {
             rellenaDatos(serie)
 
             viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner) { it2 ->
-                val sizeRespuesta = it2.backdrops?.size ?: 0
-                val listaURLs = ArrayList<ImagenCarousel>()
-                for (i in 0 until sizeRespuesta) {
-                    it2.backdrops?.get(i)?.let {
-                        val imagen = ImagenCarousel(i, "https://image.tmdb.org/t/p/original" + it.file_path)
-                        listaURLs.add(imagen)
-                    }
-                }
-
-                val adaptadorSeriesDetalles = ImagenCarouselAdaptadorInformacion(listaURLs, object : ImagenCarouselAdaptadorInformacion.MyClick {
-                    override fun onHolderClick(imagenCarousel: ImagenCarousel) {
-                        Toast.makeText(requireContext(), "Funciona", Toast.LENGTH_SHORT).show()
-                    }
-                })
+                val listaURLs = it2.backdrops?.mapIndexed { index, backdrop ->
+                    ImagenCarousel(index, "https://image.tmdb.org/t/p/original${backdrop.file_path}")
+                } ?: emptyList()
                 println(listaURLs)
-                binding.recyclerViewDetallesSerie.layoutManager = LinearLayoutManager(requireContext())
-                binding.recyclerViewDetallesSerie.adapter = adaptadorSeriesDetalles
-
+                binding.recyclerViewDetallesSerie.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                binding.recyclerViewDetallesSerie.adapter = ImagenCarouselAdaptadorInformacion(listaURLs)
             }
 
-
-
-            binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
+        binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
                 val data = addWatchListBody("tv", serie.id, true)
                 viewModel.addToWatchList(21216522, data).observe(viewLifecycleOwner){
                     if (it.success){
@@ -139,7 +125,6 @@ class InformacionSeries : Fragment() {
             tvDuracionDetallesSerie.text = serie.numberOfSeasons.toString() + " temporada(s)"
 
             (requireActivity() as MainActivity).supportActionBar?.setTitle(serie.name)
-
         }
     }
 }
