@@ -33,24 +33,33 @@ class Favoritos : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sesionId = myViewModel.getSessionID()
+//        val sesionId = myViewModel.getSessionID()
+//
+//        val acountId = myViewModel.getAccountID(sesionId.toString())
+//
+//        acountId.value?.let { myViewModel.getFavoriteMovies(it) }?.observe(viewLifecycleOwner){
+//            configRecyclerMovies(it)
+//        }
+//
+//        acountId.value?.let { myViewModel.getFavoriteTVShows(it) }?.observe(viewLifecycleOwner){
+//            configRecyclerTvShows(it)
+//        }
+//
+//        acountId.value?.let { myViewModel.getFavoriteWatchListMovies(it) }?.observe(viewLifecycleOwner) {
+//            configRecyclerMoviesWl(it)
+//        }
+//
+//        acountId.value?.let { myViewModel.getFavouriteWatchListTVShows(it) }?.observe(viewLifecycleOwner) {
+//            configRecyclerTvShowsWl(it)
+//        }
 
-        val acountId = myViewModel.getAccountID(sesionId.toString())
+        myViewModel.getSessionID().observe(viewLifecycleOwner){sesion ->
+            myViewModel.getAccountID(sesion).observe(viewLifecycleOwner){ account ->
+                myViewModel.getFavoriteMovies(account).observe(viewLifecycleOwner){ lista ->
+                    configRecyclerMovies(lista)
+                }
+            }
 
-        acountId.value?.let { myViewModel.getFavoriteMovies(it) }?.observe(viewLifecycleOwner){
-            configRecyclerMovies(it)
-        }
-
-        acountId.value?.let { myViewModel.getFavoriteTVShows(it) }?.observe(viewLifecycleOwner){
-            configRecyclerTvShows(it)
-        }
-
-        acountId.value?.let { myViewModel.getFavoriteWatchListMovies(it) }?.observe(viewLifecycleOwner) {
-            configRecyclerMoviesWl(it)
-        }
-
-        acountId.value?.let { myViewModel.getFavouriteWatchListTVShows(it) }?.observe(viewLifecycleOwner) {
-            configRecyclerTvShowsWl(it)
         }
 
         binding.btVerMas1.setOnClickListener{
@@ -72,15 +81,22 @@ class Favoritos : Fragment() {
     }
 
     private fun configRecyclerMovies(listaPeliculas: List<Movie>) {
-        val recyclerView = binding.rvPelis
+        // val recyclerView = binding.rvPelis
         val adapter = AdapterFav(listaPeliculas, object : AdapterFav.FavClick{
             override fun onFavClick(movie: Movie) {
-                findNavController().navigate(R.id.action_favoritos_to_informacion)
+                val id = movie.id
+                myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){ peli ->
+                    if (peli != null) {
+                        myViewModel.setPelicula(peli)
+                        findNavController().navigate(R.id.action_favoritos_to_informacion)
+                    }
+                }
             }
         })
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
+        binding.rvPelis.layoutManager = layoutManager
+        binding.rvPelis.adapter = adapter
+        adapter.
     }
 
     private fun configRecyclerTvShows(listaTVShow: List<TVShow>) {
