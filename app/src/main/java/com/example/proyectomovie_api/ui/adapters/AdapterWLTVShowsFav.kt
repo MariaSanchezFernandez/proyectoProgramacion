@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.tv.TVShow
+import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import com.example.proyectomovie_api.databinding.HolderCarteleraFavBinding
 
 class AdapterWLTVShowsFav(
@@ -16,7 +17,7 @@ class AdapterWLTVShowsFav(
     private val binding get() = _binding!!
 
     fun interface FavClick {
-        fun onHolderClick(serie: TVShow)
+        fun onHolderClick(addWatchListBody: addWatchListBody)
     }
 
     inner class FavoritoHolder(val binding: HolderCarteleraFavBinding) : RecyclerView.ViewHolder(binding.root)

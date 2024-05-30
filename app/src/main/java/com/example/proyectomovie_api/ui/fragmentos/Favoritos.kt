@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.tv.TVShow
+import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import com.example.proyectomovie_api.databinding.FragmentFavoritosBinding
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaSerie
@@ -131,8 +132,8 @@ class Favoritos : Fragment() {
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
                     val adaptadorFavoritos = AdapterWLMoviesFav(listaFavoritos, object : AdapterWLMoviesFav.FavClick{
-                        override fun onHolderClick(movie: Movie) {
-                            val id = movie.id
+                        override fun onHolderClick(addWatchListBody: addWatchListBody) {
+                            val id = addWatchListBody.media_id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
                                     myViewModel.setPelicula(it)
@@ -153,8 +154,8 @@ class Favoritos : Fragment() {
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){listaTVShow ->
                     val adaptadorFavoritos = AdapterWLTVShowsFav(listaTVShow, object : AdapterWLTVShowsFav.FavClick{
-                        override fun onHolderClick(serie: TVShow) {
-                            val id = serie.id
+                        override fun onHolderClick(addWatchListBody: addWatchListBody) {
+                            val id = addWatchListBody.media_id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
                                     myViewModel.setPelicula(it)
