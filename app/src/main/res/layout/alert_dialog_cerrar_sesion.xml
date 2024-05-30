@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clAlertDialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#5A5A5A">
+
+    <TextView
+        android:id="@+id/textViewTextoConfirmación"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="24dp"
+        android:text="¿Estás seguro de que quieres cerrar tu sesión?"
+        android:textAlignment="center"
+        android:textColor="#D8D8D8"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bCancelAlertDialog"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="48dp"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bCerrarSessionAlertDialog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTextoConfirmación" />
+
+    <Button
+        android:id="@+id/bCerrarSessionAlertDialog"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Sesión"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bCancelAlertDialog"
+        app:layout_constraintTop_toTopOf="@+id/bCancelAlertDialog" />
+</androidx.constraintlayout.widget.ConstraintLayout>

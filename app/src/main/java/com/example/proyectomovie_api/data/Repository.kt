@@ -10,9 +10,9 @@ import org.intellij.lang.annotations.Language
 
 class Repository {
 
-    suspend fun getPopularMovies(apiKey:String) = RetrofitHelper.retrofitService.popularMovies(apiKey, "ES")
+    suspend fun getPopularMovies() = RetrofitHelper.retrofitService.popularMovies( "ES")
 
-    suspend fun getPopularTVShows(apiKey:String) = RetrofitHelper.retrofitService.popularTVShows(apiKey, "ES")
+    suspend fun getPopularTVShows() = RetrofitHelper.retrofitService.popularTVShows( "ES")
 
     suspend fun discoverMovies() = RetrofitHelper.retrofitService.discoverMovies()
 
@@ -53,16 +53,14 @@ class Repository {
     // FUNCIONES PARA EL LOGIN
     suspend fun getAuthToken() = RetrofitHelper.retrofitService.getAuthToken()
     suspend fun createSessionLogin(body:BodyLogin) = RetrofitHelper.retrofitService.createSessionLogin(body)
-    suspend fun createSession(bodySessionID: BodySessionID) = RetrofitHelper.retrofitService.createSessionID(bodySessionID)
+    suspend fun createSession(authToken:String) = RetrofitHelper.retrofitService.createSessionID(BodySessionID(authToken))
     suspend fun createGuestSession() = RetrofitHelper.retrofitService.createGuestSession()
+    suspend fun deleteSession(sessionID: String) = RetrofitHelper.retrofitService.deleteSession(sessionID)
 
 
     // FUNCION PARA LOS DETALLES DE LA CUENTA
 
     suspend fun getAccountDetails(sessionID:String) = RetrofitHelper.retrofitService.getAccountDetails(sessionID)
-
-
-    suspend fun topRatedTVShows(apiKey: String) = RetrofitHelper.retrofitService.topRatedTVShows(apiKey, "ES")
-
-    suspend fun topRatedMovies(apiKey: String) = RetrofitHelper.retrofitService.topRatedMovies(apiKey, "ES")
+    suspend fun topRatedTVShows() = RetrofitHelper.retrofitService.topRatedTVShows( "ES")
+    suspend fun topRatedMovies() = RetrofitHelper.retrofitService.topRatedMovies( "ES")
 }

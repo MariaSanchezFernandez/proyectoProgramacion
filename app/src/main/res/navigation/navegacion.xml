@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/informacion"
         android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionPeliculas"
-        android:label="Informacion"
+        android:label="InformacionMovie"
         tools:layout="@layout/fragment_informacion_peliculas" />
     <fragment
         android:id="@+id/informacionSeries"
@@ -49,5 +49,12 @@
         android:id="@+id/favoritos"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Favoritos"
         android:label="fragment_favoritos"
-        tools:layout="@layout/fragment_favoritos" />
+        tools:layout="@layout/fragment_favoritos" >
+        <action
+            android:id="@+id/action_favoritos_to_informacion"
+            app:destination="@id/informacion" />
+        <action
+            android:id="@+id/action_favoritos_to_informacionSeries"
+            app:destination="@id/informacionSeries" />
+    </fragment>
 </navigation>
