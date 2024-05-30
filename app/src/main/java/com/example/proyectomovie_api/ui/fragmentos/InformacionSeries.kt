@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
@@ -18,6 +19,7 @@ import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselSeries
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaSerie
 import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
+import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptadorInformacion
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.CarouselSnapHelper
 import com.google.android.material.carousel.HeroCarouselStrategy
@@ -49,29 +51,37 @@ class InformacionSeries : Fragment() {
         }
 
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSerie().observe(viewLifecycleOwner){ serie ->
+
+        viewModel.getSessionID().observe(viewLifecycleOwner) {
+            viewModel.getAccountDetails(it).observe(viewLifecycleOwner) {
+                idioma = it.iso_639_1 + "-" + it.iso_3166_1
+            }
+        }
+
+        viewModel.getSerie().observe(viewLifecycleOwner) { serie ->
             rellenaDatos(serie)
 
-            viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner){ it2 ->
-                val sizeRespuesta = it2.backdrops?.size
+            viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner) { it2 ->
+                val sizeRespuesta = it2.backdrops?.size ?: 0
                 val listaURLs = ArrayList<ImagenCarousel>()
-                var i = 0
-                while(i < sizeRespuesta!!){
+                for (i in 0 until sizeRespuesta) {
                     it2.backdrops?.get(i)?.let {
                         val imagen = ImagenCarousel(i, "https://image.tmdb.org/t/p/original" + it.file_path)
-                        listaURLs.add(imagen) }
-                    ++i
+                        listaURLs.add(imagen)
+                    }
                 }
 
-                val adaptadorSeriesDetalles = ImagenCarouselAdaptador(listaURLs.toList(), object : ImagenCarouselAdaptador.MyClick{
+                val adaptadorSeriesDetalles = ImagenCarouselAdaptadorInformacion(listaURLs, object : ImagenCarouselAdaptadorInformacion.MyClick {
                     override fun onHolderClick(imagenCarousel: ImagenCarousel) {
-                    }
 
+                    }
                 })
-                binding.recyclerViewDetallesSerie.layoutManager = CarouselLayoutManager()
+
+                binding.recyclerViewDetallesSerie.layoutManager =CarouselLayoutManager(HeroCarouselStrategy())
                 binding.recyclerViewDetallesSerie.adapter = adaptadorSeriesDetalles
                 adaptadorSeriesDetalles.submitList(listaURLs)
             }
+
 
 
             binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
@@ -102,7 +112,6 @@ class InformacionSeries : Fragment() {
 
             }
             //recyclerViewDetallesSerie
-
         }
     }
 

@@ -218,6 +218,8 @@ class Series : Fragment() {
                     if (listaFavoritos.size > 0){
                         binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
                     }
+                    binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
+
                 }
             }
         }

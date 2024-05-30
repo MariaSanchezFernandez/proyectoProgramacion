@@ -92,13 +92,13 @@ class InformacionPeliculas : Fragment() {
             Glide.with(requireContext())
                 .load(originalURL)
                 .into(binding.ivFondoDetallesPelicula)
+
             tvGenresDetallesPelicula.text = peli.genres?.get(0)?.name.toString()
             tvOriginCountryDetallesPelicula.text = peli.originCountry?.get(0).toString() + " · "
             tvDuracionDetallesPelicula.text = peli.runtime.toString() + " min"
             tvOverviewDetallesPelicula.text = peli.overview
 
             (requireActivity() as MainActivity).supportActionBar?.setTitle(peli.title)
-
         }
     }
 }
