@@ -242,7 +242,7 @@ class Peliculas : Fragment() {
                         }
 
                     })
-                    binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
+                    binding.RecyclerViewMisFavoritosPeliculas.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     if (listaFavoritos.size > 0){
                         binding.tvMensajeNingunFav.visibility = View.INVISIBLE
                     }

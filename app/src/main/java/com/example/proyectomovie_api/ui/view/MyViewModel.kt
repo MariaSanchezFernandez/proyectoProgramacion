@@ -257,7 +257,7 @@ class MyViewModel: ViewModel() {
         val addWatchListLiveData = MutableLiveData<WatchListResponse>()
         viewModelScope.launch {
             val respuesta = repositorio.addToWatchList(accountId, data)
-            if(respuesta.code() == 200){
+            if(respuesta.code() == 200 || respuesta.code() == 201){
                 val addWatchList = respuesta.body()
                 addWatchList.let {
                     addWatchListLiveData.postValue(it)
@@ -271,7 +271,7 @@ class MyViewModel: ViewModel() {
         val addFavoriteLiveData = MutableLiveData<WatchListResponse>()
         viewModelScope.launch {
             val respuesta = repositorio.addToFavorite(accountId, data)
-            if(respuesta.code() == 200){
+            if(respuesta.code() == 200 || respuesta.code() == 201){
                 val addFavorite = respuesta.body()
                 addFavorite.let {
                     addFavoriteLiveData.postValue(it)
@@ -374,7 +374,6 @@ class MyViewModel: ViewModel() {
                 listaTVshowFav?.let {
                     listaFavSeries.postValue(it.results)
                 }
-
             }
         }
         return listaFavSeries

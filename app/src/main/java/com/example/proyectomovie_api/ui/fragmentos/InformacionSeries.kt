@@ -29,7 +29,7 @@ class InformacionSeries : Fragment() {
     private val viewModel by activityViewModels<MyViewModel>()
 
 
-    private lateinit var idioma:String
+    private lateinit var idioma: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,77 +41,92 @@ class InformacionSeries : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.getSessionID().observe(viewLifecycleOwner){
-            viewModel.getAccountDetails(it).observe(viewLifecycleOwner){
+        viewModel.getSessionID().observe(viewLifecycleOwner) {
+            viewModel.getAccountDetails(it).observe(viewLifecycleOwner) {
 
                 idioma = it.iso_639_1 + "-" + it.iso_3166_1
             }
         }
 
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSerie().observe(viewLifecycleOwner){ serie ->
+        viewModel.getSerie().observe(viewLifecycleOwner) { serie ->
             rellenaDatos(serie)
 
-            viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner){ it2 ->
+            viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner) { it2 ->
                 val sizeRespuesta = it2.backdrops?.size ?: 0
                 val listaURLs = ArrayList<ImagenCarousel>()
                 var i = 0
-                while(i < sizeRespuesta!!){
+                while (i < sizeRespuesta!!) {
                     it2.backdrops?.get(i)?.let {
-                        val imagen = ImagenCarousel(i, "https://image.tmdb.org/t/p/original" + it.file_path)
-                        listaURLs.add(imagen) }
+                        val imagen =
+                            ImagenCarousel(i, "https://image.tmdb.org/t/p/original" + it.file_path)
+                        listaURLs.add(imagen)
+                    }
                     ++i
                 }
 
-                val adaptadorSeriesDetalles = ImagenCarouselAdaptador(listaURLs.toList(), object : ImagenCarouselAdaptador.MyClick{
-                    override fun onHolderClick(imagenCarousel: ImagenCarousel) {
-                    }
+                val adaptadorSeriesDetalles = ImagenCarouselAdaptador(
+                    listaURLs.toList(),
+                    object : ImagenCarouselAdaptador.MyClick {
+                        override fun onHolderClick(imagenCarousel: ImagenCarousel) {
+                        }
 
-                })
+                    })
                 binding.recyclerViewDetallesSerie.layoutManager = CarouselLayoutManager()
                 binding.recyclerViewDetallesSerie.adapter = adaptadorSeriesDetalles
                 adaptadorSeriesDetalles.submitList(listaURLs)
-
             }
 
 
             binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
-                viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
-                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
                         val data = addWatchListBody("tv", serie.id, true)
-                        viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner){
-                            if (it.success){
-                                val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                                snackbar.show()
-                            }else{
-                                val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-                                snackbar.show()
-                            }
-                    }
-                }
+                        viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner) {
+                            val snackbarPositivo = Snackbar.make(
+                                binding.root,
+                                "Serie añadida a tu watchlist",
+                                Snackbar.LENGTH_SHORT
+                            )
+                            val snackbarNegativo =
+                                Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
 
-            }
-
-            binding.floatingbtMiListaDetallesSerie.setOnClickListener {
-                viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
-                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
-                        val data = addFavoriteBody("tv", serie.id, true)
-                        viewModel.addToFavorite(requireContext(), accountId, data).observe(viewLifecycleOwner){
-                            if (it.success){
-                                val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                                snackbar.show()
-                            }else{
-                                val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-                                snackbar.show()
+                            if (it.success) {
+                                snackbarPositivo.show()
+                            } else {
+                                snackbarNegativo.show()
                             }
                         }
                     }
                 }
             }
 
+            binding.floatingbtMiListaDetallesSerie.setOnClickListener {
+                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
+                        val data = addFavoriteBody("tv", serie.id, true)
+                        viewModel.addToFavorite(requireContext(), accountId, data)
+                            .observe(viewLifecycleOwner) {
+                                if (it.success) {
+                                    val snackbar = Snackbar.make(
+                                        binding.root,
+                                        "Serie añadida a tus favoritos",
+                                        Snackbar.LENGTH_SHORT
+                                    )
+                                    snackbar.show()
+                                } else {
+                                    val snackbar = Snackbar.make(
+                                        binding.root,
+                                        "Error",
+                                        Snackbar.LENGTH_SHORT
+                                    )
+                                    snackbar.show()
+                                }
+                            }
+                    }
+                }
             }
             //recyclerViewDetallesSerie
-
         }
     }
 
@@ -136,10 +151,11 @@ class InformacionSeries : Fragment() {
             tvOriginCountryDetallesSerie.text = serie.originCountry?.get(0).toString() + " · "
             tvOverviewDetallesSerie.text = serie.overview
             tvDuracionDetallesSerie.text = serie.numberOfSeasons.toString() + " temporada(s)"
-            if (serie.status.equals("Ended")){
+            if (serie.status.equals("Ended")) {
                 tvStatusDetallesSerie.text = "Finalizada"
-                tvUltimoCapituloDetallesSerie.text = "Última emisión: " + serie.lastEpisodeToAir.airDate
-            }else{
+                tvUltimoCapituloDetallesSerie.text =
+                    "Última emisión: " + serie.lastEpisodeToAir.airDate
+            } else {
                 tvUltimoCapituloDetallesSerie.visibility = View.GONE
             }
 

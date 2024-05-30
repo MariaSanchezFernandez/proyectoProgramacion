@@ -173,7 +173,7 @@ interface MyService {
     )
     @GET("account/{account_id}/favorite/movies")
     suspend fun getFavMovies(
-        @Path("account_id") userID: Int
+        @Path("account_id") accountID: Int
     ): Response<MovieResponse>
 
     //TVShows favoritos del usuario
@@ -183,7 +183,7 @@ interface MyService {
     )
     @GET("account/{account_id}/favorite/tv")
     suspend fun getFavTVShows(
-        @Path("account_id") userID: Int
+        @Path("account_id") account_id: Int
     ): Response<TVResponse>
 
     // Películas más populares
