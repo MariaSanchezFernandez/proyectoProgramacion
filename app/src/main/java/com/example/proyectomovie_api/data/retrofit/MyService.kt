@@ -166,6 +166,8 @@ interface MyService {
         @Path("series_id") tvID:Int
     ): Response<TVSerieResponse>
 
+
+
     // Películas favoritas del usuario
     @Headers(
         "accept: application/json",
@@ -185,6 +187,27 @@ interface MyService {
     suspend fun getFavTVShows(
         @Path("account_id") userID: Int
     ): Response<TVResponse>
+
+    // Peliculas favoritas del usuario WatchList
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("account/{account_id}/watchlist/movies")
+    suspend fun getFavWatchListMovies(
+        @Path("acount_id") userID: Int
+    ): Response<MovieResponse>
+
+    // TVShows favoritos del usuario WatchList
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMGQ2MjE1NDBjYzg3ZmE5OWM0OTQ1MDJhMTEwZjc3ZiIsInN1YiI6IjY2M2QzZDZkODQyZjg2NzZkMmEzYzY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6-zizPvB8-3S-2bgxAKOdRthfs-RRvPvmR9gMX-_kGc"
+    )
+    @GET("account/{account_id}/watchlist/tv")
+    suspend fun getFavWatchListTVShows(
+        @Path("acount_id") userID: Int
+    ): Response<TVResponse>
+
 
     // Películas más populares
     @Headers(
