@@ -43,6 +43,7 @@ class InformacionSeries : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel.getUserType().observe(viewLifecycleOwner){
             if (it == "Invitado"){
@@ -58,27 +59,9 @@ class InformacionSeries : Fragment() {
             }
         }
 
-        super.onViewCreated(view, savedInstanceState)
 
-            binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
-                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
-                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
-                        val data = addWatchListBody("tv", serie.id, true)
-                        viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner) {
-                            val snackbarPositivo = Snackbar.make(
-                                binding.root,
-                                "Serie añadida a tu watchlist",
-                                Snackbar.LENGTH_SHORT
-                            )
-                            val snackbarNegativo =
-                                Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
 
-                            if (it.success) {
-                                snackbarPositivo.show()
-                            } else {
-                                snackbarNegativo.show()
-                            }
-                        }
+
 
         viewModel.getSessionID().observe(viewLifecycleOwner) {
             viewModel.getAccountDetails(it).observe(viewLifecycleOwner) {
@@ -115,9 +98,33 @@ class InformacionSeries : Fragment() {
                     }
                 }
             }
+
+            binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
+                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
+                        val data = addWatchListBody("tv", serie.id, true)
+                        viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner) {
+                            val snackbarPositivo = Snackbar.make(
+                                binding.root,
+                                "Serie añadida a tu watchlist",
+                                Snackbar.LENGTH_SHORT
+                            )
+                            val snackbarNegativo =
+                                Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+
+                            if (it.success) {
+                                snackbarPositivo.show()
+                            } else {
+                                snackbarNegativo.show()
+                            }
+                        }
+                    }
+                }
+            }
             //recyclerViewDetallesSerie
         }
     }
+
 
     private fun rellenaDatos(serie: SerieDetallesResponse) {
         val originalURL = "https://media.themoviedb.org/t/p/original/" + serie.backdropPath

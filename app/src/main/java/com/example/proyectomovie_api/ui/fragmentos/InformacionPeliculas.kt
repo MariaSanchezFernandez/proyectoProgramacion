@@ -78,7 +78,7 @@ class InformacionPeliculas : Fragment() {
                 }
             }
 
-            binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
+            binding.floatingbtnMiListaDetallesPelicula.setOnClickListener {
                 viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                         val data = movie.id?.let { it1 -> addFavoriteBody("movie", it1, true) }
