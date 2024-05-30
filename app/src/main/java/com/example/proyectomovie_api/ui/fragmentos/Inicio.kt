@@ -96,7 +96,7 @@ class Inicio : Fragment() {
     private fun configRecyclerMovies(lista : List<Movie>){
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){listaFavoritos ->
-                val adaptadorFavoritos = AdaptadorMiListaPeliculas(lista, object : AdaptadorMiListaPeliculas.MyClick{
+                val adaptadorFavoritos = AdaptadorMiListaPeliculas(lista as ArrayList<Movie>, object : AdaptadorMiListaPeliculas.MyClick{
                     override fun onHolderClick(pelicula: Movie) {
                         val id = pelicula.id
                         myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){

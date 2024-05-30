@@ -211,7 +211,7 @@ class Peliculas : Fragment() {
             viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 viewModel.getFavoriteMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
 
-                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
+                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos as ArrayList<Movie>, object : AdaptadorMiListaPeliculas.MyClick{
                         override fun onHolderClick(pelicula: Movie) {
                             val id = pelicula.id
                             viewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){

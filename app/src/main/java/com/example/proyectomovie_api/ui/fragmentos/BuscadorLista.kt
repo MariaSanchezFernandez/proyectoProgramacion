@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.data.movie.Movie
-import com.example.proyectomovie_api.data.people.People
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.FragmentBuscadorListaBinding
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorBuscadorPeliculas
@@ -50,8 +49,8 @@ class BuscadorLista : Fragment() {
     private fun configRecylerMovie(list:List<Movie>){
         val recyclerView = binding.recycler
          val adapterMovie = AdaptadorBuscadorPeliculas(list, object :AdaptadorBuscadorPeliculas.MiClick{
-             override fun onHolderClick(pelicula: Movie) {
-                 val id = pelicula.id
+             override fun onHolderClick(movie: Movie) {
+                 val id = movie.id
                  myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner) {
                      if (it != null) {
                          myViewModel.setPelicula(it)

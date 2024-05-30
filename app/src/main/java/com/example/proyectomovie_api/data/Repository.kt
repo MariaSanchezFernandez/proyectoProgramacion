@@ -30,10 +30,6 @@ class Repository {
 
     suspend fun getFavouriteWatchListTVShows(accountID: Int) = RetrofitHelper.retrofitService.getFavWatchListTVShows(accountID)
 
-   // suspend fun getPopularMovies(region:String = "ES")  = RetrofitHelper.retrofitService.popularMovies(region)
-
-   // suspend fun getPopularTVShows(region:String = "ES") = RetrofitHelper.retrofitService.popularTVShows(region)
-
     suspend fun getTopRatedMovies(region:String = "ES") = RetrofitHelper.retrofitService.topRatedMovies( region)
 
     suspend fun getTopRatedTVShows(region:String = "ES") = RetrofitHelper.retrofitService.topRatedTVShows( region)

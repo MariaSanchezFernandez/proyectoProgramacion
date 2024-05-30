@@ -5,11 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -32,7 +28,6 @@ class Series : Fragment() {
 
     private lateinit var binding: FragmentSeriesBinding
     private val viewModel by activityViewModels<MyViewModel>()
-    private lateinit var navController : NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -156,7 +151,7 @@ class Series : Fragment() {
 
         viewModel.topRatedTVShow().observe(viewLifecycleOwner){series ->
 
-            var baseUrl = "https://image.tmdb.org/t/p/original"
+            val baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
@@ -209,7 +204,7 @@ class Series : Fragment() {
             viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
                 viewModel.getFavoriteTVShows(21209376).observe(viewLifecycleOwner){listaFavoritos ->
 
-                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos, object : AdaptadorMiListaSerie.MyClick {
+                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos as ArrayList<TVShow>, object : AdaptadorMiListaSerie.MyClick {
                         override fun onHolderClick(serie: TVShow) {
                             val id = serie.id
                             viewModel.getSerieById(id, "es-ES").observe(viewLifecycleOwner) {
@@ -243,38 +238,14 @@ class Series : Fragment() {
                             }
                         }
                     })
-                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
-                    if (listaFavoritos.isNotEmpty()){
+                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    if (listaFavoritos.size > 0){
                         binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
                     }
                     binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
 
                 }
             }
-        }
-
-        //AlertDialog que abre buscador, pones título de la serie que buscas y al darle al boton navega a otro fragment
-        binding.btnBuscarSeries.setOnClickListener {
-            val builder = AlertDialog.Builder(requireContext())
-            val viewBinding = layoutInflater.inflate(R.layout.alertdialog_bucador, null)
-            builder.setView(viewBinding)
-            val dialog = builder.create()
-
-            viewBinding.findViewById<Button>(R.id.button2).setOnClickListener {
-                val name = viewBinding.findViewById<EditText>(R.id.textInputEditText).text.toString()
-
-                viewModel.getSerieBuscador(name).observe(viewLifecycleOwner){
-                    viewModel.setBuscadorSerie(it)
-                    findNavController().navigate(R.id.action_fragmentSeries_to_buscadorLista)
-                }
-
-
-
-
-
-                dialog.dismiss()
-            }
-            dialog.show()
         }
     }
 }

@@ -90,32 +90,32 @@ class InformacionSeries : Fragment() {
             binding.floatingbtnMiListaDetallesSerie.setOnClickListener {
                 viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
-                            val data = addFavoriteBody("tv", serie.id, true)
-                            viewModel.getFavoriteTVShows(accountId).observe(viewLifecycleOwner){ lista ->
-                                var encontrado = false
-                                lista.forEach {objeto ->
-                                    if(objeto.id == data.media_id){
-                                        encontrado = true
+                        val data = addFavoriteBody("tv", serie.id, true)
+                        viewModel.getFavoriteTVShows(accountId).observe(viewLifecycleOwner){ lista ->
+                            var encontrado = false
+                            lista.forEach {objeto ->
+                                if(objeto.id == data.media_id){
+                                    encontrado = true
+                                }
+                            }
+                            if(encontrado){
+                                val snackbar = Snackbar.make(binding.root,"Ya tienes esta serie en favoritos", Snackbar.LENGTH_SHORT)
+                                snackbar.show()
+                            }else{
+                                viewModel.addToFavorite(requireContext(),accountId, data).observe(viewLifecycleOwner) {
+                                    val snackbarPositivo = Snackbar.make(binding.root, "Serie añadida a tus favoritos", Snackbar.LENGTH_SHORT)
+                                    val snackbarNegativo = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                                    if (it.success) {
+                                        snackbarPositivo.show()
+                                    } else {
+                                        snackbarNegativo.show()
                                     }
                                 }
-                                if(encontrado){
-                                    val snackbar = Snackbar.make(binding.root,"Ya tienes esta serie en favoritos", Snackbar.LENGTH_SHORT)
-                                    snackbar.show()
-                                }else{
-                                    viewModel.addToFavorite(requireContext(),accountId, data).observe(viewLifecycleOwner) {
-                                        val snackbarPositivo = Snackbar.make(binding.root, "Serie añadida a tus favoritos", Snackbar.LENGTH_SHORT)
-                                        val snackbarNegativo = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-                                        if (it.success) {
-                                            snackbarPositivo.show()
-                                        } else {
-                                            snackbarNegativo.show()
-                                        }
-                                    }
-                                }
+                            }
+                        }
                     }
                 }
             }
-        }
             binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
                 viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
@@ -137,18 +137,6 @@ class InformacionSeries : Fragment() {
                         }
                     }
                 }
-
-
-        viewModel.getSerie().observe(viewLifecycleOwner) { serie ->
-            rellenaDatos(serie)
-
-            viewModel.getSerieImages(serie.id).observe(viewLifecycleOwner) { it2 ->
-                val listaURLs = it2.backdrops?.mapIndexed { index, backdrop ->
-                    ImagenCarousel(index, "https://image.tmdb.org/t/p/original${backdrop.file_path}")
-                } ?: emptyList()
-                println(listaURLs)
-                binding.recyclerViewDetallesSerie.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                binding.recyclerViewDetallesSerie.adapter = ImagenCarouselAdaptadorInformacion(listaURLs)
             }
             //recyclerViewDetallesSerie
             serie.id?.let {
@@ -163,33 +151,8 @@ class InformacionSeries : Fragment() {
                     }
                 }
             }
-
-            binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
-                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
-                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
-                        val data = addWatchListBody("tv", serie.id, true)
-                        viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner) {
-                            val snackbarPositivo = Snackbar.make(
-                                binding.root,
-                                "Serie añadida a tu watchlist",
-                                Snackbar.LENGTH_SHORT
-                            )
-                            val snackbarNegativo =
-                                Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-
-                            if (it.success) {
-                                snackbarPositivo.show()
-                            } else {
-                                snackbarNegativo.show()
-                            }
-                        }
-                    }
-                }
-            }
-            //recyclerViewDetallesSerie
         }
     }
-
 
     private fun rellenaDatos(serie: SerieDetallesResponse) {
         val originalURL = "https://media.themoviedb.org/t/p/original/" + serie.backdropPath

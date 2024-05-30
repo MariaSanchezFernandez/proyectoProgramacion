@@ -10,7 +10,7 @@ import com.example.proyectomovie_api.data.movie_detalles.MovieDetallesResponse
 
 import com.example.proyectomovie_api.databinding.MisFavoritosPeliculasBinding
 
-class AdaptadorMiListaPeliculas(val listado: List<Movie>, val listener: MyClick) : RecyclerView.Adapter<AdaptadorMiListaPeliculas.VistaCelda>() {
+class AdaptadorMiListaPeliculas(val listado: ArrayList<Movie>, val listener: MyClick) : RecyclerView.Adapter<AdaptadorMiListaPeliculas.VistaCelda>() {
     inner class VistaCelda (val binding: MisFavoritosPeliculasBinding) : RecyclerView.ViewHolder(binding.root)
 
     interface MyClick {
@@ -38,8 +38,9 @@ class AdaptadorMiListaPeliculas(val listado: List<Movie>, val listener: MyClick)
         }
         holder.itemView.setOnLongClickListener {
             listener.onItemLongClick(data)
+            listado.removeAt(position)
             notifyItemRemoved(position)
-            holder.itemView.refreshDrawableState()
+            notifyItemRangeChanged(position, listado.size)
             return@setOnLongClickListener true
         }
     }
