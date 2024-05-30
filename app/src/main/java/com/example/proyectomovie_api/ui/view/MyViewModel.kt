@@ -44,6 +44,7 @@ class MyViewModel: ViewModel() {
     private val sessionID = MutableLiveData<String>()
     private val listaFavMovies = MutableLiveData<List<Movie>>()
     private val listaFavSeries = MutableLiveData<List<TVShow>>()
+    private val userCategory = MutableLiveData<String>()
 
     //Id del acountId de Salva -> 548
     // Esto al juntarse con el resto del código tiene que cambiarse para que esté bien
@@ -383,6 +384,12 @@ class MyViewModel: ViewModel() {
 
     fun setAccountId(id: Int) {
         accountID.value = id
+    }
+
+    fun getUserType() = userCategory
+
+    fun setUserType(user:String){
+        userCategory.value=user
     }
 
 }

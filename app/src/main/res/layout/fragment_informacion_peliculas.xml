@@ -32,7 +32,7 @@
             </RelativeLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingbtMiListaDetallesPelicula"
+                android:id="@+id/floatingbtnMiListaDetallesPelicula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -70,7 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:paddingBottom="50dp"
-                app:layout_constraintBottom_toTopOf="@+id/floatingbtMiListaDetallesPelicula"
+                app:layout_constraintBottom_toTopOf="@+id/floatingbtnMiListaDetallesPelicula"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/ivCartelDetallesPelicula"
@@ -119,7 +119,7 @@
                 android:layout_marginTop="25dp"
                 android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="@+id/ivCartelDetallesPelicula"
-                app:layout_constraintTop_toBottomOf="@+id/floatingbtMiListaDetallesPelicula" />
+                app:layout_constraintTop_toBottomOf="@+id/floatingbtnMiListaDetallesPelicula" />
 
             <TextView
                 android:id="@+id/tvOriginCountryDetallesPelicula"

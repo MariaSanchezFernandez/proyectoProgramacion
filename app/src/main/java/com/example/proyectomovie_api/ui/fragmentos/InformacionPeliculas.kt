@@ -35,6 +35,14 @@ class InformacionPeliculas : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getUserType().observe(viewLifecycleOwner){
+            if (it == "Invitado"){
+                binding.floatingbtnWatchListDetallesPelicula.visibility = View.GONE
+                binding.floatingbtnMiListaDetallesPelicula.visibility = View.GONE
+            }
+        }
+
         viewModel.getPelicula().observe(viewLifecycleOwner){ movie ->
             rellenaDatos(movie)
 
@@ -69,7 +77,7 @@ class InformacionPeliculas : Fragment() {
                 }
             }
 
-            binding.floatingbtMiListaDetallesPelicula.setOnClickListener {
+            binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
                 viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                         val data = movie.id?.let { it1 -> addFavoriteBody("movie", it1, true) }

@@ -41,6 +41,13 @@ class InformacionSeries : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        viewModel.getUserType().observe(viewLifecycleOwner){
+            if (it == "Invitado"){
+                binding.floatingbtnMiListaDetallesSerie.visibility = View.GONE
+                binding.floatingbtnWhatchListDetallesSeries.visibility = View.GONE
+            }
+        }
+
         viewModel.getSessionID().observe(viewLifecycleOwner) {
             viewModel.getAccountDetails(it).observe(viewLifecycleOwner) {
 
@@ -101,7 +108,7 @@ class InformacionSeries : Fragment() {
                 }
             }
 
-            binding.floatingbtMiListaDetallesSerie.setOnClickListener {
+            binding.floatingbtnMiListaDetallesSerie.setOnClickListener {
                 viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
                         val data = addFavoriteBody("tv", serie.id, true)

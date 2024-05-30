@@ -38,6 +38,8 @@ class AdaptadorMiListaPeliculas(val listado: List<Movie>, val listener: MyClick)
         }
         holder.itemView.setOnLongClickListener {
             listener.onItemLongClick(data)
+            notifyItemRemoved(position)
+            holder.itemView.refreshDrawableState()
             return@setOnLongClickListener true
         }
     }
