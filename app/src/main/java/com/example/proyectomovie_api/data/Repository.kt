@@ -63,4 +63,13 @@ class Repository {
     suspend fun getAccountDetails(sessionID:String) = RetrofitHelper.retrofitService.getAccountDetails(sessionID)
     suspend fun topRatedTVShows() = RetrofitHelper.retrofitService.topRatedTVShows( "ES")
     suspend fun topRatedMovies() = RetrofitHelper.retrofitService.topRatedMovies( "ES")
+
+
+    //FUNCIÓN PARA BUSCADORES
+    suspend fun getBuscadorMovie(buscador:String) = RetrofitHelper.retrofitService.getMovieBuscar(buscador)
+
+    suspend fun getBuscarSerie(buscador: String) = RetrofitHelper.retrofitService.getShowBuscar(buscador)
+
+    suspend fun getBuscarPersona(buscador: String) = RetrofitHelper.retrofitService.getPersonBuscador(buscador)
+
 }

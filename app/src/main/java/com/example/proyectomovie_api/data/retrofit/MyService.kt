@@ -302,6 +302,7 @@ interface MyService {
         @Body data : addFavoriteBody
     ) : Response<WatchListResponse>
 
+
     //Ambas funciones obtiene fotos del contenido deseando, se debe enviar una ID
     @Headers(
         "accept: application/json",
@@ -321,6 +322,15 @@ interface MyService {
         @Path("serie_id") serieId : Int
     ) : Response<ImageResponse>
 
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/person")
+    suspend fun getPersonBuscador(
+        @Query("query") buscador: String
+    ): Response<PeopleResponse>
 
     // Obtenemos todos los datos detallados de una Pelicula pasándole una Id de serie
     @Headers(
