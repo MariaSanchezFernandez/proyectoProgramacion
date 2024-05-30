@@ -25,7 +25,7 @@ import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
 import com.example.proyectomovie_api.data.tv.TVResponse
 import com.example.proyectomovie_api.data.people.People
 import com.example.proyectomovie_api.data.tv.TVShow
-import com.example.proyectomovie_api.data.tvSerieProvider.TVSerieResponse
+import com.example.proyectomovie_api.data.tvSerieProvider.TVProviderResponse
 import com.example.proyectomovie_api.data.watchlist.WatchListResponse
 import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import kotlinx.coroutines.launch
@@ -176,6 +176,7 @@ class MyViewModel: ViewModel() {
         viewModelScope.launch {
             val respuesta = repositorio.getPopularTVShows()
             if (respuesta.code() == 200) {
+
                 val listaSeriesPopulares = respuesta.body()
                 listaSeriesPopulares?.let {
                     listaTVShowsPopulares.postValue(it.results)
@@ -229,8 +230,8 @@ class MyViewModel: ViewModel() {
     }
 
     // Devuelve un objeto con los proveedores de la Serie
-    fun getSerieWatchProvider(serieId: Int): MutableLiveData<TVSerieResponse> {
-        val serieWatchProviderLiveData = MutableLiveData<TVSerieResponse>()
+    fun getSerieWatchProvider(serieId: Int): MutableLiveData<TVProviderResponse> {
+        val serieWatchProviderLiveData = MutableLiveData<TVProviderResponse>()
         viewModelScope.launch {
             val respuesta = repositorio.getSerieWatchProvider(serieId)
             if (respuesta.code() == 200) {
@@ -486,6 +487,7 @@ class MyViewModel: ViewModel() {
     fun setUserType(user: String) {
         userCategory.value = user
     }
+
     // Devuelve la ID de la cuenta
     fun getAccountID(sessionID: String): MutableLiveData<Int> {
         viewModelScope.launch {
@@ -499,5 +501,3 @@ class MyViewModel: ViewModel() {
         return accountID
     }
 }
-
-
