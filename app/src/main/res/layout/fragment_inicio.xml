@@ -19,12 +19,12 @@
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:text="¡Bienvenido! ¿Ganas de entretenerte? Explora las películas de tu lista"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -42,10 +42,10 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/component_1"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +62,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvDelDia"
             android:layout_width="320dp"
-            android:layout_height="274dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -73,21 +73,9 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/ivFondoDia"
-                    android:layout_width="320dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/fondo"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <ImageView
                     android:id="@+id/ivCarteleraDia"
                     android:layout_width="167dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/prueba"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,9 +90,9 @@
                     android:gravity="center"
                     android:text="Ghostbusters: Frozen Empire"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/tFechaDia"
-                    app:layout_constraintEnd_toEndOf="@+id/ivFondoDia"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivCarteleraDia"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
@@ -115,6 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="2024-05-08"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -128,7 +117,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvDelDiaActor"
             android:layout_width="320dp"
-            android:layout_height="274dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp"
             app:cardBackgroundColor="@color/black"
@@ -154,9 +143,10 @@
                     android:id="@+id/tvNameActor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:text="Sydney Sweeney"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/tvParticipated"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -168,10 +158,12 @@
                     android:id="@+id/tvParticipated"
                     android:layout_width="89dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:text="Inception Cars Interestellae The idea of you"
                     android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/ivActor"
@@ -181,9 +173,10 @@
                     android:id="@+id/floatingActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:clickable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/tvParticipated"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/tvParticipated"
                     app:layout_constraintTop_toBottomOf="@+id/tvParticipated"
                     app:srcCompat="@drawable/baseline_search_24" />
@@ -192,15 +185,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="299dp"
-            android:layout_height="79dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/component_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -51,17 +51,22 @@ class Inicio : Fragment() {
 
                 val topMovie = it[0]
 
+                val baseUrl = "https://image.tmdb.org/t/p/original"
+
                 binding.tTituloDia.text = topMovie.title
                 binding.tFechaDia.text = topMovie.release_date
-                Glide.with(this).load(topMovie.poster_path).into(binding.ivCarteleraDia)
+                Glide.with(requireContext()).load(baseUrl + topMovie.poster_path).into(binding.ivCarteleraDia)
+
             }
 
             myViewModel.getInfoPeople().observe(viewLifecycleOwner){people ->
                 val topActor = people[0]
 
+                val baseUrl = "https://image.tmdb.org/t/p/original"
+
                 binding.tvNameActor.text = topActor.name
-                binding.tvParticipated.text = topActor.known_for.toString()
-                Glide.with(this).load(topActor.profile_path).into(binding.ivActor)
+                binding.tvParticipated.text = topActor.known_for.get(0).title
+                Glide.with(requireContext()).load(baseUrl + topActor.profile_path).into(binding.ivActor)
             }
 
 
@@ -81,7 +86,7 @@ class Inicio : Fragment() {
 
                     //Bundle bundle = new Bundle()
 
-                    myViewModel.getMovieBuscador(name)
+                    //myViewModel.getMovi(name)
                     myViewModel.getPersonBuscador(name)
 
                     navController.navigate(R.id.action_fragmentInicio_to_buscadorLista)

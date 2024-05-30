@@ -101,7 +101,7 @@ class Peliculas : Fragment() {
 
         viewModel.getPopularMovies().observe(viewLifecycleOwner){pelicula->
 
-            var baseUrl = "https://image.tmdb.org/t/p/original"
+            val baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 

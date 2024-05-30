@@ -46,8 +46,7 @@
     <fragment
         android:id="@+id/informacionSeries"
         android:name="com.example.proyectomovie_api.ui.fragmentos.InformacionSeries"
-        android:label="InformacionSeries" />
-
+        android:label="InformacionSeries"
         tools:layout="@layout/fragment_series" />
     <fragment
         android:id="@+id/favoritos"
@@ -61,6 +60,7 @@
             android:id="@+id/action_favoritos_to_informacionSeries"
             app:destination="@id/informacionSeries" />
     </fragment>
+    <fragment
         android:id="@+id/buscadorLista"
         android:name="com.example.proyectomovie_api.ui.fragmentos.BuscadorLista"
         android:label="fragment_buscador_lista"

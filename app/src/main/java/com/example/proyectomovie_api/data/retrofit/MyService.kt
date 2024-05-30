@@ -355,4 +355,31 @@ interface MyService {
         @Query("language") language: String
     ): Response<SerieDetallesResponse>
 
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/movie")
+    suspend fun getMovieBuscar(
+        @Query("query") textIntroducido : String
+    )
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/person")
+    suspend fun getPersonBuscar(
+        @Query("query") textIntroducido : String
+    )
+
+    @Headers(
+        "accept: application/json",
+        "Authorization: Bearer $BEARER_TOKEN"
+    )
+    @GET("search/TV")
+    suspend fun getTVBuscar(
+        @Query("query") textIntroducido : String
+    )
+
 }

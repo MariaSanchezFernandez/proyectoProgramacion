@@ -39,14 +39,14 @@ class BuscadorLista : Fragment() {
 
 
 
-        myViewModel.getBuscadorActores().observe(viewLifecycleOwner){
-            val intent = Intent(Intent.ACTION_SENDTO)
-            intent.type = "text/plain"
-            val informacion = intent.extras?.getString("informacion")
-            intent.putExtra(Intent.EXTRA_TEXT, informacion)
-            startActivity(intent)
-//            configRecycler(it)
-        }
+//        myViewModel.getBuscadorActores().observe(viewLifecycleOwner){
+//            val intent = Intent(Intent.ACTION_SENDTO)
+//            intent.type = "text/plain"
+//            val informacion = intent.extras?.getString("informacion")
+//            intent.putExtra(Intent.EXTRA_TEXT, informacion)
+//            startActivity(intent)
+////            configRecycler(it)
+//        }
     }
 
 
