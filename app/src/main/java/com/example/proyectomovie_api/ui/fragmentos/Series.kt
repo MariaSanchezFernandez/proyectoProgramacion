@@ -12,14 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.FragmentSeriesBinding
 import com.example.proyectomovie_api.ui.MainActivity
-import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselPeliculas
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaSerie
 import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
-import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
-import java.util.UUID
 
 class Series : Fragment() {
 

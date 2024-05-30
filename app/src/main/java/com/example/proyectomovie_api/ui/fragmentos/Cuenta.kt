@@ -15,7 +15,6 @@ import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.FragmentCuentaBinding
 import com.example.proyectomovie_api.ui.LoginActivity
 import com.example.proyectomovie_api.ui.MainActivity
-import com.example.proyectomovie_api.ui.view.MyViewModel
 import java.util.Locale
 
 class Cuenta : Fragment() {

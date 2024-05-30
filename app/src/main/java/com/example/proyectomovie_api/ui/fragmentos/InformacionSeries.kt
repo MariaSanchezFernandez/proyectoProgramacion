@@ -9,18 +9,12 @@ import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.serie_detalles.SerieDetallesResponse
-import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.FragmentInformacionSeriesBinding
 import com.example.proyectomovie_api.ui.MainActivity
-import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.example.proyectomovie_api.data.watchlist.addWatchListBody
-import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselSeries
-import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaSerie
 import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
 import com.google.android.material.carousel.CarouselLayoutManager
-import com.google.android.material.carousel.CarouselSnapHelper
-import com.google.android.material.carousel.HeroCarouselStrategy
 import com.google.android.material.snackbar.Snackbar
 
 class InformacionSeries : Fragment() {

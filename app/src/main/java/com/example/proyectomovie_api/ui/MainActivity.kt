@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.MenuMainBinding
-import com.example.proyectomovie_api.ui.view.MyViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MenuMainBinding

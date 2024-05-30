@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -13,14 +12,11 @@ import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.databinding.FragmentPeliculasBinding
 import com.example.proyectomovie_api.ui.MainActivity
-import com.example.proyectomovie_api.ui.adaptadores.AdaptadorCarouselPeliculas
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
 import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
-import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
-import java.util.UUID
 
 class Peliculas : Fragment() {
     private lateinit var binding: FragmentPeliculasBinding

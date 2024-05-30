@@ -9,12 +9,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import com.example.proyectomovie_api.data.inicioSesion.BodyLogin
-import com.example.proyectomovie_api.data.inicioSesion.BodySessionID
 import com.example.proyectomovie_api.databinding.ActivityLoginBinding
-
-import com.example.proyectomovie_api.ui.view.MyViewModel
 
 
 class LoginActivity : AppCompatActivity() {
