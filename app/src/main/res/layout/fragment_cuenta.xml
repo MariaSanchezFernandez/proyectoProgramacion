@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/imageViewUSerAvatar"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="91dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
