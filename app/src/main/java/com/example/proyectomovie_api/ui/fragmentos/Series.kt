@@ -105,7 +105,7 @@ class Series : Fragment() {
 
         viewModel.getPopularTVShow().observe(viewLifecycleOwner){series ->
 
-            var baseUrl = "https://image.tmdb.org/t/p/original"
+            val baseUrl = "https://image.tmdb.org/t/p/original"
 
             val randomIndices = (0 until 19).shuffled().take(4)
 
@@ -243,8 +243,8 @@ class Series : Fragment() {
                             }
                         }
                     })
-                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                    if (listaFavoritos.size > 0){
+                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
+                    if (listaFavoritos.isNotEmpty()){
                         binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
                     }
                     binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos

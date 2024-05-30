@@ -54,7 +54,6 @@ class MyViewModel: ViewModel() {
 
     //Id del acountId de Salva -> 548
     // Esto al juntarse con el resto del código tiene que cambiarse para que esté bien
-    private val acountId = MutableLiveData<Int>(548)
     private val accountID = MutableLiveData<Int>()
 
 
@@ -64,7 +63,7 @@ class MyViewModel: ViewModel() {
         viewModelScope.launch {
             val respuesta = repositorio.getPopularMovies()
             if (respuesta.code() == 200) {
-                var listaPeliculasPopulares = respuesta.body()
+                val listaPeliculasPopulares = respuesta.body()
                 listaPeliculasPopulares?.let {
                     listaMoviesPopuales.postValue(it.results)
                 }
@@ -173,28 +172,11 @@ class MyViewModel: ViewModel() {
         return liveData
     }
 
-    // Devuelve la ID de la cuenta
-    fun getAccountID(sessionID: String): MutableLiveData<Int> {
-
-
-        viewModelScope.launch {
-            val response = repositorio.getAccountDetails(sessionID)
-
-            if (response.code() == 200) {
-                response.body()?.let {
-                    liveData.postValue(it)
-                }
-            }
-        }
-        return liveData
-    }
-
-
     fun getPopularTVShow(): MutableLiveData<List<TVShow>> {
         viewModelScope.launch {
             val respuesta = repositorio.getPopularTVShows()
             if (respuesta.code() == 200) {
-                var listaSeriesPopulares = respuesta.body()
+                val listaSeriesPopulares = respuesta.body()
                 listaSeriesPopulares?.let {
                     listaTVShowsPopulares.postValue(it.results)
                 }
@@ -452,8 +434,8 @@ class MyViewModel: ViewModel() {
     fun getFavoriteTVShows(acountId: Int): MutableLiveData<List<TVShow>> {
         viewModelScope.launch {
             val respuesta = repositorio.getFavoriteTVShows(acountId)
-            if (respuesta?.code() == 200) {
-                val listaTVshowFav = respuesta?.body()
+            if (respuesta.code() == 200) {
+                val listaTVshowFav = respuesta.body()
                 listaTVshowFav?.let {
                     listaFavSeries.postValue(it.results)
                 }
@@ -470,7 +452,7 @@ class MyViewModel: ViewModel() {
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListMovies(accountId)
             if (respuesta.code() == 200) {
-                var listaWLMoviesFav = respuesta.body()
+                val listaWLMoviesFav = respuesta.body()
                 listaWLMoviesFav?.let {
                     listaWlMoviesFavLiveData.postValue(it.results)
                 }
@@ -483,7 +465,7 @@ class MyViewModel: ViewModel() {
         val listaWlTVshowsFavLiveData = MutableLiveData<List<TVShow>>()
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListTVShows(accountId)
-            if (respuesta?.code() == 200) {
+            if (respuesta.code() == 200) {
                 val listaWLTVShowsFav = respuesta.body()
                 listaWLTVShowsFav?.let {
                     listaWlTVshowsFavLiveData.postValue(it.results)
@@ -497,7 +479,6 @@ class MyViewModel: ViewModel() {
     fun setAccountId(id: Int) {
         accountID.value = id
     }
-}
     // Devuelve la ID de la cuenta
 
     fun getUserType() = userCategory
@@ -505,16 +486,18 @@ class MyViewModel: ViewModel() {
     fun setUserType(user: String) {
         userCategory.value = user
     }
-     // Devuelve la ID de la cuenta
-     fun getAccountID(sessionID: String): MutableLiveData<Int> {
-         viewModelScope.launch {
-             val response = repositorio.getAccountDetails(sessionID)
-             if (response.code() == 200) {
-                 response.body()?.id.let {
-                     accountID.postValue(it)
-                 }
-             }
-         }
-         return accountID
-     }
+    // Devuelve la ID de la cuenta
+    fun getAccountID(sessionID: String): MutableLiveData<Int> {
+        viewModelScope.launch {
+            val response = repositorio.getAccountDetails(sessionID)
+            if (response.code() == 200) {
+                response.body()?.id.let {
+                    accountID.postValue(it)
+                }
+            }
+        }
+        return accountID
+    }
 }
+
+
