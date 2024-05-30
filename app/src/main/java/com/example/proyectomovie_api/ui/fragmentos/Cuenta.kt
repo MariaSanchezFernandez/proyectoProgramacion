@@ -80,13 +80,22 @@ class Cuenta : Fragment() {
                 }
 
                 viewDialog.findViewById<Button>(R.id.bCerrarSessionAlertDialog).setOnClickListener {
-                    viewModel.deleteSession(sessionID.toString()).observe(viewLifecycleOwner) { success ->
-                        if (success) {
+                    viewModel.getUserType().observe(viewLifecycleOwner){userType ->
+                        if (userType == "Usuario"){
+                            viewModel.deleteSession(sessionID.toString()).observe(viewLifecycleOwner) { success ->
+                                if (success) {
+                                    val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
+                                    startActivity(intentCerrarSesion)
+                                    requireActivity().finishAffinity()
+                                }
+                                dialog.dismiss()
+                            }
+                        }else{
                             val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
                             startActivity(intentCerrarSesion)
                             requireActivity().finishAffinity()
                         }
-                        dialog.dismiss()
+
                     }
                 }
             }
