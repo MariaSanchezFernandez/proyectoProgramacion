@@ -9,7 +9,7 @@ import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import com.example.proyectomovie_api.databinding.HolderCarteleraFavBinding
 
 class AdapterWLTVShowsFav(
-    val lista: List<TVShow>,
+    val lista: List<addWatchListBody>,
     val listener: FavClick
 ) : RecyclerView.Adapter<AdapterWLTVShowsFav.FavoritoHolder>(){
 
@@ -31,7 +31,8 @@ class AdapterWLTVShowsFav(
     override fun onBindViewHolder(holder: FavoritoHolder, position: Int) {
         val watchList = lista[position]
         Glide.with(holder.itemView.context)
-            .load(watchList.poster_path)
+            .load(watchList)
+            //.load(watchList.poster_path)
             .into(holder.binding.imgPortada)
 
         holder.binding.clHolderFav.setOnClickListener{

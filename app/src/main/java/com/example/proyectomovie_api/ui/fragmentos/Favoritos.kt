@@ -80,7 +80,7 @@ class Favoritos : Fragment() {
     private fun configRecyclerMovies() {
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
-                myViewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
+                myViewModel.getFavoriteMovies(accountId.id).observe(viewLifecycleOwner){ listaFavoritos ->
                     val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
                         override fun onHolderClick(pelicula: Movie) {
                             val id = pelicula.id
@@ -130,8 +130,8 @@ class Favoritos : Fragment() {
     private fun configRecyclerMoviesWl() {
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
-                myViewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
-                    val adaptadorFavoritos = AdapterWLMoviesFav(listaFavoritos, object : AdapterWLMoviesFav.FavClick{
+                myViewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){ listaWatchListMovies ->
+                    val adaptadorFavoritos = AdapterWLMoviesFav(listaWatchListMovies, object : AdapterWLMoviesFav.FavClick{
                         override fun onHolderClick(addWatchListBody: addWatchListBody) {
                             val id = addWatchListBody.media_id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
@@ -152,8 +152,8 @@ class Favoritos : Fragment() {
     private fun configRecyclerTvShowsWl() {
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
-                myViewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){listaTVShow ->
-                    val adaptadorFavoritos = AdapterWLTVShowsFav(listaTVShow, object : AdapterWLTVShowsFav.FavClick{
+                myViewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){ listaWatchListTVShows ->
+                    val adaptadorFavoritos = AdapterWLTVShowsFav(listaWatchListTVShows, object : AdapterWLTVShowsFav.FavClick{
                         override fun onHolderClick(addWatchListBody: addWatchListBody) {
                             val id = addWatchListBody.media_id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){

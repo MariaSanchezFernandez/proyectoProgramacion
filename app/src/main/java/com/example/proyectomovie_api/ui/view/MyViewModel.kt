@@ -44,6 +44,8 @@ class MyViewModel: ViewModel() {
     private val sessionID = MutableLiveData<String>()
     private val listaFavMovies = MutableLiveData<List<Movie>>()
     private val listaFavSeries = MutableLiveData<List<TVShow>>()
+    private val listaWLMoviesFav = MutableLiveData<List<addWatchListBody>>()
+    private val listaWLTVShowsFav = MutableLiveData<List<addWatchListBody>>()
     private val userCategory = MutableLiveData<String>()
 
     //Id del acountId de Salva -> 548
@@ -373,33 +375,35 @@ class MyViewModel: ViewModel() {
 
     fun getFavTVShows() = listaFavSeries
 
-    fun getFavoriteWatchListMovies(accountId: Int): MutableLiveData<List<Movie>> {
+    fun getFavoriteWatchListMovies(accountId: Int): MutableLiveData<List<addWatchListBody>> {
         //val listaWlMoviesFavLiveData = MutableLiveData<List<Movie>>()
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListMovies(accountId)
             if (respuesta.code() == 200) {
                 val listaWLMoviesFav = respuesta?.body()
                 listaWLMoviesFav?.let {
-                    listaFavMovies.postValue(it.results)
+                    //listaWLMoviesFav.postValue(it.results)
+                    listaWLMoviesFav.results
                 }
             }
         }
-        return listaFavMovies
+        return listaWLMoviesFav
     }
 
-    fun getFavouriteWatchListTVShows(accountId: Int): MutableLiveData<List<TVShow>> {
+    fun getFavouriteWatchListTVShows(accountId: Int): MutableLiveData<List<addWatchListBody>> {
         //val listaWlTVshowsFavLiveData = MutableLiveData<List<TVShow>>()
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListTVShows(accountId)
             if (respuesta?.code() == 200) {
                 val listaWLTVShowsFav = respuesta.body()
                 listaWLTVShowsFav?.let {
-                    listaFavSeries.postValue(it.results)
+                    //listaWLTVShowsFav.postValue(it.results)
+                    listaWLTVShowsFav.results
                 }
 
             }
         }
-        return listaFavSeries
+        return listaWLTVShowsFav
     }
 
     fun setAccountId(id: Int) {
