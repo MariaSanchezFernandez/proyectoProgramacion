@@ -202,7 +202,7 @@ class Series : Fragment() {
 
         viewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             viewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){accountId ->
-                viewModel.getFavoriteTVShows(accountId.id).observe(viewLifecycleOwner){listaFavoritos ->
+                viewModel.getFavoriteTVShows(21209376).observe(viewLifecycleOwner){listaFavoritos ->
 
                     val adaptadorFavoritos = AdaptadorMiListaSerie(listaFavoritos, object : AdaptadorMiListaSerie.MyClick {
                         override fun onHolderClick(serie: TVShow) {
@@ -238,7 +238,7 @@ class Series : Fragment() {
                             }
                         }
                     })
-                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
+                    binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                     binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
                     if (listaFavoritos.size > 0){
                         binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
