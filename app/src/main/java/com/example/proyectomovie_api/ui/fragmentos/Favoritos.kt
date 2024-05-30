@@ -35,7 +35,7 @@ class Favoritos : Fragment() {
 
         val sesionId = myViewModel.getSessionID()
 
-        val acountId = myViewModel.getAccountID(sesionId.toString())
+        val acountId = myViewModel. getAccountID(sesionId.toString())
 
         acountId.value?.let { myViewModel.getFavoriteMovies(it) }?.observe(viewLifecycleOwner){
             configRecyclerMovies(it)
@@ -45,13 +45,37 @@ class Favoritos : Fragment() {
 //            configRecyclerTvShows(it)
 //        }
 
+        acountId.value?.let { myViewModel.getFavoriteWatchListMovies(it) }?.observe(viewLifecycleOwner) {
+            configRecyclerMoviesWl(it)
+        }
+
+        acountId.value?.let { myViewModel.getFavouriteWatchListTVShows(it) }?.observe(viewLifecycleOwner) {
+            configRecyclerTvShowsWl(it)
+        }
+
+        binding.btVerMas1.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
+        binding.btVerMas2.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
+        binding.btVerMas3.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
+        binding.btVerMas4.setOnClickListener{
+            findNavController().navigate(R.id.action_favoritos_to_fragment_btVerMas3_Fav)
+        }
+
     }
 
     private fun configRecyclerMovies(listaPeliculas: List<Movie>) {
         val recyclerView = binding.rvPelis
         val adapter = AdapterFav(listaPeliculas, object : AdapterFav.FavClick{
             override fun onFavClick(movie: Movie) {
-                findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
             }
         })
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
@@ -63,7 +87,31 @@ class Favoritos : Fragment() {
         val recyclerView = binding.rvSeries
         val adapter = AdapterFavTvShows(listaTVShow, object : AdapterFavTvShows.FavClick{
             override fun onFavClick(movie: Movie) {
-                findNavController().navigate(R.id.action_fragmentSeries_to_informacionSeries)
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
+            }
+        })
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun configRecyclerMoviesWl(listaPeliculas: List<Movie>) {
+        val recyclerView = binding.rvWLpelis
+        val adapter = AdapterFav(listaPeliculas, object : AdapterFav.FavClick{
+            override fun onFavClick(movie: Movie) {
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
+            }
+        })
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+
+    private fun configRecyclerTvShowsWl(listaTVShow: List<TVShow>) {
+        val recyclerView = binding.rvWLseries
+        val adapter = AdapterFavTvShows(listaTVShow, object : AdapterFavTvShows.FavClick{
+            override fun onFavClick(movie: Movie) {
+                findNavController().navigate(R.id.action_favoritos_to_informacion)
             }
         })
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)

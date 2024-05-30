@@ -244,10 +244,11 @@ class Series : Fragment() {
                         }
                     })
                     binding.RecyclerViewMisFavoritosSeries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                    binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
                     if (listaFavoritos.size > 0){
                         binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
                     }
+                    binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
+
                 }
             }
         }

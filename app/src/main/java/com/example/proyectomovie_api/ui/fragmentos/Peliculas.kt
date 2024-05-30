@@ -156,9 +156,7 @@ class Peliculas : Fragment() {
             }
 
         }
-      viewModel.topRatedMovies(
-
-      ).observe(viewLifecycleOwner){pelicula ->
+      viewModel.topRatedMovies().observe(viewLifecycleOwner){pelicula ->
 
             var baseUrl = "https://image.tmdb.org/t/p/original"
 

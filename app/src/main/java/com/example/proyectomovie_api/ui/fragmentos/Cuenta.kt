@@ -43,51 +43,59 @@ class Cuenta : Fragment() {
         /// ESTE SESSION ID NO ME RECOJE LA DATA EN EL VIEWMODEL, NO SE PORQUE
         // -----------------------------------------------------------------------------
         viewModel.getSessionID().observe(viewLifecycleOwner){sessionID ->
-            viewModel.getAccountDetails(sessionID.toString()).observe(viewLifecycleOwner){
+            viewModel.getAccountDetails(sessionID.toString()).observe(viewLifecycleOwner) {
 
-                if (it.avatar.tmdb.avatar_path?.isEmpty() == true){
+                if (it.avatar.tmdb.avatar_path?.isEmpty() == true) {
                     val imgURL = "https://secure.gravatar.com/avatar/${it.avatar.gravatar.hash}"
                     Glide.with(requireContext()).load(imgURL).into(binding.imageViewUSerAvatar)
-                }else{
-                    val imgURL= "https://image.tmdb.org/t/p/w200${it.avatar.tmdb.avatar_path}"
+                } else {
+                    val imgURL = "https://image.tmdb.org/t/p/w200${it.avatar.tmdb.avatar_path}"
                     Glide.with(requireContext()).load(imgURL).into(binding.imageViewUSerAvatar)
                 }
 
                 binding.cuentaUsername.text = it.username
 
-                if (it.name.length>4){
+                if (it.name.length > 4) {
                     binding.textViewnombreUser.text = it.name
-                }else{
+                } else {
                     binding.textViewnombreUser.visibility = View.GONE
                 }
 
+            }
 
 
+            binding.buttonCerrarSesion.setOnClickListener {
 
-                binding.buttonCerrarSesion.setOnClickListener {
+                val builder = AlertDialog.Builder(requireContext())
+                val viewDialog = layoutInflater.inflate(R.layout.alert_dialog_cerrar_sesion, null)
+                builder.setView(viewDialog)
 
-                    val builder = AlertDialog.Builder(requireContext())
-                    val viewDialog = layoutInflater.inflate(R.layout.alert_dialog_cerrar_sesion, null)
-                    builder.setView(viewDialog)
-
-                    val dialog = builder.create()
-                    dialog.window?.setDimAmount(0.7f)
-                    dialog.show()
+                val dialog = builder.create()
+                dialog.window?.setDimAmount(0.7f)
+                dialog.show()
 
 
-                    viewDialog.findViewById<Button>(R.id.bCancelAlertDialog).setOnClickListener {
-                        dialog.dismiss()
-                    }
+                viewDialog.findViewById<Button>(R.id.bCancelAlertDialog).setOnClickListener {
+                    dialog.dismiss()
+                }
 
-                    viewDialog.findViewById<Button>(R.id.bCerrarSessionAlertDialog).setOnClickListener {
-                        viewModel.deleteSession(sessionID.toString()).observe(viewLifecycleOwner) { success ->
-                            if (success) {
-                                val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
-                                startActivity(intentCerrarSesion)
-                                requireActivity().finishAffinity()
+                viewDialog.findViewById<Button>(R.id.bCerrarSessionAlertDialog).setOnClickListener {
+                    viewModel.getUserType().observe(viewLifecycleOwner){userType ->
+                        if (userType == "Usuario"){
+                            viewModel.deleteSession(sessionID.toString()).observe(viewLifecycleOwner) { success ->
+                                if (success) {
+                                    val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
+                                    startActivity(intentCerrarSesion)
+                                    requireActivity().finishAffinity()
+                                }
+                                dialog.dismiss()
                             }
-                            dialog.dismiss()
+                        }else{
+                            val intentCerrarSesion = Intent(requireContext(), LoginActivity::class.java)
+                            startActivity(intentCerrarSesion)
+                            requireActivity().finishAffinity()
                         }
+
                     }
                 }
             }

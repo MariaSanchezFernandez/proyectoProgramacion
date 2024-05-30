@@ -44,7 +44,6 @@ class ImagenCarouselAdaptador (val listado: List<ImagenCarousel>, val listener: 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.bindData(getItem(position))
         val data = listado[position]
         holder.bindData(getItem(position))
         holder.itemView.setOnClickListener{
