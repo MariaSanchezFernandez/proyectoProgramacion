@@ -61,6 +61,10 @@
         android:id="@+id/fragment_btVerMas3_Fav"
         android:name="com.example.proyectomovie_api.ui.fragmentos.fragment_btVerMas3_Fav"
         android:label="fragment_bt_ver_mas3__fav"
-        tools:layout="@layout/fragment_bt_ver_mas3__fav" />
+        tools:layout="@layout/fragment_bt_ver_mas3__fav" >
+        <action
+            android:id="@+id/action_fragment_btVerMas3_Fav_to_informacion"
+            app:destination="@id/informacion" />
+    </fragment>
 
 </navigation>

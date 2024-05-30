@@ -182,14 +182,13 @@ class MyViewModel: ViewModel() {
         return accountID
     }
 
-        fun getPopularTVShow(): MutableLiveData<List<TVShow>> {
-            viewModelScope.launch {
-                val respuesta = repositorio.getPopularTVShows()
-                if (respuesta.code() == 200) {
-                    var listaSeriesPopulares = respuesta.body()
-                    listaSeriesPopulares?.let {
-                        listaTVShowsPopulares.postValue(it.results)
-                    }
+    fun getPopularTVShow(): MutableLiveData<List<TVShow>> {
+        viewModelScope.launch {
+            val respuesta = repositorio.getPopularTVShows()
+            if (respuesta.code() == 200) {
+                var listaSeriesPopulares = respuesta.body()
+                listaSeriesPopulares?.let {
+                    listaTVShowsPopulares.postValue(it.results)
                 }
             }
         }
@@ -206,9 +205,8 @@ class MyViewModel: ViewModel() {
                     }
                 }
             }
+            return listaMovieRated
         }
-        return listaMovieRated
-    }
 
         fun topRatedTVShow(): MutableLiveData<List<TVShow>> {
             viewModelScope.launch {
@@ -220,9 +218,8 @@ class MyViewModel: ViewModel() {
                     }
                 }
             }
+            return listaTVShowRated
         }
-        return listaTVShowRated
-    }
 
 
     // Devuelve un objeto con los proveedores de la Película
@@ -415,19 +412,6 @@ class MyViewModel: ViewModel() {
 
     fun setAccountId(id: Int) {
         accountID.value = id
-    }
-
-    // Devuelve la ID de la cuenta
-    fun getAccountID(sessionID: String): MutableLiveData<Int> {
-        viewModelScope.launch {
-            val response = repositorio.getAccountDetails(sessionID)
-            if (response.code() == 200) {
-                response.body()?.id.let {
-                    accountID.postValue(it)
-                }
-            }
-        }
-        return accountID
     }
 
 }
