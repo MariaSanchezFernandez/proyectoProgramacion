@@ -43,17 +43,11 @@ class Inicio : Fragment() {
 
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).supportActionBar?.title = "Inicio"
 
-
-
-
-        myViewModel.getSessionID().observe(viewLifecycleOwner){sesionId ->
-
-            myViewModel.getInfoMovie(sesionId).observe(viewLifecycleOwner){
+            myViewModel.getInfoMovie().observe(viewLifecycleOwner){
 
                 val topMovie = it[0]
 
@@ -62,15 +56,14 @@ class Inicio : Fragment() {
                 Glide.with(this).load(topMovie.poster_path).into(binding.ivCarteleraDia)
             }
 
-            myViewModel.getInfoPeople(sesionId).observe(viewLifecycleOwner){people ->
-
+            myViewModel.getInfoPeople().observe(viewLifecycleOwner){people ->
                 val topActor = people[0]
 
                 binding.tvNameActor.text = topActor.name
                 binding.tvParticipated.text = topActor.known_for.toString()
                 Glide.with(this).load(topActor.profile_path).into(binding.ivActor)
             }
-        }
+
 
 
             navController = findNavController()
@@ -83,23 +76,28 @@ class Inicio : Fragment() {
 
                 viewBinding.findViewById<Button>(R.id.button2).setOnClickListener {
                     val name = viewBinding.findViewById<EditText>(R.id.textInputEditText).text.toString()
+                    //val intent = Intent(requireContext(), Inicio::class.java)
+                    //intent.putExtra("informacion", name)
+
+                    //Bundle bundle = new Bundle()
 
                     myViewModel.getMovieBuscador(name)
                     myViewModel.getPersonBuscador(name)
 
                     navController.navigate(R.id.action_fragmentInicio_to_buscadorLista)
 
+                   // startActivity(intent)
                     dialog.dismiss()
                 }
                 dialog.show()
             }
 
             val observer = Observer<Movie>{
-                configRecycler(it)
+//                configRecycler(it)
             }
     }
 
     private fun configRecycler(list: List<Movie>){
-        val
+
     }
 }

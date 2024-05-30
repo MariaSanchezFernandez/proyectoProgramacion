@@ -1,5 +1,6 @@
 package com.example.proyectomovie_api.ui.fragmentos
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,24 +40,29 @@ class BuscadorLista : Fragment() {
 
 
         myViewModel.getBuscadorActores().observe(viewLifecycleOwner){
-            configRecycler(it)
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.type = "text/plain"
+            val informacion = intent.extras?.getString("informacion")
+            intent.putExtra(Intent.EXTRA_TEXT, informacion)
+            startActivity(intent)
+//            configRecycler(it)
         }
     }
 
 
 
-    private fun configRecycler(myViewModel: MyViewModel){
-
-        val recyclerView = binding.recycler
-        adapterPersonas = AdaptadorBuscadorPersonas(myViewModel, object : AdaptadorBuscadorPersonas.MiClick{
-            override fun onHolderClick(person: People) {
-                myViewModel.getBuscadorActores()
-
-
-            }
-
-        })
-
-    }
+//    private fun configRecycler(myViewModel: MyViewModel){
+//
+//        val recyclerView = binding.recycler
+//        adapterPersonas = AdaptadorBuscadorPersonas(myViewModel, object : AdaptadorBuscadorPersonas.MiClick{
+//            override fun onHolderClick(person: People) {
+//                myViewModel.getBuscadorActores()
+//
+//
+//            }
+//
+//        })
+//
+//    }
 
 }
