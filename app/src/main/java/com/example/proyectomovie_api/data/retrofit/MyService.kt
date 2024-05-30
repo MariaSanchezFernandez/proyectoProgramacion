@@ -175,7 +175,7 @@ interface MyService {
     )
     @GET("account/{account_id}/favorite/movies")
     suspend fun getFavMovies(
-        @Path("account_id") userID: Int
+        @Path("account_id") accountID: Int
     ): Response<MovieResponse>
 
     //TVShows favoritos del usuario
@@ -185,7 +185,7 @@ interface MyService {
     )
     @GET("account/{account_id}/favorite/tv")
     suspend fun getFavTVShows(
-        @Path("account_id") userID: Int
+        @Path("account_id") account_id: Int
     ): Response<TVResponse>
 
     // Peliculas favoritas del usuario WatchList
@@ -339,12 +339,13 @@ interface MyService {
         "accept: application/json",
         "Authorization: Bearer $BEARER_TOKEN"
     )
-
     @GET("tv/{serie_id}/images")
     suspend fun getSerieImages(
         @Path("serie_id") serieId : Int
     ) : Response<ImageResponse>
 
+
+    // Obtenemos todos los datos detallados de una Pelicula pasándole una Id de serie
     @Headers(
         "accept: application/json",
         "Authorization: Bearer $BEARER_TOKEN"
@@ -355,6 +356,8 @@ interface MyService {
         @Query("language") language: String
     ): Response<MovieDetallesResponse>
 
+
+    // Obtenemos todos los datos detallados de una Serie pasándole una Id de serie
     @Headers(
         "accept: application/json",
         "Authorization: Bearer $BEARER_TOKEN"

@@ -44,6 +44,7 @@ class MyViewModel: ViewModel() {
     private val sessionID = MutableLiveData<String>()
     private val listaFavMovies = MutableLiveData<List<Movie>>()
     private val listaFavSeries = MutableLiveData<List<TVShow>>()
+    private val userCategory = MutableLiveData<String>()
 
     //Id del acountId de Salva -> 548
     // Esto al juntarse con el resto del código tiene que cambiarse para que esté bien
@@ -246,7 +247,7 @@ class MyViewModel: ViewModel() {
         val addWatchListLiveData = MutableLiveData<WatchListResponse>()
         viewModelScope.launch {
             val respuesta = repositorio.addToWatchList(accountId, data)
-            if(respuesta.code() == 200){
+            if(respuesta.code() == 200 || respuesta.code() == 201){
                 val addWatchList = respuesta.body()
                 addWatchList.let {
                     addWatchListLiveData.postValue(it)
@@ -260,7 +261,7 @@ class MyViewModel: ViewModel() {
         val addFavoriteLiveData = MutableLiveData<WatchListResponse>()
         viewModelScope.launch {
             val respuesta = repositorio.addToFavorite(accountId, data)
-            if(respuesta.code() == 200){
+            if(respuesta.code() == 200 || respuesta.code() == 201){
                 val addFavorite = respuesta.body()
                 addFavorite.let {
                     addFavoriteLiveData.postValue(it)
@@ -403,17 +404,20 @@ class MyViewModel: ViewModel() {
         accountID.value = id
     }
 
-    // Devuelve la ID de la cuenta
-    fun getAccountID(sessionID: String): MutableLiveData<Int> {
-        viewModelScope.launch {
-            val response = repositorio.getAccountDetails(sessionID)
-            if (response.code() == 200) {
-                response.body()?.id.let {
-                    accountID.postValue(it)
-                }
-            }
-        }
-        return accountID
-    }
+    fun getUserType() = userCategory
 
-}
+    fun setUserType(user:String){
+        userCategory.value=user
+    }
+//     // Devuelve la ID de la cuenta
+//     fun getAccountID(sessionID: String): MutableLiveData<Int> {
+//         viewModelScope.launch {
+//             val response = repositorio.getAccountDetails(sessionID)
+//             if (response.code() == 200) {
+//                 response.body()?.id.let {
+//                     accountID.postValue(it)
+//                 }
+//             }
+//         }
+//         return accountID
+//     }

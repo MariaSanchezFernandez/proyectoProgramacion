@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -37,6 +38,14 @@ class InformacionPeliculas : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getUserType().observe(viewLifecycleOwner){
+            if (it == "Invitado"){
+                binding.floatingbtnWatchListDetallesPelicula.visibility = View.GONE
+                binding.floatingbtnMiListaDetallesPelicula.visibility = View.GONE
+            }
+        }
+
         viewModel.getPelicula().observe(viewLifecycleOwner){ movie ->
             rellenaDatos(movie)
 
@@ -50,27 +59,42 @@ class InformacionPeliculas : Fragment() {
             }
 
             binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
-                viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
-                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
+                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
                         val data = movie.id?.let { it1 -> addWatchListBody("movie", it1, true) }
                         if (data != null) {
-                            viewModel.addToWatchList( accountId, data)
+                            viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner) {
+                                val snackbarPositiva = Snackbar.make(binding.root, "Pelicula añadida a tu watchlist", Snackbar.LENGTH_SHORT)
+                                val snackbarNegativa = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+
+                                if (it.success) {
+                                    snackbarPositiva.show()
+                                } else {
+                                    snackbarNegativa.show()
+                                }
+                            }
                         }
-                        val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
                     }
                 }
             }
 
-            binding.floatingbtMiListaDetallesPelicula.setOnClickListener {
+            binding.floatingbtnWatchListDetallesPelicula.setOnClickListener {
                 viewModel.getSessionID().observe(viewLifecycleOwner){ sessionId ->
                     viewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                         val data = movie.id?.let { it1 -> addFavoriteBody("movie", it1, true) }
                         if (data != null) {
-                            viewModel.addToFavorite(requireContext(),accountId, data)
+                            viewModel.addToFavorite(requireContext(),accountId, data).observe(viewLifecycleOwner){
+                                val snackbarPositiva = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
+                                val snackbarNegativa = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+
+                                if(it.success){
+                                    snackbarPositiva.show()
+                                }else{
+                                    snackbarNegativa.show()
+                                }
+                            }
                         }
-                        val snackbar = Snackbar.make(binding.root, "Pelicula añadida a tus favoritos", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
+
                     }
                 }
             }

@@ -32,7 +32,7 @@ class InformacionSeries : Fragment() {
     private val viewModel by activityViewModels<MyViewModel>()
 
 
-    private lateinit var idioma:String
+    private lateinit var idioma: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,14 +44,41 @@ class InformacionSeries : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.getSessionID().observe(viewLifecycleOwner){
-            viewModel.getAccountDetails(it).observe(viewLifecycleOwner){
+        viewModel.getUserType().observe(viewLifecycleOwner){
+            if (it == "Invitado"){
+                binding.floatingbtnMiListaDetallesSerie.visibility = View.GONE
+                binding.floatingbtnWhatchListDetallesSeries.visibility = View.GONE
+            }
+        }
+
+        viewModel.getSessionID().observe(viewLifecycleOwner) {
+            viewModel.getAccountDetails(it).observe(viewLifecycleOwner) {
 
                 idioma = it.iso_639_1 + "-" + it.iso_3166_1
             }
         }
 
         super.onViewCreated(view, savedInstanceState)
+
+            binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
+                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
+                        val data = addWatchListBody("tv", serie.id, true)
+                        viewModel.addToWatchList(accountId, data).observe(viewLifecycleOwner) {
+                            val snackbarPositivo = Snackbar.make(
+                                binding.root,
+                                "Serie añadida a tu watchlist",
+                                Snackbar.LENGTH_SHORT
+                            )
+                            val snackbarNegativo =
+                                Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+
+                            if (it.success) {
+                                snackbarPositivo.show()
+                            } else {
+                                snackbarNegativo.show()
+                            }
+                        }
 
         viewModel.getSessionID().observe(viewLifecycleOwner) {
             viewModel.getAccountDetails(it).observe(viewLifecycleOwner) {
@@ -71,32 +98,22 @@ class InformacionSeries : Fragment() {
                 binding.recyclerViewDetallesSerie.adapter = ImagenCarouselAdaptadorInformacion(listaURLs)
             }
 
-        binding.floatingbtnWhatchListDetallesSeries.setOnClickListener {
-                val data = addWatchListBody("tv", serie.id, true)
-                viewModel.addToWatchList(21216522, data).observe(viewLifecycleOwner){
-                    if (it.success){
-                        val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
-                    }else{
-                        val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
+            binding.floatingbtnMiListaDetallesSerie.setOnClickListener {
+                viewModel.getSessionID().observe(viewLifecycleOwner) { sessionId ->
+                    viewModel.getAccountID(sessionId).observe(viewLifecycleOwner) { accountId ->
+                        val data = addFavoriteBody("tv", serie.id, true)
+                        viewModel.addToFavorite(requireContext(), accountId, data).observe(viewLifecycleOwner) {
+                              val snackbarPositivo = Snackbar.make(binding.root, "Serie añadida a tus favoritos", Snackbar.LENGTH_SHORT)
+                              val snackbarNegativo = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
+                                if (it.success) {
+                                    snackbarPositivo.show()
+                                } else {
+
+                                    snackbarNegativo.show()
+                                }
+                            }
                     }
                 }
-
-            }
-
-            binding.floatingbtMiListaDetallesSerie.setOnClickListener {
-                val data = addFavoriteBody("tv", serie.id, true)
-                viewModel.addToFavorite(requireContext(), 21216522, data).observe(viewLifecycleOwner){
-                    if (it.success){
-                        val snackbar = Snackbar.make(binding.root, "Serie añadida a tu watchlist", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
-                    }else{
-                        val snackbar = Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT)
-                        snackbar.show()
-                    }
-                }
-
             }
             //recyclerViewDetallesSerie
         }
@@ -123,6 +140,13 @@ class InformacionSeries : Fragment() {
             tvOriginCountryDetallesSerie.text = serie.originCountry?.get(0).toString() + " · "
             tvOverviewDetallesSerie.text = serie.overview
             tvDuracionDetallesSerie.text = serie.numberOfSeasons.toString() + " temporada(s)"
+            if (serie.status.equals("Ended")) {
+                tvStatusDetallesSerie.text = "Finalizada"
+                tvUltimoCapituloDetallesSerie.text =
+                    "Última emisión: " + serie.lastEpisodeToAir.airDate
+            } else {
+                tvUltimoCapituloDetallesSerie.visibility = View.GONE
+            }
 
             (requireActivity() as MainActivity).supportActionBar?.setTitle(serie.name)
         }
