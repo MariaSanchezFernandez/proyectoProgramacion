@@ -41,9 +41,9 @@ class Favoritos : Fragment() {
             configRecyclerMovies(it)
         }
 
-        acountId.value?.let { myViewModel.getFavoriteTVShows(it) }?.observe(viewLifecycleOwner){
-            configRecyclerTvShows(it)
-        }
+//        acountId.value?.let { myViewModel.getFa(it) }?.observe(viewLifecycleOwner){
+//            configRecyclerTvShows(it)
+//        }
 
         acountId.value?.let { myViewModel.getFavoriteWatchListMovies(it) }?.observe(viewLifecycleOwner) {
             configRecyclerMoviesWl(it)
