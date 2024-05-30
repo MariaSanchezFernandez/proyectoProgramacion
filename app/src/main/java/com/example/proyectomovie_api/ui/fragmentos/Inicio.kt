@@ -43,13 +43,14 @@ class Inicio : Fragment() {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as MainActivity).supportActionBar?.title = "Inicio"
 
-            myViewModel.getInfoMovie().observe(viewLifecycleOwner){
+            myViewModel.getInfoMovie().observe(viewLifecycleOwner){movieList->
 
-                val topMovie = it[0]
+                val topMovie = movieList[0]
 
                 val baseUrl = "https://image.tmdb.org/t/p/original"
 
@@ -73,29 +74,7 @@ class Inicio : Fragment() {
 
             navController = findNavController()
 
-            binding.floatingActionButton.setOnClickListener {
-                val builder = AlertDialog.Builder(requireContext())
-                val viewBinding = layoutInflater.inflate(R.layout.alertdialog_bucador, null)
-                builder.setView(viewBinding)
-                val dialog = builder.create()
 
-                viewBinding.findViewById<Button>(R.id.button2).setOnClickListener {
-                    val name = viewBinding.findViewById<EditText>(R.id.textInputEditText).text.toString()
-                    //val intent = Intent(requireContext(), Inicio::class.java)
-                    //intent.putExtra("informacion", name)
-
-                    //Bundle bundle = new Bundle()
-
-                    //myViewModel.getMovi(name)
-                    myViewModel.getPersonBuscador(name)
-
-                    navController.navigate(R.id.action_fragmentInicio_to_buscadorLista)
-
-                   // startActivity(intent)
-                    dialog.dismiss()
-                }
-                dialog.show()
-            }
 
             val observer = Observer<Movie>{
 //                configRecycler(it)

@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.databinding.HolderCeldaBuscadorBinding
 
-class AdaptadorBuscadorPeliculas(val peliculas: ArrayList<Movie>, val listener: AdaptadorBuscadorPeliculas.MiClick): RecyclerView.Adapter<AdaptadorBuscadorPeliculas.BuscadorPeliculas>() {
+class AdaptadorBuscadorPeliculas(val peliculas: List<Movie>, val listener: AdaptadorBuscadorPeliculas.MiClick): RecyclerView.Adapter<AdaptadorBuscadorPeliculas.BuscadorPeliculas>() {
 
     interface MiClick{
         fun onHolderClick(movie : Movie)
@@ -30,9 +30,15 @@ class AdaptadorBuscadorPeliculas(val peliculas: ArrayList<Movie>, val listener: 
     override fun onBindViewHolder(holder: BuscadorPeliculas, position: Int) {
         val movie : Movie =  peliculas[position]
 
-        Glide.with(holder.itemView).load(movie.poster_path).into(holder.binding.imageView4)
+        val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + movie.poster_path
+
+
+        Glide.with(holder.itemView).load(posterURL).into(holder.binding.imageView4)
 
         holder.binding.tvName.text = movie.title
+
+        holder.binding.imageView4.setOnClickListener {
+                    }
     }
 
 }

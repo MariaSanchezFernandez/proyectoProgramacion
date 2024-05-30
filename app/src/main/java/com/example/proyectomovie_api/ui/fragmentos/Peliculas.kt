@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -28,6 +32,7 @@ import java.util.UUID
 class Peliculas : Fragment() {
     private lateinit var binding: FragmentPeliculasBinding
     private val viewModel by activityViewModels<MyViewModel>()
+    private lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -249,6 +254,32 @@ class Peliculas : Fragment() {
                     binding.RecyclerViewMisFavoritosPeliculas.adapter = adaptadorFavoritos
                 }
             }
+        }
+
+
+        binding.btnBuscarPeliculas.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            val viewBinding = layoutInflater.inflate(R.layout.alertdialog_bucador, null)
+            builder.setView(viewBinding)
+            val dialog = builder.create()
+
+            viewBinding.findViewById<Button>(R.id.button2).setOnClickListener {
+                val name = viewBinding.findViewById<EditText>(R.id.textInputEditText).text.toString()
+                //val intent = Intent(requireContext(), Inicio::class.java)
+                //intent.putExtra("informacion", name)
+
+                //Bundle bundle = new Bundle()
+
+                viewModel.getMovieBuscador(name).observe(viewLifecycleOwner){
+                    viewModel.setBuscador(it)
+                    findNavController().navigate(R.id.action_fragmentPeliculas_to_buscadorLista)
+                }
+
+
+                // startActivity(intent)
+                dialog.dismiss()
+            }
+            dialog.show()
         }
 
     }

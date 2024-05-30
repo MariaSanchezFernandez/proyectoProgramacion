@@ -362,7 +362,8 @@ interface MyService {
     @GET("search/movie")
     suspend fun getMovieBuscar(
         @Query("query") textIntroducido : String
-    )
+    ):Response<MovieResponse>
+
 
     @Headers(
         "accept: application/json",
@@ -371,15 +372,16 @@ interface MyService {
     @GET("search/person")
     suspend fun getPersonBuscar(
         @Query("query") textIntroducido : String
-    )
+    ):Response<PeopleResponse>
+
 
     @Headers(
         "accept: application/json",
         "Authorization: Bearer $BEARER_TOKEN"
     )
-    @GET("search/TV")
+    @GET("search/tv")
     suspend fun getTVBuscar(
         @Query("query") textIntroducido : String
-    )
+    ):Response<TVResponse>
 
 }

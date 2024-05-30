@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.HolderCeldaBuscadorBinding
 
-class AdaptadorBuscadorSeries(val series : ArrayList<TVShow>, val listener : AdaptadorBuscadorSeries.MiClick): RecyclerView.Adapter<AdaptadorBuscadorSeries.BuscadorSeries>() {
+class AdaptadorBuscadorSeries(val series : List<TVShow>, val listener : AdaptadorBuscadorSeries.MiClick): RecyclerView.Adapter<AdaptadorBuscadorSeries.BuscadorSeries>() {
 
     interface MiClick{
         fun onHolcerClick(show : TVShow)

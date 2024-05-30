@@ -9,11 +9,7 @@
         android:id="@+id/fragmentInicio"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Inicio"
         android:label="fragment_peliculas"
-        tools:layout="@layout/fragment_inicio" >
-        <action
-            android:id="@+id/action_fragmentInicio_to_buscadorLista"
-            app:destination="@id/buscadorLista" />
-    </fragment>
+        tools:layout="@layout/fragment_inicio" />
     <fragment
         android:id="@+id/fragmentPeliculas"
         android:name="com.example.proyectomovie_api.ui.fragmentos.Peliculas"
@@ -22,6 +18,9 @@
         <action
             android:id="@+id/action_fragmentPeliculas_to_informacion"
             app:destination="@id/informacion" />
+        <action
+            android:id="@+id/action_fragmentPeliculas_to_buscadorLista"
+            app:destination="@id/buscadorLista" />
     </fragment>
     <fragment
         android:id="@+id/fragmentCuenta"
@@ -37,6 +36,9 @@
         <action
             android:id="@+id/action_fragmentSeries_to_informacionSeries"
             app:destination="@id/informacionSeries" />
+        <action
+            android:id="@+id/action_fragmentSeries_to_buscadorLista"
+            app:destination="@id/buscadorLista" />
     </fragment>
     <fragment
         android:id="@+id/informacion"
