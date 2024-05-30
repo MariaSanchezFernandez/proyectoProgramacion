@@ -17,6 +17,8 @@ import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaSerie
 import com.example.proyectomovie_api.ui.adapters.AdapterFav
 import com.example.proyectomovie_api.ui.adapters.AdapterFavTvShows
+import com.example.proyectomovie_api.ui.adapters.AdapterWLMoviesFav
+import com.example.proyectomovie_api.ui.adapters.AdapterWLTVShowsFav
 import com.example.proyectomovie_api.ui.view.MyViewModel
 
 class Favoritos : Fragment() {
@@ -128,18 +130,15 @@ class Favoritos : Fragment() {
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavoriteWatchListMovies(accountId).observe(viewLifecycleOwner){listaFavoritos ->
-                    val adaptadorFavoritos = AdaptadorMiListaPeliculas(listaFavoritos, object : AdaptadorMiListaPeliculas.MyClick{
-                        override fun onHolderClick(pelicula: Movie) {
-                            val id = pelicula.id
+                    val adaptadorFavoritos = AdapterWLMoviesFav(listaFavoritos, object : AdapterWLMoviesFav.FavClick{
+                        override fun onHolderClick(movie: Movie) {
+                            val id = movie.id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                                 if (it != null) {
                                     myViewModel.setPelicula(it)
                                     findNavController().navigate(R.id.action_favoritos_to_informacion)
                                 }
                             }
-                        }
-                        override fun onItemLongClick(pelicula: Movie) {
-
                         }
                     })
                     binding.rvWLpelis.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -153,7 +152,7 @@ class Favoritos : Fragment() {
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountID(sessionId).observe(viewLifecycleOwner){accountId ->
                 myViewModel.getFavouriteWatchListTVShows(accountId).observe(viewLifecycleOwner){listaTVShow ->
-                    val adaptadorFavoritos = AdaptadorMiListaSerie(listaTVShow, object : AdaptadorMiListaSerie.MyClick{
+                    val adaptadorFavoritos = AdapterWLTVShowsFav(listaTVShow, object : AdapterWLTVShowsFav.FavClick{
                         override fun onHolderClick(serie: TVShow) {
                             val id = serie.id
                             myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
@@ -162,9 +161,6 @@ class Favoritos : Fragment() {
                                     findNavController().navigate(R.id.action_favoritos_to_informacion)
                                 }
                             }
-                        }
-                        override fun onItemLongClick(serie: TVShow) {
-
                         }
                     })
                     binding.rvWLseries.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

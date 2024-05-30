@@ -16,7 +16,7 @@ class AdapterWLMoviesFav(
     private val binding get() = _binding!!
 
     fun interface FavClick {
-        fun onFavClick(movie: Movie)
+        fun onHolderClick(movie: Movie)
     }
 
     inner class FavoritoHolder(val binding: HolderCarteleraFavBinding) : RecyclerView.ViewHolder(binding.root)
