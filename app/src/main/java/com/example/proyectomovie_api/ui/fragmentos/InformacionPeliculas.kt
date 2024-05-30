@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.data.favorite.addFavoriteBody
 import com.example.proyectomovie_api.data.movie.Movie
@@ -15,7 +16,9 @@ import com.example.proyectomovie_api.databinding.FragmentInformacionPeliculasBin
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.example.proyectomovie_api.data.watchlist.addWatchListBody
+import com.example.proyectomovie_api.ui.carousel.ImagenCarousel
 import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptador
+import com.example.proyectomovie_api.ui.carousel.ImagenCarouselAdaptadorInformacion
 import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.carousel.HeroCarouselStrategy
 import com.google.android.material.snackbar.Snackbar
@@ -47,13 +50,11 @@ class InformacionPeliculas : Fragment() {
             rellenaDatos(movie)
 
             movie.id?.let { viewModel.getMovieImages(it).observe(viewLifecycleOwner){ it2 ->
-                val sizeRespuesta = it2?.backdrops?.size
-                val listaURLs = ArrayList<String>()
-                var i = 0
-                while(i < sizeRespuesta!!){
-                    it2.backdrops.get(i).let { listaURLs.add("https://image.tmdb.org/t/p/original" + it.file_path) }
-                    ++i
-                }
+                val listaURLs = it2?.backdrops?.mapIndexed{index, backdrop ->
+                    ImagenCarousel(index,"https://image.tmdb.org/t/p/original${backdrop.file_path}" )
+                } ?: emptyList()
+                    binding.recyclerViewDetallesPelicula.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    binding.recyclerViewDetallesPelicula.adapter = ImagenCarouselAdaptadorInformacion(listaURLs)
                 }
             }
 
@@ -116,13 +117,13 @@ class InformacionPeliculas : Fragment() {
             Glide.with(requireContext())
                 .load(originalURL)
                 .into(binding.ivFondoDetallesPelicula)
+
             tvGenresDetallesPelicula.text = peli.genres?.get(0)?.name.toString()
             tvOriginCountryDetallesPelicula.text = peli.originCountry?.get(0).toString() + " · "
             tvDuracionDetallesPelicula.text = peli.runtime.toString() + " min"
             tvOverviewDetallesPelicula.text = peli.overview
 
             (requireActivity() as MainActivity).supportActionBar?.setTitle(peli.title)
-
         }
     }
 }

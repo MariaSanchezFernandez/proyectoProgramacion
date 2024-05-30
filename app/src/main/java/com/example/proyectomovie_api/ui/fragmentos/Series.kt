@@ -243,6 +243,7 @@ class Series : Fragment() {
                         binding.tvMensajeNoFavSerie.visibility = View.INVISIBLE
                     }
                     binding.RecyclerViewMisFavoritosSeries.adapter = adaptadorFavoritos
+
                 }
             }
         }
