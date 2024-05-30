@@ -29,8 +29,15 @@ class AdaptadorBuscadorSeries(val series : List<TVShow>, val listener : Adaptado
     override fun onBindViewHolder(holder: BuscadorSeries, position: Int) {
         val tvShow : TVShow = series[position]
 
-        Glide.with(holder.itemView).load(tvShow.poster_path).into(holder.binding.imageView4)
+        val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + tvShow.poster_path
+
+        Glide.with(holder.itemView).load(posterURL).into(holder.binding.ivFotoBuscadorPeli)
         holder.binding.tvName.text = tvShow.name
+        holder.binding.tvFechaEstrenoPeli.text = tvShow.first_air_date
+
+        holder.itemView.setOnClickListener {
+            listener.onHolcerClick(tvShow)
+        }
     }
 
 

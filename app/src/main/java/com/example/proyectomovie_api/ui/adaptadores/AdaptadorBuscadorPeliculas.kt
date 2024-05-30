@@ -33,12 +33,14 @@ class AdaptadorBuscadorPeliculas(val peliculas: List<Movie>, val listener: Adapt
         val posterURL = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2" + movie.poster_path
 
 
-        Glide.with(holder.itemView).load(posterURL).into(holder.binding.imageView4)
+        Glide.with(holder.itemView).load(posterURL).into(holder.binding.ivFotoBuscadorPeli)
 
         holder.binding.tvName.text = movie.title
+        holder.binding.tvFechaEstrenoPeli.text = movie.release_date
 
-        holder.binding.imageView4.setOnClickListener {
-                    }
+        holder.itemView.setOnClickListener {
+            listener.onHolderClick(movie)
+        }
     }
 
 }

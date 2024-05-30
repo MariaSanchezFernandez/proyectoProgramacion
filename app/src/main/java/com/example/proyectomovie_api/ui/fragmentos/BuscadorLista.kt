@@ -12,6 +12,7 @@ import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.tv.TVShow
 import com.example.proyectomovie_api.databinding.FragmentBuscadorListaBinding
+import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorBuscadorPeliculas
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorBuscadorSeries
 import com.example.proyectomovie_api.ui.view.MyViewModel
@@ -34,6 +35,8 @@ class BuscadorLista : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).supportActionBar?.title = "Resultado(s)"
+
 
         myViewModel.getBuscadorPeliculas().observe(viewLifecycleOwner){
             configRecylerMovie(it)
@@ -54,7 +57,7 @@ class BuscadorLista : Fragment() {
                  myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner) {
                      if (it != null) {
                          myViewModel.setPelicula(it)
-                         findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                         findNavController().navigate(R.id.action_buscadorLista_to_informacion)
                      }
                  }
 
@@ -77,7 +80,7 @@ class BuscadorLista : Fragment() {
                 myViewModel.getSerieById(id, "es-ES").observe(viewLifecycleOwner){
                     if (it != null){
                         myViewModel.setSerie(it)
-                        findNavController().navigate(R.id.action_fragmentPeliculas_to_informacion)
+                        findNavController().navigate(R.id.action_buscadorLista_to_informacionSeries)
                     }
                 }
             }

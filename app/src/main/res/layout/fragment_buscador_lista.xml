@@ -5,7 +5,8 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragmentos.BuscadorLista" >
+    android:background="#151515"
+    tools:context=".ui.fragmentos.BuscadorLista">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"

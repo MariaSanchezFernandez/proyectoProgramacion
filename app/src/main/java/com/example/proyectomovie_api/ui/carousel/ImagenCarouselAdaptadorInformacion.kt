@@ -30,7 +30,7 @@ class ImagenCarouselAdaptadorInformacion(val listado: List<ImagenCarousel>) :
         val data = listado[position]
         Glide.with(holder.itemView.context)
             .load(data.url)
-            .into(holder.binding.imageView4)
+            .into(holder.binding.ivFotoBuscadorPeli)
     }
 
     override fun getItemCount(): Int {

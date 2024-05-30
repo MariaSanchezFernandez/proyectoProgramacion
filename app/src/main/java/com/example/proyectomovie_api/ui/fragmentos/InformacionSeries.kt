@@ -179,12 +179,12 @@ class InformacionSeries : Fragment() {
 
             tvGenresDetallesSerie.text = serie.genres?.get(0)?.name.toString()
             tvOriginCountryDetallesSerie.text = serie.originCountry?.get(0).toString() + " · "
-            tvOverviewDetallesSerie.text = serie.overview
-            tvDuracionDetallesSerie.text = serie.numberOfSeasons.toString() + " temporada(s)"
+            tvOverviewDetallesSerie.text = serie?.overview
+            tvDuracionDetallesSerie.text = serie?.numberOfSeasons.toString() + " temporada(s)"
             if (serie.status.equals("Ended")) {
                 tvStatusDetallesSerie.text = "Finalizada"
                 tvUltimoCapituloDetallesSerie.text =
-                    "Última emisión: " + serie.lastEpisodeToAir.airDate
+                    "Última emisión: " + serie?.lastEpisodeToAir?.airDate
             } else {
                 tvUltimoCapituloDetallesSerie.visibility = View.GONE
             }
