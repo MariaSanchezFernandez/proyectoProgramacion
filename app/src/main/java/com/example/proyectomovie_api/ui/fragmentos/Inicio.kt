@@ -20,10 +20,12 @@ import com.bumptech.glide.Glide
 import com.example.proyectomovie_api.R
 import com.example.proyectomovie_api.data.movie.Movie
 import com.example.proyectomovie_api.data.movie.MovieResponse
+import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import com.example.proyectomovie_api.databinding.AlertdialogBucadorBinding
 import com.example.proyectomovie_api.databinding.FragmentInicioBinding
 import com.example.proyectomovie_api.ui.MainActivity
 import com.example.proyectomovie_api.ui.adaptadores.AdaptadorMiListaPeliculas
+import com.example.proyectomovie_api.ui.adapters.AdapterWLMoviesFav
 import com.example.proyectomovie_api.ui.view.MyViewModel
 import com.google.android.material.search.SearchView
 
@@ -96,9 +98,10 @@ class Inicio : Fragment() {
     private fun configRecyclerMovies(lista : List<Movie>){
         myViewModel.getSessionID().observe(viewLifecycleOwner){sessionId ->
             myViewModel.getAccountDetails(sessionId).observe(viewLifecycleOwner){listaFavoritos ->
-                val adaptadorFavoritos = AdaptadorMiListaPeliculas(lista as ArrayList<Movie>, object : AdaptadorMiListaPeliculas.MyClick{
-                    override fun onHolderClick(pelicula: Movie) {
-                        val id = pelicula.id
+                val adaptadorWatchList = AdapterWLMoviesFav(lista as ArrayList<Movie>, object : AdapterWLMoviesFav.FavClick{
+                    override fun onHolderClick(movie: Movie) {
+
+                        val id = movie.id
                         myViewModel.getMovieById(id, "es-ES").observe(viewLifecycleOwner){
                             if (it !== null){
                                 myViewModel.setPelicula(it)
@@ -107,14 +110,11 @@ class Inicio : Fragment() {
                         }
                     }
 
-                    override fun onItemLongClick(pelicula: Movie) {
-
-                    }
 
                 })
 
                 binding.recyclerViewPeliculasTuLista.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                binding.recyclerViewPeliculasTuLista.adapter = adaptadorFavoritos
+                binding.recyclerViewPeliculasTuLista.adapter = adaptadorWatchList
 
             }
 

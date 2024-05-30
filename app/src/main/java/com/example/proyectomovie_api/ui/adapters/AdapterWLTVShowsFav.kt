@@ -9,7 +9,7 @@ import com.example.proyectomovie_api.data.watchlist.addWatchListBody
 import com.example.proyectomovie_api.databinding.HolderCarteleraFavBinding
 
 class AdapterWLTVShowsFav(
-    val lista: List<addWatchListBody>,
+    val lista: List<TVShow>,
     val listener: FavClick
 ) : RecyclerView.Adapter<AdapterWLTVShowsFav.FavoritoHolder>(){
 
@@ -17,7 +17,7 @@ class AdapterWLTVShowsFav(
     private val binding get() = _binding!!
 
     fun interface FavClick {
-        fun onHolderClick(addWatchListBody: addWatchListBody)
+        fun onHolderClick(tvShow: TVShow)
     }
 
     inner class FavoritoHolder(val binding: HolderCarteleraFavBinding) : RecyclerView.ViewHolder(binding.root)
@@ -31,13 +31,13 @@ class AdapterWLTVShowsFav(
     override fun onBindViewHolder(holder: FavoritoHolder, position: Int) {
         val watchList = lista[position]
         Glide.with(holder.itemView.context)
-            .load(watchList)
+            .load(watchList.poster_path)
             //.load(watchList.poster_path)
             .into(holder.binding.imgPortada)
 
         holder.binding.clHolderFav.setOnClickListener{
             // Click en la portada para enviarte a los detalles de la película
-            listener.onHolderClick(watchList)
+
         }
     }
 

@@ -39,8 +39,8 @@ class MyViewModel: ViewModel() {
     private val sessionID = MutableLiveData<String>()
     private val listaFavMovies = MutableLiveData<List<Movie>>()
     private val listaFavSeries = MutableLiveData<List<TVShow>>()
-    private val listaWLMoviesFav = MutableLiveData<List<addWatchListBody>>()
-    private val listaWLTVShowsFav = MutableLiveData<List<addWatchListBody>>()
+    private val listaWLMoviesFav = MutableLiveData<List<Movie>>()
+    private val listaWLTVShowsFav = MutableLiveData<List<TVShow>>()
 
     private val listaMovies = MutableLiveData<List<Movie>>()
     private val actorInfo = MutableLiveData<List<People>>()
@@ -446,30 +446,29 @@ class MyViewModel: ViewModel() {
 
     fun getFavTVShows() = listaFavSeries
 
-    fun getFavoriteWatchListMovies(accountId: Int): MutableLiveData<List<addWatchListBody>> {
-        //val listaWlMoviesFavLiveData = MutableLiveData<List<Movie>>()
+    fun getFavoriteWatchListMovies(accountId: Int): MutableLiveData<List<Movie>>{
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListMovies(accountId)
-            if (respuesta.code() == 200) {
-                val listaWLMoviesFav = respuesta.body()
-                listaWLMoviesFav?.let {
-                    //listaWLMoviesFav.postValue(it.results)
-                    listaWLMoviesFav.results
+            if (respuesta.code() == 200){
+                val response = respuesta.body()
+                response?.let {
+                    listaFavMovies.postValue(it.results)
                 }
             }
         }
-        return listaWLMoviesFav
+
+        return listaMovies
     }
 
-    fun getFavouriteWatchListTVShows(accountId: Int): MutableLiveData<List<addWatchListBody>> {
+    fun getFavouriteWatchListTVShows(accountId: Int): MutableLiveData<List<TVShow>> {
         //val listaWlTVshowsFavLiveData = MutableLiveData<List<TVShow>>()
         viewModelScope.launch {
             val respuesta = repositorio.getFavouriteWatchListTVShows(accountId)
             if (respuesta.code() == 200) {
-                val listaWLTVShowsFav = respuesta.body()
-                listaWLTVShowsFav?.let {
-                    //listaWLTVShowsFav.postValue(it.results)
-                    listaWLTVShowsFav.results
+                val response = respuesta.body()
+                response?.let {
+
+                    listaWLTVShowsFav.postValue(it.results)
                 }
 
             }
@@ -501,3 +500,4 @@ class MyViewModel: ViewModel() {
         return accountID
     }
 }
+
